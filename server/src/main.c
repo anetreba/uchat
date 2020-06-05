@@ -30,8 +30,14 @@
 // 	return 0;
 // }
 
-int main(/*int ac, char **av*/) {
+int main(int ac, char **av) {
+	if (argc != 2) {
+		printf("Usage: %s <port>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+	int port = atoi(argv[1]);
+	
 	mx_init_sqli();
-
+	
 	return 0;
 }

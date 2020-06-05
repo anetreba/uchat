@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="uchat"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/anetreba/Desktop/uchat/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/anetreba/Desktop/uchat/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/anetreba/Desktop/uchat/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uchat">
+				<Option output="/Users/anetreba/Desktop/uchat/cmake-build-debug/uchat" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/anetreba/Desktop/uchat/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/anetreba/Desktop/uchat/client"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/client/inc"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/client/src"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server/inc"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server/src"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 uchat"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uchat/fast">
+				<Option output="/Users/anetreba/Desktop/uchat/cmake-build-debug/uchat" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/anetreba/Desktop/uchat/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/anetreba/Desktop/uchat/client"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/client/inc"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/client/src"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server/inc"/>
+					<Add directory="/Users/anetreba/Desktop/uchat/server/src"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 uchat/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/anetreba/Desktop/uchat/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/anetreba/Desktop/uchat/client/inc/header.h">
+			<Option target="uchat"/>
+		</Unit>
+		<Unit filename="/Users/anetreba/Desktop/uchat/client/src/main.c">
+			<Option target="uchat"/>
+		</Unit>
+		<Unit filename="/Users/anetreba/Desktop/uchat/server/inc/header.h">
+			<Option target="uchat"/>
+		</Unit>
+		<Unit filename="/Users/anetreba/Desktop/uchat/server/src/main.c">
+			<Option target="uchat"/>
+		</Unit>
+		<Unit filename="/Users/anetreba/Desktop/uchat/server/src/sqlite.c">
+			<Option target="uchat"/>
+		</Unit>
+		<Unit filename="/Users/anetreba/Desktop/uchat/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

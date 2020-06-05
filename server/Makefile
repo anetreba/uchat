@@ -3,7 +3,10 @@ NAME = server
 HEADER = header.h \
 
 FILES = main \
-		sqlite \
+		mx_sqlite \
+		mx_socket \
+		mx_printerr \
+
 
 INC_H = $(addprefix "inc/", $(HEADER))
 

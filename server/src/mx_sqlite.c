@@ -11,5 +11,5 @@ void mx_init_sqli() {
 	}
 	else 
 		fprintf(stderr, "Opened database successfully\n");
-	//sqlite3_close(db)
+	sqlite3_close(db)
 }

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../client/inc/header.h
+sys/socket.h
+-
+netinet/in.h
+-
+stdio.h
+-
+stdlib.h
+-
+unistd.h
+-
+errno.h
+-
+string.h
+-
+pthread.h
+-
+sys/types.h
+-
+signal.h
+-
+
+/Users/anetreba/Desktop/uchat/server/src/main.c
+header.h
+/Users/anetreba/Desktop/uchat/server/src/header.h
+
