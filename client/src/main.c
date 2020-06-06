@@ -9,7 +9,7 @@ int main(int argc, char const **argv) {
 
 	server_adress.sin_family = AF_INET;
 	server_adress.sin_port = htons(port);
-	server_adress.sin_addr.s_addr = INADDR_ANY;
+	server_adress.sin_addr.s_addr = INADDR_ANY; //IP
 
 	int connection_status = connect(network_socket, (struct sockaddr *)&server_adress, sizeof(server_adress));
 
