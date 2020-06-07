@@ -28,6 +28,10 @@ sys/types.h
 signal.h
 -
 
+/Users/anetreba/Desktop/uchat/client/src/main.c
+header.h
+/Users/anetreba/Desktop/uchat/client/src/header.h
+
 /Users/anetreba/Desktop/uchat/server/src/main.c
 header.h
 /Users/anetreba/Desktop/uchat/server/src/header.h

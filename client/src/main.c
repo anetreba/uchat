@@ -1,7 +1,9 @@
 #include "header.h"
 
 int main(int argc, char const **argv) {
-	argc = 2;
+	if (argc != 3)
+	    mx_printerr("Invalid args");
+	int ip = atoi(argv[1]);
 	int port = atoi(argv[2]);	
 	int network_socket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -9,7 +11,7 @@ int main(int argc, char const **argv) {
 
 	server_adress.sin_family = AF_INET;
 	server_adress.sin_port = htons(port);
-	server_adress.sin_addr.s_addr = INADDR_ANY; //IP
+	server_adress.sin_addr.s_addr = ip; //IP
 
 	int connection_status = connect(network_socket, (struct sockaddr *)&server_adress, sizeof(server_adress));
 

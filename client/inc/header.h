@@ -12,4 +12,6 @@
 #include <sys/types.h>
 #include <signal.h>
 
+void mx_printerr(char *str);
+
 #endif

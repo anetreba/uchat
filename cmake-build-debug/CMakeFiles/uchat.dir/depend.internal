@@ -8,5 +8,3 @@ CMakeFiles/uchat.dir/server/src/main.c.o
  ../client/inc/header.h
  /Users/anetreba/Desktop/uchat/server/src/main.c
 CMakeFiles/uchat.dir/server/src/sqlite.c.o
- ../client/inc/header.h
- /Users/anetreba/Desktop/uchat/server/src/sqlite.c

@@ -3,6 +3,7 @@ NAME = client
 HEADER = header.h \
 
 FILES = main \
+        mx_printerr \
 
 INC_H = $(addprefix "inc/", $(HEADER))
 

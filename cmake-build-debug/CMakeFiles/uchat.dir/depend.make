@@ -7,6 +7,4 @@ CMakeFiles/uchat.dir/client/src/main.c.o: ../client/src/main.c
 CMakeFiles/uchat.dir/server/src/main.c.o: ../client/inc/header.h
 CMakeFiles/uchat.dir/server/src/main.c.o: ../server/src/main.c
 
-CMakeFiles/uchat.dir/server/src/sqlite.c.o: ../client/inc/header.h
-CMakeFiles/uchat.dir/server/src/sqlite.c.o: ../server/src/sqlite.c
 
