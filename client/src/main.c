@@ -17,6 +17,10 @@ int main(int argc, char const **argv) {
 	if (connection_status == -1) {
 		printf("There was an error in connection\n");
 	}
+
+	//Json
+
+
 /****************************************************************/
 
     char buffer[100];

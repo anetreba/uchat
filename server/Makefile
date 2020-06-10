@@ -16,15 +16,18 @@ SRC = $(addprefix "src/", $(ROOT_C))
 
 ROOT_O = $(addsuffix ".o", $(FILES))
 
+
+
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic  #-g -fsanitize=address
 
 all: install clean
 
 install:
+    @make install -sC src/json
 	@cp $(SRC) .
 	@cp $(INC_H) .
 	@clang $(CFLAGS) -c $(ROOT_C)
-	@clang $(CFLAGS) -ltermcap $(ROOT_O) -l sqlite3 -o $(NAME)
+	@clang $(CFLAGS) -ltermcap $(ROOT_O) -l sqlite3  -o $(NAME)
 	@mkdir -p obj
 	@cp $(ROOT_O) obj/
 	@rm -rf $(ROOT_O)
