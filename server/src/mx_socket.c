@@ -246,9 +246,25 @@ void mx_connecion(/*int *client_socks, pthread_t *client_thread,*/ int sock) {
         if (new_open_socket < 0)
             mx_printerr("Error on accepting connections..");
 
-        char server_massage[256] = "You have resached the server!\n";
-        send(new_open_socket, server_massage, sizeof(server_massage), 0);
-        //Adds client socket to socks list.
+//        char server_massage[256] = "You have resached the server!\n";
+//        send(new_open_socket, server_massage, sizeof(server_massage), 0);
+        char buffer[100];
+        int r = 0;
+        char *pch;
+
+        while(strcmp(buffer,"halt")!=0 && strcmp(buffer,"quit")!=0) {
+            pch = (char *) malloc(100);
+
+
+            bzero(buffer, 100);
+            r = read(new_open_socket, buffer, sizeof(buffer));
+            strcpy(pch, buffer);
+            strtok(pch, " ");
+            printf("%s\n",  buffer);
+        }
+        send(new_open_socket, pch, sizeof(pch), 0);
+
+            //Adds client socket to socks list.
 //        pthread_mutex_lock(&mutex);
 //        for (i = 0; i < MAX_CLIENTS; i++) {
 //            if (client_socks[i] == -1) {

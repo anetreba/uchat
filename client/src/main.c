@@ -17,13 +17,30 @@ int main(int argc, char const **argv) {
 	if (connection_status == -1) {
 		printf("There was an error in connection\n");
 	}
+/****************************************************************/
 
+    char buffer[100];
+    char output[]="client: Enter data for server: ";
+    int r = 0;
+
+    while(strcmp(buffer,"quit") != 0) {
+        bzero(buffer,100);
+        write(1, output, strlen(output));
+        r = read(0 , buffer, sizeof(buffer));
+        buffer[r - 1]='\0';
+        write(network_socket, buffer, strlen(buffer));
+    }
+
+/****************************************************************/
 	char info_from_server[256];
 	recv(network_socket, &info_from_server, sizeof(info_from_server), 0);
 
 	printf("THE SERVER DATA -- %s\n", info_from_server);
 
 	close(network_socket);
+
+
+
 
 	return 0;
 }
