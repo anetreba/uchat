@@ -1,44 +1,62 @@
-NAME = server
+APP_NAME = chat_server
 
-HEADER = header.h \
+#LIBMXF = libmx
 
-FILES = main \
-		mx_sqlite \
-		mx_socket \
-		mx_printerr \
+JSONF = src/json
+
+JSON_NAME = .libs/libjson.a
+
+INC = inc/ \
+	  src/json/
+
+SRC_DIR = src
+
+OBJ_DIR = obj
+
+SRC = $(addprefix $(SRC_DIR)/,\
+      		main.c \
+      		mx_sqlite.c \
+      		mx_socket.c \
+      		mx_printerr.c)
 
 
-INC_H = $(addprefix "inc/", $(HEADER))
+OBJ = main.o \
+      mx_sqlite.o \
+      mx_socket.o \
+      mx_printerr.o
 
-ROOT_C = $(addsuffix ".c", $(FILES))
+CC = clang
 
-SRC = $(addprefix "src/", $(ROOT_C))
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
 
-ROOT_O = $(addsuffix ".o", $(FILES))
+all : install
+
+install : json uchat
+
+json:
+	@make -C $(JSONF)
+
+uchat : $(SRC) inc/header.h src/json/.libs/libjson.a
+	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
+	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) -l sqlite3 -o $(APP_NAME)
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
+	@mkdir -p $(OBJ_DIR)
+	@mv $(OBJ) $(OBJ_DIR)
+	@rm -rf ./*.c ./*.h
+	@rm -rf $(OBJ_DIR)
+	@printf "$(NAME) \033[31;1minstalled\033[0m\n"
+
+uninstall : clean
+	@make uninstall -C $(JSONF)
+	@rm -rf $(APP_NAME)
+	@printf "$(NAME) \033[31;1muninstalled\033[0m\n"
+
+clean :
+
+	@make clean -C $(JSONF)
+	@rm -rf $(OBJ_DIR)
+	@printf "$(OBJD)\t   \033[31;1mdeleted\033[0m\n"
+
+reinstall : uninstall install
 
 
-
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic  #-g -fsanitize=address
-
-all: install clean
-
-install:
-    @make install -sC src/json
-	@cp $(SRC) .
-	@cp $(INC_H) .
-	@clang $(CFLAGS) -c $(ROOT_C)
-	@clang $(CFLAGS) -ltermcap $(ROOT_O) -l sqlite3  -o $(NAME)
-	@mkdir -p obj
-	@cp $(ROOT_O) obj/
-	@rm -rf $(ROOT_O)
-
-uninstall: clean
-	@rm -rf $(NAME)
-
-clean:
-	@rm -rf $(ROOT_O)
-	@rm -rf $(ROOT_C)
-	@rm -rf $(HEADER)
-	@rm -rf obj
-
-reinstall: uninstall install

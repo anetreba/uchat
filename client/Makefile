@@ -1,38 +1,56 @@
-NAME = client
+APP_NAME = uchat
 
-HEADER = header.h \
+#LIBMXF = libmx
 
-FILES = main \
-        mx_printerr \
+JSONF = src/json
 
-INC_H = $(addprefix "inc/", $(HEADER))
+JSON_NAME = .libs/libjson.a
 
-ROOT_C = $(addsuffix ".c", $(FILES))
+INC = inc/ \
+	  src/json/
 
-SRC = $(addprefix "src/", $(ROOT_C))
+SRC_DIR = src
 
-ROOT_O = $(addsuffix ".o", $(FILES))
+OBJ_DIR = obj
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g -fsanitize=address
+SRC = $(addprefix $(SRC_DIR)/,\
+      		main.c \
+      		mx_printerr.c)
 
-all: install clean
 
-install:
-	@cp $(SRC) .
-	@cp $(INC_H) .
-	@clang $(CFLAGS) -c $(ROOT_C)
-	@clang $(CFLAGS) -ltermcap $(ROOT_O) -o $(NAME)
-	@mkdir -p obj
-	@cp $(ROOT_O) obj/
-	@rm -rf $(ROOT_O)
+OBJ = main.o \
+      mx_printerr.o
 
-uninstall: clean
-	@rm -rf $(NAME)
+CC = clang
 
-clean:
-	@rm -rf $(ROOT_O)
-	@rm -rf $(ROOT_C)
-	@rm -rf $(HEADER)
-	@rm -rf obj
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
 
-reinstall: uninstall install
+all : install
+
+install : json uchat
+
+json:
+	@make -C $(JSONF)
+
+uchat : $(SRC) inc/header.h src/json/.libs/libjson.a
+	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
+	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) -l sqlite3 -o $(APP_NAME)
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
+	@mkdir -p $(OBJ_DIR)
+	@mv $(OBJ) $(OBJ_DIR)
+	@rm -rf ./*.c ./*.h
+	@rm -rf $(OBJ_DIR)
+	@printf "$(NAME) \033[31;1minstalled\033[0m\n"
+
+uninstall : clean
+	@make uninstall -C $(JSONF)
+	@rm -rf $(APP_NAME)
+	@printf "$(NAME) \033[31;1muninstalled\033[0m\n"
+
+clean :
+
+	@make clean -C $(JSONF)
+	@rm -rf $(OBJ_DIR)
+	@printf "$(OBJD)\t   \033[31;1mdeleted\033[0m\n"
+
+reinstall : uninstall install

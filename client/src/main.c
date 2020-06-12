@@ -1,8 +1,25 @@
 #include "header.h"
 
+void mx_json(struct json_object *jobj) {
+    //Json
+
+    const char *question = "Mum, clouds hide alien spaceships don't they ?";
+    const char *answer = "Of course not! (\"sigh\")";
+
+    jobj = json_object_new_object();
+    json_object_object_add(jobj, "question", json_object_new_string(question));
+    json_object_object_add(jobj, "answer", json_object_new_string(answer));
+
+    printf("JSON == %s\n", json_object_to_json_string(jobj));
+
+
+}
+
 int main(int argc, char const **argv) {
-	if (argc != 3)
-	    mx_printerr("Invalid args");
+	if (argc != 3) {
+        mx_printerr("Invalid args\n");
+        return 1;
+	}
 	int port = atoi(argv[2]);
 	int network_socket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -20,22 +37,27 @@ int main(int argc, char const **argv) {
 
 	//Json
 
+    struct json_object *jobj = NULL;
 
-/****************************************************************/
 
-    char buffer[100];
-    char output[]="client: Enter data for server: ";
-    int r = 0;
+	mx_json(jobj);
 
-    while(strcmp(buffer,"quit") != 0) {
-        bzero(buffer,100);
-        write(1, output, strlen(output));
-        r = read(0 , buffer, sizeof(buffer));
-        buffer[r - 1]='\0';
-        write(network_socket, buffer, strlen(buffer));
-    }
 
-/****************************************************************/
+///****************************************************************/
+//
+//    char buffer[100];
+//    char output[]="client: Enter data for server: ";
+//    int r = 0;
+//
+//    while(strcmp(buffer,"quit") != 0) {
+//        bzero(buffer,100);
+//        write(1, output, strlen(output));
+//        r = read(0 , buffer, sizeof(buffer));
+//        buffer[r - 1]='\0';
+//        write(network_socket, buffer, strlen(buffer));
+//    }
+//
+///****************************************************************/
 	char info_from_server[256];
 	recv(network_socket, &info_from_server, sizeof(info_from_server), 0);
 
