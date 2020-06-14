@@ -153,10 +153,52 @@
 //}
 
 //
-//static void* ws_establishconnection(void *vsock)
-//{
-//    int sock;                           /* File descriptor.               */
-//    size_t n;                           /* Number of bytes sent/received. */
+
+static char *result(char *s1,  char *s2) {
+    char *res = NULL;
+    res = mx_strnew(mx_strlen(s1) + mx_strlen(s2));
+    res = mx_strcat(res, s1);
+    res = mx_strcat(res, s2);
+    if (malloc_size(s1))
+        mx_strdel(&s1);
+    return res;
+}
+
+char *mx_strjoin_two( char *s1,  char *s2) {
+    char *res = NULL;
+
+    if (!s1 && !s2)
+        return NULL;
+    else if (!s1) {
+        res = mx_strnew(mx_strlen(s2));
+        res = mx_strcat(res, s2);
+    }
+    else if (!s2) {
+        res = mx_strnew(mx_strlen(s1));
+        res = mx_strcat(res, s1);
+        mx_strdel(&s1);
+    }
+    else
+        res = result(s1, s2);
+    return res;
+}
+
+static void* ws_establishconnection(void *vsock) {
+    int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
+    int n;                           /* Number of bytes sent/received. */
+    char buf;
+    char *jstr = mx_strnew(0);
+    struct json_object *jobj = NULL;
+
+    while ((n = read(sock, &buf, 1)) > 0) {
+        jstr = mx_strjoin_two(jstr, &buf);
+        printf("jstr = %s\n", jstr);
+//        if (jstr[mx_strlen(jstr) - 2] == '}') {
+//            jobj =
+//            printf("JSON = %s\n", json_object_to_json_string(jobj));
+//        }
+    }
+//
 //    unsigned char frm[MESSAGE_LENGTH];  /* Frame.                         */
 //    unsigned char *msg;                 /* Message.                       */
 //    char *response;                     /* Response frame.                */
@@ -228,67 +270,47 @@
 //    pthread_mutex_unlock(&mutex);
 //    close(sock);
 //
-//    return vsock;
-//}
+    return vsock;
+}
 
-void mx_connecion(/*int *client_socks, pthread_t *client_thread,*/ int sock) {
+void mx_connecion(int sock) {
+    int client_socks[MAX_CLIENTS]; // Mass of client sock
+    int new_open_socket; // New opened connection.
     struct sockaddr_in client; // Client.
     int len = sizeof(struct sockaddr_in);
+    pthread_t client_thread; // Client thread.
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-   // pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-
-    //memset(client_socks, -1, sizeof(client_socks));
+    memset(client_socks, -1, sizeof(client_socks));
     //Accept connections.
     while (1) {
         //Accept.
-        int new_open_socket = accept(sock, (struct sockaddr *)&client, (socklen_t*)&len);
+        new_open_socket = accept(sock, (struct sockaddr *)&client, (socklen_t*)&len);
         if (new_open_socket < 0)
             mx_printerr("Error on accepting connections..");
 
-//        char server_massage[256] = "You have resached the server!\n";
-//        send(new_open_socket, server_massage, sizeof(server_massage), 0);
-        char buffer[100];
-        int r = 0;
-        char *pch;
-
-        while(strcmp(buffer,"halt")!=0 && strcmp(buffer,"quit")!=0) {
-            pch = (char *) malloc(100);
-
-
-            bzero(buffer, 100);
-            r = read(new_open_socket, buffer, sizeof(buffer));
-            strcpy(pch, buffer);
-            strtok(pch, " ");
-            printf("%s\n",  buffer);
+        //Adds client socket to socks list.
+        pthread_mutex_lock(&mutex);
+        for (int i = 0; i < MAX_CLIENTS; i++) {
+            if (client_socks[i] == -1) {
+                client_socks[i] = new_open_socket;
+                break;
+            }
         }
-        send(new_open_socket, pch, sizeof(pch), 0);
+        pthread_mutex_unlock(&mutex);
 
-            //Adds client socket to socks list.
-//        pthread_mutex_lock(&mutex);
-//        for (i = 0; i < MAX_CLIENTS; i++) {
-//            if (client_socks[i] == -1) {
-//                client_socks[i] = new_open_socket;
-//                break;
-//            }
-//        }
-//        pthread_mutex_unlock(&mutex);
-//
-//        if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_sock) < 0)
-//            mx_printerr("Could not create the client thread!");
-//
-//        pthread_detach(client_thread);
+        if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_open_socket) < 0)
+            mx_printerr("Could not create the client thread!");
+
+        pthread_detach(client_thread);
     }
 }
 
 
 void mx_server_socket(int port) {
     int sock; // Current socket. (server)
-    //int new_open_socket; // New opened connection.
     struct sockaddr_in server; // Server.
-//    struct sockaddr_in client; // Client.
-  //  pthread_t client_thread; // Client thread.
-    //int client_socks[MAX_CLIENTS]; // Mass of client sock
+
 
     // Create socket.
     sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -301,6 +323,5 @@ void mx_server_socket(int port) {
     if (bind(sock, (struct sockaddr *)&server, sizeof(server)) < 0)
         mx_printerr("Bind failed");
     listen(sock, MAX_CLIENTS);
-
-    mx_connecion(/*client_socks, &client_thread,*/ sock);
+    mx_connecion(sock);
 }

@@ -13,6 +13,7 @@
 #include <signal.h>
 #include <arpa/inet.h>
 #include <../src/json/json.h>
+#include <malloc/malloc.h>
 
 
 void mx_printerr(char *str);

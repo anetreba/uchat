@@ -15,7 +15,8 @@
 #include <signal.h>
 
 #include <sqlite3.h>
-
+#include <../src/json/json.h>
+#include "../libmx/inc/libmx.h"
 
 void mx_init_sqli();
 void mx_server_socket(int port);

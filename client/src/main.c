@@ -1,8 +1,7 @@
 #include "header.h"
 
-void mx_json(struct json_object *jobj) {
+void mx_json(struct json_object *jobj, int network_socket) {
     //Json
-
     const char *question = "Mum, clouds hide alien spaceships don't they ?";
     const char *answer = "Of course not! (\"sigh\")";
 
@@ -12,6 +11,12 @@ void mx_json(struct json_object *jobj) {
 
     printf("JSON == %s\n", json_object_to_json_string(jobj));
 
+    //Send Json
+
+    char *jstr = (char *)json_object_to_json_string(jobj);
+    printf("JSON 2 == %s\n", jstr);
+
+    send(network_socket, jstr, strlen(jstr), 0);
 
 }
 
@@ -36,37 +41,15 @@ int main(int argc, char const **argv) {
 	}
 
 	//Json
+	struct json_object *jobj = NULL;
+	mx_json(jobj, network_socket);
 
-    struct json_object *jobj = NULL;
-
-
-	mx_json(jobj);
-
-
-///****************************************************************/
-//
-//    char buffer[100];
-//    char output[]="client: Enter data for server: ";
-//    int r = 0;
-//
-//    while(strcmp(buffer,"quit") != 0) {
-//        bzero(buffer,100);
-//        write(1, output, strlen(output));
-//        r = read(0 , buffer, sizeof(buffer));
-//        buffer[r - 1]='\0';
-//        write(network_socket, buffer, strlen(buffer));
-//    }
-//
-///****************************************************************/
 	char info_from_server[256];
 	recv(network_socket, &info_from_server, sizeof(info_from_server), 0);
 
 	printf("THE SERVER DATA -- %s\n", info_from_server);
 
 	close(network_socket);
-
-
-
 
 	return 0;
 }

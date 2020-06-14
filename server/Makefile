@@ -1,6 +1,6 @@
 APP_NAME = chat_server
 
-#LIBMXF = libmx
+LIBMXF = libmx/libmx.a
 
 JSONF = src/json
 
@@ -17,7 +17,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
       		mx_sqlite.c \
       		mx_socket.c \
-      		mx_printerr.c)
+      		mx_printerr.c )
 
 
 OBJ = main.o \
@@ -36,9 +36,9 @@ install : json uchat
 json:
 	@make -C $(JSONF)
 
-uchat : $(SRC) inc/header.h src/json/.libs/libjson.a
+uchat : $(SRC) inc/header.h libmx/libmx.a src/json/.libs/libjson.a
 	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
-	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) -l sqlite3 -o $(APP_NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 	@mkdir -p $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
