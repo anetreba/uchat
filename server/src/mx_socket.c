@@ -183,20 +183,45 @@ char *mx_strjoin_two( char *s1,  char *s2) {
     return res;
 }
 
+
+
 static void* ws_establishconnection(void *vsock) {
     int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
     int n;                           /* Number of bytes sent/received. */
     char buf;
     char *jstr = mx_strnew(0);
-    struct json_object *jobj = NULL;
+    struct json_object *jobj = json_object_new_object();
+//    struct json_object *question;
+//    struct json_object *answer;
+
+    struct json_tokener *tok =  json_tokener_new();
+    enum json_tokener_error jerr;
 
     while ((n = read(sock, &buf, 1)) > 0) {
         jstr = mx_strjoin_two(jstr, &buf);
-        printf("jstr = %s\n", jstr);
-//        if (jstr[mx_strlen(jstr) - 2] == '}') {
-//            jobj =
-//            printf("JSON = %s\n", json_object_to_json_string(jobj));
-//        }
+        if (jstr[mx_strlen(jstr) - 2] == '}') {
+            printf("jstr = %s\n", jstr);
+
+//            while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {
+//                jobj = json_tokener_parse_ex(tok, jstr, strlen(jstr));
+//            }
+//
+//            if (jerr != json_tokener_success) {
+//                fprintf(stderr, "Error: %s\n", json_tokener_error_desc(jerr));
+//                // Handle errors, as appropriate for your application.
+//            }
+            do
+            {
+                int len = mx_strlen(jstr);
+                jobj = json_tokener_parse_ex(tok, jstr, len);
+            } while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue);
+
+            if (jerr != json_tokener_success) {
+                fprintf(stderr, "Error: %s\n", json_tokener_error_desc(jerr));
+                // Handle errors, as appropriate for your application.
+            }
+            printf("JSON = %s\n", json_object_to_json_string(jobj));
+        }
     }
 //
 //    unsigned char frm[MESSAGE_LENGTH];  /* Frame.                         */
