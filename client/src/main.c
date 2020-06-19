@@ -13,11 +13,11 @@ void mx_json(struct json_object *jobj, int network_socket) {
 
     //Send Json
 
-    char *jstr = (char *)json_object_to_json_string(jobj);
+    const char *jstr = json_object_to_json_string(jobj);
     printf("JSON 2 == %s\n", jstr);
+    printf("strlen = %lu\n", strlen(jstr));
 
     send(network_socket, jstr, strlen(jstr), 0);
-
 }
 
 int main(int argc, char const **argv) {

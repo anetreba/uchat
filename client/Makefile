@@ -2,12 +2,12 @@ APP_NAME = uchat
 
 #LIBMXF = libmx
 
-JSONF = src/json
+JSONF = src/json-c-build
 
-JSON_NAME = .libs/libjson.a
+JSON_NAME = libjson-c.a
 
 INC = inc/ \
-	  src/json/
+	  src/json-c-build/
 
 SRC_DIR = src
 
@@ -32,7 +32,7 @@ install : json uchat
 json:
 	@make -C $(JSONF)
 
-uchat : $(SRC) inc/header.h src/json/.libs/libjson.a
+uchat : $(SRC) inc/header.h src/json-c-build/libjson-c.a
 	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
 	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
