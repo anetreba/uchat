@@ -1,90 +1,51 @@
 #include "header.h"
 
-//static char *result(char *s1,  char *s2) {
-//    char *res = NULL;
-//    res = mx_strnew(mx_strlen(s1) + mx_strlen(s2));
-//    res = mx_strcat(res, s1);
-//    res = mx_strcat(res, s2);
-//    if (malloc_size(s1))
-//        mx_strdel(&s1);
-//    return res;
-//}
-//
-//char *mx_strjoin_two(char *s1,  char *s2) {
-//    char *res = NULL;
-//
-//    if (!s1 && !s2)
-//        return NULL;
-//    else if (!s1) {
-//        res = mx_strnew(mx_strlen(s2));
-//        res = mx_strcat(res, s2);
-//    }
-//    else if (!s2) {
-//        res = mx_strnew(mx_strlen(s1));
-//        res = mx_strcat(res, s1);
-//        mx_strdel(&s1);
-//    }
-//    else
-//        res = result(s1, s2);
-//    return res;
-//}
-
-
-
 static int parse_json(const char *json, json_object **responses) {
     json_tokener *tok = json_tokener_new();
-
     int stringlen = 0;
     enum json_tokener_error jerr;
-    do {
+
+    stringlen = strlen(json);
+    *responses = json_tokener_parse_ex(tok, json, stringlen);
+    while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {
         stringlen = strlen(json);
         *responses = json_tokener_parse_ex(tok, json, stringlen);
-    } while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue);
-
+    }
     if (jerr != json_tokener_success) {
         fprintf(stderr, "JSON Error: %s\n", json_tokener_error_desc(jerr));
         return 1;
     }
-
     json_tokener_free(tok);
-
     return 0;
 }
 
-void mx_parse_str(char *jstr, char buf) {
-    char *tmp = mx_strnew(mx_strlen(jstr) + 1);
-    printf("%c\n", buf);
-    tmp[mx_strlen(jstr) + 1] = buf;
-    printf("malloc size = %d\n", mx_strlen(jstr));
-    printf("tmp[mal] = %c\n", tmp[mx_strlen(jstr) + 1]);
-    printf("tmp = %s\n", tmp);
-    mx_strdel(&jstr);
+char *mx_parse_str(char *jstr, char buf) {
+    int len = mx_strlen(jstr) + 1;
+    char *tmp = mx_strnew(len);
+
+    for (int i = 0; jstr[i]; i++)
+        tmp[i] = jstr[i];
+    tmp[len - 1] = buf;
+    if (malloc_size(jstr))
+        mx_strdel(&jstr);
     jstr = mx_strdup(tmp);
-    mx_strdel(&tmp);
+    if (malloc_size(tmp))
+        mx_strdel(&tmp);
+    return jstr;
 }
 
 static void* ws_establishconnection(void *vsock) {
     int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
     int n;                           /* Number of bytes sent/received. */
     char buf;
-    char *jstr = mx_strnew(1);
+    char *jstr = mx_strnew(0);
     struct json_object *jobj = json_object_new_object();
-    printf("\n************************************************\n");
 
     while ((n = read(sock, &buf, 1)) > 0) {
-        mx_parse_str(jstr, buf);
-        //jstr = mx_strjoin_two(jstr, &buf);
-        printf("jstr = %s\n", jstr);
-        if (jstr[mx_strlen(jstr) - 2] == '}') {
-//            for (int i = 0; jstr[i]; i++) {
-//                printf("%c\n", jstr[i]);
-//            }
-            const char *jstr1 = "{ \"question\": \"Mum, clouds hide alien spaceships don't they ?\", \"answer\": \"Of course not! (\\\"sigh\\\")\" }";
-            for (int i = 0; jstr1[i]; i++) {
-                printf("%c\n",jstr1[i]);
-            }
-            printf("len jstr == %d\n", mx_strlen(jstr));
-            printf("len jstr1 == %d\n", mx_strlen(jstr1));
+        jstr = mx_parse_str(jstr, buf);
+        if (jstr[mx_strlen(jstr) - 1] == '}') {
+            printf("jstr = %s\n", jstr);
+
             if (parse_json((const char *)jstr, &jobj)) {
                 printf("Failed to parse JSON responses.\n");
             }
