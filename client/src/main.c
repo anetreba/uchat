@@ -1,21 +1,28 @@
 #include "header.h"
 
-void mx_json(struct json_object *jobj, int network_socket) {
+void mx_built_struct(t_event *event) {
+    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    event->log_in->login = "nas.ua";
+    event->log_in->nick = "anetreba";
+    event->log_in->password = "password";
+}
+
+void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
     //Json
-    const char *question = "Mum, clouds hide alien spaceships don't they ?";
-    const char *answer = "Of course not! (\"sigh\")";
 
     jobj = json_object_new_object();
-    json_object_object_add(jobj, "question", json_object_new_string(question));
-    json_object_object_add(jobj, "answer", json_object_new_string(answer));
 
-    printf("JSON == %s\n", json_object_to_json_string(jobj));
+    json_object_object_add(jobj, "event", json_object_new_string("sing_up"));
+    json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
+    json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
+    json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));
+
+    printf("Jstr == %s\n", json_object_to_json_string(jobj));
 
     //Send Json
 
     const char *jstr = json_object_to_json_string(jobj);
-    printf("JSON 2 == %s\n", jstr);
-    printf("strlen = %lu\n", strlen(jstr));
+    printf("JSON  == %s\n", jstr);
 
     send(network_socket, jstr, strlen(jstr), 0);
 }
@@ -40,9 +47,13 @@ int main(int argc, char const **argv) {
 		printf("There was an error in connection\n");
 	}
 
+	//Events
+	t_event event;
+	mx_built_struct(&event);
+
 	//Json
 	struct json_object *jobj = NULL;
-	mx_json(jobj, network_socket);
+	mx_json(jobj, network_socket, &event);
 
 	char info_from_server[256];
 	recv(network_socket, &info_from_server, sizeof(info_from_server), 0);

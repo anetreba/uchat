@@ -34,23 +34,53 @@ char *mx_parse_str(char *jstr, char buf) {
     return jstr;
 }
 
+void mx_sign_up(struct json_object *jobj) {
+    t_event event;
+    struct json_object *nick;
+    struct json_object *password;
+    struct json_object *login;
+
+    event.log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    json_object_object_get_ex(jobj, "login", &login);
+    json_object_object_get_ex(jobj, "password", &password);
+    json_object_object_get_ex(jobj, "nick", &nick);
+
+    event.log_in->login = json_object_get_string(login);
+    event.log_in->nick = json_object_get_string(nick);
+    event.log_in->password = json_object_get_string(password);
+
+    printf("=====================================================\n");
+    printf("LOGIN = %s\n", event.log_in->login);
+    printf("NICK = %s\n", event.log_in->nick);
+    printf("PASSWORD = %s\n", event.log_in->password);
+    printf("=====================================================\n");
+}
+
 static void* ws_establishconnection(void *vsock) {
     int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
     int n;                           /* Number of bytes sent/received. */
     char buf;
     char *jstr = mx_strnew(0);
     struct json_object *jobj = json_object_new_object();
+    struct json_object *event;
+    char *events[] = {"sign_up", "sign_in"};
+
+
 
     while ((n = read(sock, &buf, 1)) > 0) {
         jstr = mx_parse_str(jstr, buf);
         if (jstr[mx_strlen(jstr) - 1] == '}') {
             printf("jstr = %s\n", jstr);
 
-            if (parse_json((const char *)jstr, &jobj)) {
-                printf("Failed to parse JSON responses.\n");
-            }
+            if (parse_json((const char *)jstr, &jobj))
+                mx_printerr("Failed to parse JSON responses.\n");
             printf("JSON = %s\n", json_object_to_json_string(jobj));
 
+            //JSON OBJ GET
+            json_object_object_get_ex(jobj, "event", &event);
+            printf("%s\n", json_object_get_string(event));
+            if (strcmp(json_object_get_string(event), events[0]) == 0)
+                mx_sign_up(jobj);
         }
     }
     return vsock;
