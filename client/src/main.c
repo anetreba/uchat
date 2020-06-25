@@ -12,7 +12,7 @@ void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
 
     jobj = json_object_new_object();
 
-    json_object_object_add(jobj, "event", json_object_new_string("sing_up"));
+    json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
     json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
     json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
     json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));

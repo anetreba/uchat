@@ -79,8 +79,11 @@ static void* ws_establishconnection(void *vsock) {
             //JSON OBJ GET
             json_object_object_get_ex(jobj, "event", &event);
             printf("%s\n", json_object_get_string(event));
-            if (strcmp(json_object_get_string(event), events[0]) == 0)
+            printf("%s\n", events[0]);
+            printf("%d\n", strcmp(json_object_get_string(event), events[0]));
+            if (strcmp(json_object_get_string(event), events[0]) == 0) {
                 mx_sign_up(jobj);
+            }
         }
     }
     return vsock;
