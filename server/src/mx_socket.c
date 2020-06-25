@@ -1,189 +1,62 @@
 #include "header.h"
 
-///* Registered events. */
-//struct ws_events events;
-//
-///* Client socks. */
-//int client_socks[MAX_CLIENTS];
-//
-///* Global mutex. */
-//static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-//
-//#define panic(s)     \
-//while (0) {          \
-//	perror(s);       \
-//	exit(-1);        \
-//}
-//
-///**
-// * Gets the IP address relative to a
-// * file descriptor opened by the server.
-// *
-// * @param fd File descriptor target.
-// *
-// * @return Pointer the ip address.
-// */
-//char* ws_getaddress(int fd) {
-//    struct sockaddr_in addr;
-//    socklen_t addr_size;
-//    char *client;
-//
-//    addr_size = sizeof(struct sockaddr_in);
-//    if (getpeername(fd, (struct sockaddr *)&addr, &addr_size) < 0)
-//        return NULL;
-//
-//    client = malloc(sizeof(char) * 20);
-//    mx_strcpy(client, inet_ntoa(addr.sin_addr));
-//    return client;
-//}
-//
-//int ws_sendframe(int fd, const char *msg, bool broadcast) {
-//    unsigned char *response;  /* Response data.  */
-//    unsigned char frame[10];  /* Frame.          */
-//    uint8_t idx_first_rData;  /* Index data.     */
-//    uint64_t length;          /* Message length. */
-//    int idx_response;         /* Index response. */
-//    int output;               /* Bytes sent.     */
-//    int sock;                 /* File Descript.  */
-//    int i;                    /* Loop index.     */
-//
-//    /* Text data. */
-//    length   = strlen( (const char *) msg);
-//    frame[0] = (WS_FIN | WS_FR_OP_TXT);
-//
-//    /* Split the size between octects. */
-//    if (length <= 125) {
-//        frame[1] = length & 0x7F;
-//        idx_first_rData = 2;
-//    }/* Size between 126 and 65535 bytes. */
-//    else if (length >= 126 && length <= 65535) {
-//        frame[1] = 126;
-//        frame[2] = (length >> 8) & 255;
-//        frame[3] = length & 255;
-//        idx_first_rData = 4;
-//    }/* More than 65535 bytes. */
-//    else {
-//        frame[1] = 127;
-//        frame[2] = (unsigned char) ((length >> 56) & 255);
-//        frame[3] = (unsigned char) ((length >> 48) & 255);
-//        frame[4] = (unsigned char) ((length >> 40) & 255);
-//        frame[5] = (unsigned char) ((length >> 32) & 255);
-//        frame[6] = (unsigned char) ((length >> 24) & 255);
-//        frame[7] = (unsigned char) ((length >> 16) & 255);
-//        frame[8] = (unsigned char) ((length >> 8) & 255);
-//        frame[9] = (unsigned char) (length & 255);
-//        idx_first_rData = 10;
-//    }
-//    /* Add frame bytes. */
-//    idx_response = 0;
-//    response = malloc( sizeof(unsigned char) * (idx_first_rData + length + 1) );
-//    for (i = 0; i < idx_first_rData; i++) {
-//        response[i] = frame[i];
-//        idx_response++;
-//    }
-//
-//    /* Add data bytes. */
-//    for (i = 0; i < length; i++) {
-//        response[idx_response] = msg[i];
-//        idx_response++;
-//    }
-//
-//    response[idx_response] = '\0';
-//    output = write(fd, response, idx_response);
-//    if (broadcast) {
-//        pthread_mutex_lock(&mutex);
-//        for (i = 0; i < MAX_CLIENTS; i++) {
-//            sock = client_socks[i];
-//            if ((sock > -1) && (sock != fd))
-//                output += write(sock, response, idx_response);
-//        }
-//        pthread_mutex_unlock(&mutex);
-//    }
-//    free(response);
-//    return (output);
-//}
-//
-//static unsigned char* ws_receiveframe(unsigned char *frame,
-//                                      size_t length, int *type) {
-//    unsigned char *msg;     /* Decoded message.        */
-//    uint8_t mask;           /* Payload is masked?      */
-//    uint8_t flength;        /* Raw length.             */
-//    uint8_t idx_first_mask; /* Index masking key.      */
-//    uint8_t idx_first_data; /* Index data.             */
-//    size_t  data_length;    /* Data length.            */
-//    uint8_t masks[4];       /* Masking key.            */
-//    int     i,j;            /* Loop indexes.           */
-//
-//    msg = NULL;
-//
-//    /* Checks the frame type and parse the frame. */
-//    if (frame[0] == (WS_FIN | WS_FR_OP_TXT)) {
-//        *type = WS_FR_OP_TXT;
-//        idx_first_mask = 2;
-//        mask = frame[1];
-//        flength = mask & 0x7F;
-//
-//        if (flength == 126)
-//            idx_first_mask = 4;
-//        else if (flength == 127)
-//            idx_first_mask = 10;
-//
-//        idx_first_data = idx_first_mask + 4;
-//        data_length = length - idx_first_data;
-//
-//        masks[0] = frame[idx_first_mask+0];
-//        masks[1] = frame[idx_first_mask+1];
-//        masks[2] = frame[idx_first_mask+2];
-//        masks[3] = frame[idx_first_mask+3];
-//
-//        msg = malloc(sizeof(unsigned char) * (data_length+1));
-//        for (i = idx_first_data, j = 0; i < length; i++, j++)
-//            msg[j] = frame[i] ^ masks[j % 4];
-//        msg[j] = '\0';
-//    }
-//
-//        /* Close frame. */
-//    else if (frame[0] == (WS_FIN | WS_FR_OP_CLSE))
-//        *type = WS_FR_OP_CLSE;
-//
-//        /* Not supported frame yet. */
-//    else
-//        *type = frame[0] & 0x0F;
-//    return msg;
-//}
+static int parse_json(const char *json, json_object **responses) {
+    json_tokener *tok = json_tokener_new();
+    int stringlen = 0;
+    enum json_tokener_error jerr;
 
-//
-
-static char *result(char *s1,  char *s2) {
-    char *res = NULL;
-    res = mx_strnew(mx_strlen(s1) + mx_strlen(s2));
-    res = mx_strcat(res, s1);
-    res = mx_strcat(res, s2);
-    if (malloc_size(s1))
-        mx_strdel(&s1);
-    return res;
+    stringlen = strlen(json);
+    *responses = json_tokener_parse_ex(tok, json, stringlen);
+    while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {
+        stringlen = strlen(json);
+        *responses = json_tokener_parse_ex(tok, json, stringlen);
+    }
+    if (jerr != json_tokener_success) {
+        fprintf(stderr, "JSON Error: %s\n", json_tokener_error_desc(jerr));
+        return 1;
+    }
+    json_tokener_free(tok);
+    return 0;
 }
 
-char *mx_strjoin_two( char *s1,  char *s2) {
-    char *res = NULL;
+char *mx_parse_str(char *jstr, char buf) {
+    int len = mx_strlen(jstr) + 1;
+    char *tmp = mx_strnew(len);
 
-    if (!s1 && !s2)
-        return NULL;
-    else if (!s1) {
-        res = mx_strnew(mx_strlen(s2));
-        res = mx_strcat(res, s2);
-    }
-    else if (!s2) {
-        res = mx_strnew(mx_strlen(s1));
-        res = mx_strcat(res, s1);
-        mx_strdel(&s1);
-    }
-    else
-        res = result(s1, s2);
-    return res;
+    for (int i = 0; jstr[i]; i++)
+        tmp[i] = jstr[i];
+    tmp[len - 1] = buf;
+    if (malloc_size(jstr))
+        mx_strdel(&jstr);
+    jstr = mx_strdup(tmp);
+    if (malloc_size(tmp))
+        mx_strdel(&tmp);
+    return jstr;
 }
 
+void mx_sign_up(struct json_object *jobj) {
+    t_event event;
+    struct json_object *nick;
+    struct json_object *password;
+    struct json_object *login;
 
+    event.log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    json_object_object_get_ex(jobj, "login", &login);
+    json_object_object_get_ex(jobj, "password", &password);
+    json_object_object_get_ex(jobj, "nick", &nick);
+
+    event.log_in->login = json_object_get_string(login);
+    event.log_in->nick = json_object_get_string(nick);
+    event.log_in->password = json_object_get_string(password);
+
+    mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick);
+
+    printf("=====================================================\n");
+    printf("LOGIN = %s\n", event.log_in->login);
+    printf("NICK = %s\n", event.log_in->nick);
+    printf("PASSWORD = %s\n", event.log_in->password);
+    printf("=====================================================\n");
+}
 
 static void* ws_establishconnection(void *vsock) {
     int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
@@ -191,110 +64,30 @@ static void* ws_establishconnection(void *vsock) {
     char buf;
     char *jstr = mx_strnew(0);
     struct json_object *jobj = json_object_new_object();
-//    struct json_object *question;
-//    struct json_object *answer;
+    struct json_object *event;
+    char *events[] = {"sign_up", "sign_in"};
 
-    struct json_tokener *tok =  json_tokener_new();
-    enum json_tokener_error jerr;
+
 
     while ((n = read(sock, &buf, 1)) > 0) {
-        jstr = mx_strjoin_two(jstr, &buf);
-        if (jstr[mx_strlen(jstr) - 2] == '}') {
+        jstr = mx_parse_str(jstr, buf);
+        if (jstr[mx_strlen(jstr) - 1] == '}') {
             printf("jstr = %s\n", jstr);
 
-//            while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {
-//                jobj = json_tokener_parse_ex(tok, jstr, strlen(jstr));
-//            }
-//
-//            if (jerr != json_tokener_success) {
-//                fprintf(stderr, "Error: %s\n", json_tokener_error_desc(jerr));
-//                // Handle errors, as appropriate for your application.
-//            }
-            do
-            {
-                int len = mx_strlen(jstr);
-                jobj = json_tokener_parse_ex(tok, jstr, len);
-            } while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue);
-
-            if (jerr != json_tokener_success) {
-                fprintf(stderr, "Error: %s\n", json_tokener_error_desc(jerr));
-                // Handle errors, as appropriate for your application.
-            }
+            if (parse_json((const char *)jstr, &jobj))
+                mx_printerr("Failed to parse JSON responses.\n");
             printf("JSON = %s\n", json_object_to_json_string(jobj));
+
+            //JSON OBJ GET
+            json_object_object_get_ex(jobj, "event", &event);
+            printf("%s\n", json_object_get_string(event));
+            printf("%s\n", events[0]);
+            printf("%d\n", strcmp(json_object_get_string(event), events[0]));
+            if (strcmp(json_object_get_string(event), events[0]) == 0) {
+                mx_sign_up(jobj);
+            }
         }
     }
-//
-//    unsigned char frm[MESSAGE_LENGTH];  /* Frame.                         */
-//    unsigned char *msg;                 /* Message.                       */
-//    char *response;                     /* Response frame.                */
-//    int  handshaked;                    /* Handshake state.               */
-//    int  type;                          /* Frame type.                    */
-//    int  i;                             /* Loop index.                    */
-//    int  ret;
-//
-//    handshaked = 0;
-//    sock = (int)(intptr_t)vsock;
-//
-//    /* Receives message until get some error. */
-//    while ((n = read(sock, frm, sizeof(unsigned char)
-//                                * MESSAGE_LENGTH)) > 0) {
-//        /* If not handshaked yet. */
-//        if (!handshaked) {
-//            ret = getHSresponse( (char *) frm, &response);
-//            if (ret < 0)
-//                goto closed;
-//
-//            handshaked = 1;
-//#ifdef VERBOSE_MODE
-//            printf("Handshaked, response: \n"
-//				"------------------------------------\n"
-//				"%s"
-//				"------------------------------------\n"
-//				,response);
-//#endif
-//            n = write(sock, response, strlen(response));
-//            events.onopen(sock);
-//            free(response);
-//        }
-//        /* Decode/check type of frame. */
-//        msg = ws_receiveframe(frm, n, &type);
-//        if (msg == NULL) {
-//#ifdef VERBOSE_MODE
-//            printf("Non text frame received from %d", sock);
-//			if (type == WS_FR_OP_CLSE)
-//				printf(": close frame!\n");
-//			else
-//			{
-//				printf(", type: %x\n", type);
-//				continue;
-//			}
-//#endif
-//        }
-//
-//        /* Trigger events. */
-//        if (type == WS_FR_OP_TXT) {
-//            events.onmessage(sock, msg);
-//            free(msg);
-//        }
-//        else if (type == WS_FR_OP_CLSE) {
-//            free(msg);
-//            events.onclose(sock);
-//            goto closed;
-//        }
-//    }
-//
-//    closed:
-//    /* Removes client socket from socks list. */
-//    pthread_mutex_lock(&mutex);
-//    for (i = 0; i < MAX_CLIENTS; i++) {
-//        if (client_socks[i] == sock) {
-//            client_socks[i] = -1;
-//            break;
-//        }
-//    }
-//    pthread_mutex_unlock(&mutex);
-//    close(sock);
-//
     return vsock;
 }
 

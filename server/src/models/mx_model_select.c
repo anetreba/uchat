@@ -6,6 +6,6 @@ void mx_model_select(char *search, char *tables,
     char *sql;
 
     asprintf(&sql, "SELECT %s FROM %s", search, tables);
-    mx_sqlite(sql, callback, data);
+    mx_init_sqli(sql, callback, data);
     free(sql);
 }
