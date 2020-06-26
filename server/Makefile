@@ -14,17 +14,17 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/,\
-      		main.c \
-			mx_sqlite.c \
-			mx_socket.c \
-			mx_printerr.c \
-			mx_event.c  \
-			mx_parse_json.c \
-      		models/mx_model_insert.c \
-      		models/mx_model_select.c \
-      		models/mx_model_update.c \
-      		models/mx_model_del.c \
-      		controllers/mx_signup.c)
+		main.c \
+		mx_sqlite.c \
+		mx_socket.c \
+		mx_printerr.c \
+		mx_event.c  \
+		mx_parse_json.c \
+		models/mx_model_insert.c \
+		models/mx_model_select.c \
+		models/mx_model_update.c \
+		models/mx_model_del.c \
+		controllers/mx_signup.c)
 
 
 OBJ = main.o \

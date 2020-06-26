@@ -1,11 +1,13 @@
 #include "header.h"
 
-void mx_model_select(char *search, char *tables,
+int mx_model_select(const char *search, char *tables,
                      int (*callback)(void *, int, char **, char **),
                      void *data) {
     char *sql;
 
     asprintf(&sql, "SELECT %s FROM %s", search, tables);
-    mx_init_sqli(sql, callback, data);
+    if (mx_init_sqli(sql, callback, data) == 0)
+        return 0;
     free(sql);
+    return 1;
 }
