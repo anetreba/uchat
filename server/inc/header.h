@@ -37,7 +37,7 @@ typedef struct s_event {
 }              t_event;
 
 void mx_valid_event(struct json_object *jobj, int sock);
-void mx_init_sqli();
+void mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);

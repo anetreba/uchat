@@ -7,5 +7,5 @@ void mx_contr_signup(const char *log_in, const char *pass, const char *nickname)
     char *vals;
 
     asprintf(&vals, "'%s','%s','%s'", log_in, pass, nickname);
-    mx_model_insert("Users", "login, pass, nickname", vals);
+    mx_model_insert("Users", "login, pass, nick", vals);
 }

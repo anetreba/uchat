@@ -1,13 +1,13 @@
 APP_NAME = uchat
 
-#LIBMXF = libmx
+LIBMXF = libmx/libmx.a
 
 JSONF = src/json
 
-JSON_NAME = .libs/libjson.a
+JSON_NAME = libjson-c.a
 
 INC = inc/ \
-	  src/json/
+	  src/json-c-build/
 
 SRC_DIR = src
 
@@ -15,13 +15,13 @@ OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
-            mx_printerr.c \
-            mx_parse_json.c)
+      		mx_printerr.c \
+      		mx_parse_json.c )
 
 
 OBJ = main.o \
       mx_printerr.o \
-      mx_parse_json.o
+      mx_parse_json.o \
 
 CC = clang
 
@@ -29,14 +29,14 @@ CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
 
 all : install
 
-install : json uchat
+install : json uchat sqlite3
 
 json:
 	@make -C $(JSONF)
 
-uchat : $(SRC) inc/header.h src/json/.libs/libjson.a
+uchat : $(SRC) inc/header.h libmx/libmx.a src/json/libjson-c.a
 	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
-	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) -l sqlite3 -o $(APP_NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 	@mkdir -p $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
