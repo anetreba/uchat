@@ -15,11 +15,13 @@ OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
-      		mx_printerr.c)
+            mx_printerr.c \
+            mx_parse_json.c)
 
 
 OBJ = main.o \
-      mx_printerr.o
+      mx_printerr.o \
+      mx_parse_json.o
 
 CC = clang
 

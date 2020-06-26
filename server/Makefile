@@ -15,9 +15,11 @@ OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
-      		mx_sqlite.c \
-      		mx_socket.c \
-      		mx_printerr.c \
+			mx_sqlite.c \
+			mx_socket.c \
+			mx_printerr.c \
+			mx_event.c  \
+			mx_parse_json.c \
       		models/mx_model_insert.c \
       		models/mx_model_select.c \
       		models/mx_model_update.c \
@@ -26,9 +28,16 @@ SRC = $(addprefix $(SRC_DIR)/,\
 
 
 OBJ = main.o \
-      mx_sqlite.o \
-      mx_socket.o \
-      mx_printerr.o
+	  mx_sqlite.o \
+	  mx_socket.o \
+	  mx_printerr.o \
+	  mx_event.o  \
+	  mx_parse_json.o \
+	  mx_model_insert.o \
+	  mx_model_select.o \
+	  mx_model_update.o \
+	  mx_model_del.o \
+	  mx_signup.o
 
 CC = clang
 

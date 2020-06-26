@@ -1,73 +1,11 @@
 #include "header.h"
 
-static int parse_json(const char *json, json_object **responses) {
-    json_tokener *tok = json_tokener_new();
-    int stringlen = 0;
-    enum json_tokener_error jerr;
-
-    stringlen = strlen(json);
-    *responses = json_tokener_parse_ex(tok, json, stringlen);
-    while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {
-        stringlen = strlen(json);
-        *responses = json_tokener_parse_ex(tok, json, stringlen);
-    }
-    if (jerr != json_tokener_success) {
-        fprintf(stderr, "JSON Error: %s\n", json_tokener_error_desc(jerr));
-        return 1;
-    }
-    json_tokener_free(tok);
-    return 0;
-}
-
-char *mx_parse_str(char *jstr, char buf) {
-    int len = mx_strlen(jstr) + 1;
-    char *tmp = mx_strnew(len);
-
-    for (int i = 0; jstr[i]; i++)
-        tmp[i] = jstr[i];
-    tmp[len - 1] = buf;
-    if (malloc_size(jstr))
-        mx_strdel(&jstr);
-    jstr = mx_strdup(tmp);
-    if (malloc_size(tmp))
-        mx_strdel(&tmp);
-    return jstr;
-}
-
-void mx_sign_up(struct json_object *jobj) {
-    t_event event;
-    struct json_object *nick;
-    struct json_object *password;
-    struct json_object *login;
-
-    event.log_in = (t_log_in *)malloc(sizeof(t_log_in));
-    json_object_object_get_ex(jobj, "login", &login);
-    json_object_object_get_ex(jobj, "password", &password);
-    json_object_object_get_ex(jobj, "nick", &nick);
-
-    event.log_in->login = json_object_get_string(login);
-    event.log_in->nick = json_object_get_string(nick);
-    event.log_in->password = json_object_get_string(password);
-
-    mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick);
-
-    printf("=====================================================\n");
-    printf("LOGIN = %s\n", event.log_in->login);
-    printf("NICK = %s\n", event.log_in->nick);
-    printf("PASSWORD = %s\n", event.log_in->password);
-    printf("=====================================================\n");
-}
-
-static void* ws_establishconnection(void *vsock) {
+static void *ws_establishconnection(void *vsock) {
     int sock = (int)(intptr_t)vsock;  /* File descriptor.               */
     int n;                           /* Number of bytes sent/received. */
     char buf;
     char *jstr = mx_strnew(0);
     struct json_object *jobj = json_object_new_object();
-    struct json_object *event;
-    char *events[] = {"sign_up", "sign_in"};
-
-
 
     while ((n = read(sock, &buf, 1)) > 0) {
         jstr = mx_parse_str(jstr, buf);
@@ -79,13 +17,7 @@ static void* ws_establishconnection(void *vsock) {
             printf("JSON = %s\n", json_object_to_json_string(jobj));
 
             //JSON OBJ GET
-            json_object_object_get_ex(jobj, "event", &event);
-            printf("%s\n", json_object_get_string(event));
-            printf("%s\n", events[0]);
-            printf("%d\n", strcmp(json_object_get_string(event), events[0]));
-            if (strcmp(json_object_get_string(event), events[0]) == 0) {
-                mx_sign_up(jobj);
-            }
+            mx_valid_event(jobj, sock);
         }
     }
     return vsock;
