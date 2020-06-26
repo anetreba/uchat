@@ -17,13 +17,17 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
       		mx_sqlite.c \
       		mx_socket.c \
-      		mx_printerr.c )
+      		mx_printerr.c \
+      		mx_event.c  \
+      		mx_parse_json.c )
 
 
 OBJ = main.o \
       mx_sqlite.o \
       mx_socket.o \
-      mx_printerr.o
+      mx_printerr.o \
+      mx_event.o \
+      mx_parse_json.o \
 
 CC = clang
 

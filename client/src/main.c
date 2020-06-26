@@ -12,7 +12,7 @@ void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
 
     jobj = json_object_new_object();
 
-    json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
+    json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
     json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
     json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
     json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));
@@ -26,6 +26,8 @@ void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
 
     send(network_socket, jstr, strlen(jstr), 0);
 }
+
+
 
 int main(int argc, char const **argv) {
 	if (argc != 3) {
@@ -55,10 +57,16 @@ int main(int argc, char const **argv) {
 	struct json_object *jobj = NULL;
 	mx_json(jobj, network_socket, &event);
 
-	char info_from_server[256];
-	recv(network_socket, &info_from_server, sizeof(info_from_server), 0);
+	int n;
+    char buf;
+    char *jstr = mx_strnew(0);
+//    struct json_object *jobj = json_object_new_object();
 
-	printf("THE SERVER DATA -- %s\n", info_from_server);
+    while ((n = read(network_socket, &buf, 1)) > 0) {
+        jstr = mx_parse_str(jstr, buf);
+    }
+
+	printf("THE SERVER DATA -- %s\n", jstr);
 
 	close(network_socket);
 

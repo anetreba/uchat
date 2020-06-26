@@ -36,8 +36,11 @@ typedef struct s_event {
     t_send_message *t_send_message;
 }              t_event;
 
+void mx_valid_event(struct json_object *jobj, int sock);
 void mx_init_sqli();
 void mx_server_socket(int port);
 void mx_printerr(char *str);
+char *mx_parse_str(char *jstr, char buf);
+int parse_json(const char *json, json_object **responses);
 
 #endif

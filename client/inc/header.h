@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <../src/json-c/json.h>
 #include <malloc/malloc.h>
+#include "../libmx/inc/libmx.h"
 
 
 void mx_printerr(char *str);
@@ -35,5 +36,8 @@ typedef struct s_event {
     t_log_in *log_in;
     t_send_message *t_send_message;
 }              t_event;
+
+char *mx_parse_str(char *jstr, char buf);
+int parse_json(const char *json, json_object **responses);
 
 #endif
