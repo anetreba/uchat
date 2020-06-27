@@ -39,7 +39,8 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
         if (mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick) == 1)
             printf("This User Is Registered\n");
     if (strcmp(ev, events[1]) == 0)
-        printf("sign_in\n");
+        if (mx_contr_signin(mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick) == 1)
+            printf("User is logged In\n");
     int status = 1;
     mx_return_status_json(status, sock);
 }
