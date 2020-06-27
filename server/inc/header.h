@@ -26,6 +26,7 @@ typedef struct s_log_in {
 
 typedef struct s_data {
     char *login;
+    char *nick;
     int argc;
     char **colname;
 }               t_data;
