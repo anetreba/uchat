@@ -1,6 +1,6 @@
 #include "header.h"
 
-static int callback_signup(void *data, int argc, char **argv, char **ColName) {
+static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     //t_data *udata = (t_data *)data;
     int udata = (int)data;
     ColName = NULL;
@@ -35,7 +35,7 @@ int mx_contr_signin(const char *log_in, const char *pass) {
     int rs = 0;
 
     asprintf(&vals, "Users WHERE login = '%s' AND pass = '%s'", log_in, pass);
-    rs = mx_model_select("login,pass", vals, callback_signup, &data);
+    rs = mx_model_select("login,pass", vals, callback_signin, &data);
     if (rs == 0)
         return 0;
     return 1;
