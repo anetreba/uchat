@@ -47,6 +47,7 @@ void mx_connecion(int sock) {
                 break;
             }
         }
+
         pthread_mutex_unlock(&mutex);
 
         if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_open_socket) < 0)

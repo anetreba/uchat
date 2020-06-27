@@ -1,0 +1,21 @@
+sqlite3 server.db
+
+CREATE TABLE Users(
+    id      INTEGER        NOT NULL       PRIMARY KEY AUTOINCREMENT,
+    login   VARCHAR(25)    NOT NULL,
+    pass    VARCHAR(255)   NOT NULL,
+    nick    VARCHAR(255)   NOT NULL
+);
+
+CREATE TABLE Messages(
+    id                  INTEGER     NOT NULL       PRIMARY KEY AUTOINCREMENT,
+    message             TEXT        NOT NULL,
+    sender_id           INTEGER     NOT NULL,
+    reciever_id         INTEGER,
+    group_id            INTEGER,
+    recieve_status      INTEGER,
+    attaches            INTEGER
+);
+
+
+

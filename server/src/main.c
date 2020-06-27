@@ -6,8 +6,7 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 	int port = atoi(argv[1]);
-	
-	mx_init_sqli();
+
     mx_server_socket(port);
 	
 	return 0;
