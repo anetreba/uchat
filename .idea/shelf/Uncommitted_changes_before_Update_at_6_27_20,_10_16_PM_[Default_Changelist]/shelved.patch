@@ -1,0 +1,102 @@
+Index: server/inc/header.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#ifndef HEADER_H\n#define HEADER_H\n\n#define MAX_CLIENTS 8\n\n#include <sys/socket.h>\n#include <netinet/in.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <errno.h>\n#include <string.h>\n#include <pthread.h>\n#include <sys/types.h>\n#include <signal.h>\n\n#include <sqlite3.h>\n#include <../src/json-c/json.h>\n#include \"../libmx/inc/libmx.h\"\n\ntypedef struct s_log_in {\n    const char *login;\n    const char *password;\n    const char *nick;\n}               t_log_in;\n\ntypedef struct s_send_message {\n    int id_sender;\n    char *message;\n    int type;\n    int id_receiver;\n}               t_send_message;\n\ntypedef struct s_event {\n    t_log_in *log_in;\n    t_send_message *t_send_message;\n}              t_event;\n\n//models\nvoid mx_model_insert (char *table, char *rows, char *vals);\nvoid mx_model_select(char *search, char *tables,\n                     int (*callback)(void *, int, char **, char **),\n                     void *data);\nvoid mx_model_update(char *table, char *str, char *condition);\nvoid mx_model_del(char *table, char *condition);\n\n\n//controllers\nvoid mx_contr_signup(const char *log_in, const char *pass, const char *nickname);\n\n\nvoid mx_init_sqli();\nvoid mx_server_socket(int port);\nvoid mx_printerr(char *str);\n\n\n\n\n#endif\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- server/inc/header.h	(revision b77fba8ab7f19b540e5fa913a7b013d2eaf5faf6)
++++ server/inc/header.h	(date 1593127902000)
+@@ -36,24 +36,21 @@
+     t_send_message *t_send_message;
+ }              t_event;
+ 
++void mx_init_sqli();
++void mx_server_socket(int port);
++void mx_printerr(char *str);
++
+ //models
+-void mx_model_insert (char *table, char *rows, char *vals);
++void mx_model_insert(char *table, char *rows, char *vals);
+ void mx_model_select(char *search, char *tables,
+                      int (*callback)(void *, int, char **, char **),
+                      void *data);
+-void mx_model_update(char *table, char *str, char *condition);
++void mx_set_value(char *table, char *str, char *condition);
+ void mx_model_del(char *table, char *condition);
+ 
+ 
+ //controllers
+-void mx_contr_signup(const char *log_in, const char *pass, const char *nickname);
+-
+-
+-void mx_init_sqli();
+-void mx_server_socket(int port);
+-void mx_printerr(char *str);
+-
+-
++void mx_contr_signup(t_log_in *log_in);
+ 
+ 
+ #endif
+Index: server/src/controllers/mx_signup.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"header.h\"\n\nvoid mx_contr_signup(const char *log_in, const char *pass, const char *nickname) {\n//    const char log_in = *login->login;\n//    const char pass = *login->password;\n//    const char nickname = *login->nick;\n    char *vals;\n\n    asprintf(&vals, \"'%s','%s','%s'\", log_in, pass, nickname);\n    mx_model_insert(\"Users\", \"login, pass, nickname\", vals);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- server/src/controllers/mx_signup.c	(revision b77fba8ab7f19b540e5fa913a7b013d2eaf5faf6)
++++ server/src/controllers/mx_signup.c	(date 1593127920000)
+@@ -1,11 +1,11 @@
+ #include "header.h"
+ 
+-void mx_contr_signup(const char *log_in, const char *pass, const char *nickname) {
+-//    const char log_in = *login->login;
+-//    const char pass = *login->password;
+-//    const char nickname = *login->nick;
++void mx_signup(t_log_in *log_in) {
++    const char login = *log_in->login;
++    const char pass = *log_in->password;
++    const char nickname = *log_in->nick;
+     char *vals;
+ 
+-    asprintf(&vals, "'%s','%s','%s'", log_in, pass, nickname);
++    asprintf(&vals, "'%s','%s','%s'", login, pass, nickname);
+     mx_model_insert("Users", "login, pass, nickname", vals);
+ }
+Index: server/src/models/mx_model_insert.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"header.h\"\n\nvoid mx_model_insert (char *table, char *rows, char *vals) {\n    char *sql;\n\n    asprintf(&sql, \"INSERT INTO %s (%s) VALUES (%s);\", table,\n             rows, vals);\n    mx_init_sqli(sql, 0, 0);\n    free(sql);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- server/src/models/mx_model_insert.c	(revision b77fba8ab7f19b540e5fa913a7b013d2eaf5faf6)
++++ server/src/models/mx_model_insert.c	(date 1593127907000)
+@@ -1,6 +1,6 @@
+ #include "header.h"
+ 
+-void mx_model_insert (char *table, char *rows, char *vals) {
++void mx_model_insert(char *table, char *rows, char *vals) {
+     char *sql;
+ 
+     asprintf(&sql, "INSERT INTO %s (%s) VALUES (%s);", table,
+Index: server/src/mx_socket.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"header.h\"\n\nstatic int parse_json(const char *json, json_object **responses) {\n    json_tokener *tok = json_tokener_new();\n    int stringlen = 0;\n    enum json_tokener_error jerr;\n\n    stringlen = strlen(json);\n    *responses = json_tokener_parse_ex(tok, json, stringlen);\n    while ((jerr = json_tokener_get_error(tok)) == json_tokener_continue) {\n        stringlen = strlen(json);\n        *responses = json_tokener_parse_ex(tok, json, stringlen);\n    }\n    if (jerr != json_tokener_success) {\n        fprintf(stderr, \"JSON Error: %s\\n\", json_tokener_error_desc(jerr));\n        return 1;\n    }\n    json_tokener_free(tok);\n    return 0;\n}\n\nchar *mx_parse_str(char *jstr, char buf) {\n    int len = mx_strlen(jstr) + 1;\n    char *tmp = mx_strnew(len);\n\n    for (int i = 0; jstr[i]; i++)\n        tmp[i] = jstr[i];\n    tmp[len - 1] = buf;\n    if (malloc_size(jstr))\n        mx_strdel(&jstr);\n    jstr = mx_strdup(tmp);\n    if (malloc_size(tmp))\n        mx_strdel(&tmp);\n    return jstr;\n}\n\nvoid mx_sign_up(struct json_object *jobj) {\n    t_event event;\n    struct json_object *nick;\n    struct json_object *password;\n    struct json_object *login;\n\n    event.log_in = (t_log_in *)malloc(sizeof(t_log_in));\n    json_object_object_get_ex(jobj, \"login\", &login);\n    json_object_object_get_ex(jobj, \"password\", &password);\n    json_object_object_get_ex(jobj, \"nick\", &nick);\n\n    event.log_in->login = json_object_get_string(login);\n    event.log_in->nick = json_object_get_string(nick);\n    event.log_in->password = json_object_get_string(password);\n\n    mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick);\n\n    printf(\"=====================================================\\n\");\n    printf(\"LOGIN = %s\\n\", event.log_in->login);\n    printf(\"NICK = %s\\n\", event.log_in->nick);\n    printf(\"PASSWORD = %s\\n\", event.log_in->password);\n    printf(\"=====================================================\\n\");\n}\n\nstatic void* ws_establishconnection(void *vsock) {\n    int sock = (int)(intptr_t)vsock;  /* File descriptor.               */\n    int n;                           /* Number of bytes sent/received. */\n    char buf;\n    char *jstr = mx_strnew(0);\n    struct json_object *jobj = json_object_new_object();\n    struct json_object *event;\n    char *events[] = {\"sign_up\", \"sign_in\"};\n\n\n\n    while ((n = read(sock, &buf, 1)) > 0) {\n        jstr = mx_parse_str(jstr, buf);\n        if (jstr[mx_strlen(jstr) - 1] == '}') {\n            printf(\"jstr = %s\\n\", jstr);\n\n            if (parse_json((const char *)jstr, &jobj))\n                mx_printerr(\"Failed to parse JSON responses.\\n\");\n            printf(\"JSON = %s\\n\", json_object_to_json_string(jobj));\n\n            //JSON OBJ GET\n            json_object_object_get_ex(jobj, \"event\", &event);\n            printf(\"%s\\n\", json_object_get_string(event));\n            printf(\"%s\\n\", events[0]);\n            printf(\"%d\\n\", strcmp(json_object_get_string(event), events[0]));\n            if (strcmp(json_object_get_string(event), events[0]) == 0) {\n                mx_sign_up(jobj);\n            }\n        }\n    }\n    return vsock;\n}\n\nvoid mx_connecion(int sock) {\n    int client_socks[MAX_CLIENTS]; // Mass of client sock\n    int new_open_socket; // New opened connection.\n    struct sockaddr_in client; // Client.\n    int len = sizeof(struct sockaddr_in);\n    pthread_t client_thread; // Client thread.\n    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;\n\n    memset(client_socks, -1, sizeof(client_socks));\n    //Accept connections.\n    while (1) {\n        //Accept.\n        new_open_socket = accept(sock, (struct sockaddr *)&client, (socklen_t*)&len);\n        if (new_open_socket < 0)\n            mx_printerr(\"Error on accepting connections..\");\n\n        //Adds client socket to socks list.\n        pthread_mutex_lock(&mutex);\n        for (int i = 0; i < MAX_CLIENTS; i++) {\n            if (client_socks[i] == -1) {\n                client_socks[i] = new_open_socket;\n                break;\n            }\n        }\n        pthread_mutex_unlock(&mutex);\n\n        if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_open_socket) < 0)\n            mx_printerr(\"Could not create the client thread!\");\n\n        pthread_detach(client_thread);\n    }\n}\n\n\nvoid mx_server_socket(int port) {\n    int sock; // Current socket. (server)\n    struct sockaddr_in server; // Server.\n\n\n    // Create socket.\n    sock = socket(AF_INET, SOCK_STREAM, 0);\n    if (sock < 0)\n        mx_printerr(\"Could not create socket\");\n    // Prepare the sockaddr_in structure.\n    server.sin_family = AF_INET;\n    server.sin_addr.s_addr = INADDR_ANY;\n    server.sin_port = htons(port);\n    if (bind(sock, (struct sockaddr *)&server, sizeof(server)) < 0)\n        mx_printerr(\"Bind failed\");\n    listen(sock, MAX_CLIENTS);\n    mx_connecion(sock);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- server/src/mx_socket.c	(revision b77fba8ab7f19b540e5fa913a7b013d2eaf5faf6)
++++ server/src/mx_socket.c	(date 1593127767000)
+@@ -49,7 +49,7 @@
+     event.log_in->nick = json_object_get_string(nick);
+     event.log_in->password = json_object_get_string(password);
+ 
+-    mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick);
++    mx_signup(event.log_in);
+ 
+     printf("=====================================================\n");
+     printf("LOGIN = %s\n", event.log_in->login);
