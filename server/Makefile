@@ -14,20 +14,30 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/,\
-      		main.c \
-      		mx_sqlite.c \
-      		mx_socket.c \
-      		mx_printerr.c \
-      		mx_event.c  \
-      		mx_parse_json.c )
+		main.c \
+		mx_sqlite.c \
+		mx_socket.c \
+		mx_printerr.c \
+		mx_event.c  \
+		mx_parse_json.c \
+		models/mx_model_insert.c \
+		models/mx_model_select.c \
+		models/mx_model_update.c \
+		models/mx_model_del.c \
+		controllers/mx_signup.c)
 
 
 OBJ = main.o \
-      mx_sqlite.o \
-      mx_socket.o \
-      mx_printerr.o \
-      mx_event.o \
-      mx_parse_json.o \
+	  mx_sqlite.o \
+	  mx_socket.o \
+	  mx_printerr.o \
+	  mx_event.o  \
+	  mx_parse_json.o \
+	  mx_model_insert.o \
+	  mx_model_select.o \
+	  mx_model_update.o \
+	  mx_model_del.o \
+	  mx_signup.o
 
 CC = clang
 
@@ -40,7 +50,7 @@ install : json uchat
 json:
 	@make -C $(JSONF)
 
-uchat : $(SRC) inc/header.h libmx/libmx.a src/json-c-build/libjson-c.a
+uchat : $(SRC) inc/header.h libmx/libmx.a src/json-c/libjson-c.a
 	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
 	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
@@ -62,5 +72,3 @@ clean :
 	@printf "$(OBJD)\t   \033[31;1mdeleted\033[0m\n"
 
 reinstall : uninstall install
-
-
