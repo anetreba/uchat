@@ -14,10 +14,12 @@ void mx_return_status_json(int status, int sock) {
 
 void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int sock) {
     t_event event;
+    t_data *data;
     struct json_object *nick;
     struct json_object *password;
     struct json_object *login;
 
+    data = (t_data *)malloc(sizeof(t_data));
     event.log_in = (t_log_in *)malloc(sizeof(t_log_in));
     json_object_object_get_ex(jobj, "login", &login);
     json_object_object_get_ex(jobj, "password", &password);
@@ -34,9 +36,11 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
     printf("=====================================================\n");
 
     if (strcmp(ev, events[0]) == 0)
-        printf("sign_up\n");
+        if (mx_contr_signup(event.log_in->login, event.log_in->password, event.log_in->nick) == 1)
+            printf("This User Is Registered\n");
     if (strcmp(ev, events[1]) == 0)
-        printf("sign_in\n");
+        if (mx_contr_signin(event.log_in->login, event.log_in->password) == 1)
+            printf("User is logged In\n");
     int status = 1;
     mx_return_status_json(status, sock);
 }

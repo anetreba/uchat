@@ -1,0 +1,12 @@
+prefix=/Users/ovoitenko/.brew
+exec_prefix=/Users/ovoitenko/.brew
+libdir=/Users/ovoitenko/.brew/lib
+includedir=/Users/ovoitenko/.brew/include
+
+Name: json-c
+Description: A JSON implementation in C
+Version: 0.14.99
+Requires:
+Libs.private: 
+Libs: -L${libdir} -ljson-c
+Cflags: -I${includedir} -I${includedir}/json-c
