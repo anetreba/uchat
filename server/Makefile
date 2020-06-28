@@ -2,12 +2,12 @@ APP_NAME = chat_server
 
 LIBMXF = libmx/libmx.a
 
-JSONF = src/json-c-build
+JSONF = src/json-c
 
 JSON_NAME = libjson-c.a
 
 INC = inc/ \
-	  src/json-c-build/
+	  src/json-c/
 
 SRC_DIR = src
 
