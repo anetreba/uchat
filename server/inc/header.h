@@ -61,7 +61,7 @@ void mx_model_del(char *table, char *condition);
 
 
 //controllers
-int mx_contr_signup(const char *log_in, const char *pass, const char *nickname);
-int mx_contr_signin(const char *log_in, const char *pass);
+int mx_contr_signup(t_log_in *user);
+int mx_contr_signin(t_log_in *user);
 
 #endif
