@@ -9,14 +9,14 @@
 *
 *******************************************************************************
 */
-#include "inc/config.h"
+#include "config.h"
 
 #include <stddef.h>
 
-#include "inc/json.h"
-#include "inc/json_object_private.h"
+#include "json.h"
+#include "json_object_private.h"
 
-#include "inc/json_object_iterator.h"
+#include "json_object_iterator.h"
 
 /**
  * How It Works

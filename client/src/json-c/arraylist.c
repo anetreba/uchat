@@ -9,7 +9,7 @@
  *
  */
 
-#include "inc/config.h"
+#include "config.h"
 
 #include <limits.h>
 
@@ -34,7 +34,7 @@
 #endif
 #endif
 
-#include "inc/arraylist.h"
+#include "arraylist.h"
 
 struct array_list *array_list_new(array_list_free_fn *free_fn)
 {

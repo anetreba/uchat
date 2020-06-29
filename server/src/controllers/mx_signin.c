@@ -8,7 +8,6 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     if (argc != 0){
         udata = 1;
         argv = NULL;
-        //mx_del_strarr(&argv);
         return udata;
     }
     return udata;
@@ -37,6 +36,6 @@ int mx_contr_signin(const char *log_in, const char *pass) {
     asprintf(&vals, "Users WHERE login = '%s' AND pass = '%s'", log_in, pass);
     rs = mx_model_select("login,pass", vals, callback_signin, &data);
     if (rs == 0)
-        return 0;
-    return 1;
+        return 1;
+    return 0;
 }

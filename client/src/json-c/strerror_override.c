@@ -1,5 +1,5 @@
 #define STRERROR_OVERRIDE_IMPL 1
-#include "inc/strerror_override.h"
+#include "strerror_override.h"
 
 /*
  * Override strerror() to get consistent output across platforms.

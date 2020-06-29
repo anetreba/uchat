@@ -6,9 +6,9 @@
  *
  */
 
-#include "inc/config.h"
+#include "config.h"
 
-#include "inc/strerror_override.h"
+#include "strerror_override.h"
 
 #include <ctype.h>
 #include <stdarg.h>
@@ -16,9 +16,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "inc/json_pointer.h"
-#include "inc/strdup_compat.h"
-#include "inc/vasprintf_compat.h"
+#include "json_pointer.h"
+#include "strdup_compat.h"
+#include "vasprintf_compat.h"
 
 /**
  * JavaScript Object Notation (JSON) Pointer

@@ -9,9 +9,9 @@
  *
  */
 
-#include "inc/random_seed.h"
-#include "inc/config.h"
-#include "inc/strerror_override.h"
+#include "random_seed.h"
+#include "config.h"
+#include "strerror_override.h"
 #include <stdio.h>
 
 #define DEBUG_SEED(s)
