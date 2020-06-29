@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <arpa/inet.h>
-#include <../src/json-c/json.h>
+#include <../json-c/inc/json.h>
 #include <malloc/malloc.h>
 #include "../libmx/inc/libmx.h"
 

@@ -15,7 +15,7 @@
 #include <signal.h>
 
 #include <sqlite3.h>
-#include "../src/json-c/json.h"
+#include "../json-c/inc/json.h"
 #include "../libmx/inc/libmx.h"
 
 typedef struct s_log_in {
