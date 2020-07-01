@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -l;sqlite3 CMakeFiles/uchat.dir/client/src/main.c.o CMakeFiles/uchat.dir/server/src/main.c.o CMakeFiles/uchat.dir/server/src/sqlite.c.o  -o uchat 
