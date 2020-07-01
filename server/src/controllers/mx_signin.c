@@ -15,9 +15,8 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     printf("argv[0]: %s\n", argv[0]);
     printf("argv[1]: %s\n", argv[1]);
 
-    if (argv[0] && argv[1]) {
+    if (argv)
         udata = 0;
-    }
 
     udata = 1;
     return udata;
