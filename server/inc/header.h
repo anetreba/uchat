@@ -33,14 +33,14 @@ typedef struct s_data {
 
 typedef struct s_send_message {
     int id_sender;
-    char *message;
+    const char *message;
     int type;
-    int id_receiver;
+    int group;
 }               t_send_message;
 
 typedef struct s_event {
     t_log_in *log_in;
-    t_send_message *t_send_message;
+    t_send_message *send_message;
 }              t_event;
 
 void mx_valid_event(struct json_object *jobj, int sock);
