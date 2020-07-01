@@ -23,7 +23,7 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     return udata;
 }
 
-int mx_contr_signin(t_log_in *user) {
+int mx_contr_resieve_mess(t_log_in *user) {
     char *vals;
     //t_data data;
     int data;
