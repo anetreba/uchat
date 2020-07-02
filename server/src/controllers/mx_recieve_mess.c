@@ -2,7 +2,7 @@
 
 static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     //t_data *udata = (t_data *)data;
-    int udata = (int)data;
+    int *udata = (int)data;
     ColName = NULL;
     argc = 0;
 
@@ -18,12 +18,11 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     if (argv[0] && argv[1]) {
         udata = 0;
     }
-
     udata = 1;
     return udata;
 }
 
-int mx_contr_resieve_mess(t_log_in *user) {
+int mx_contr_recieve_mess(t_log_in *user) {
     char *vals;
     //t_data data;
     int data;
