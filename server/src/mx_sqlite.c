@@ -3,7 +3,6 @@
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data) {
     sqlite3 *db;
     char *err_msg = 0;
-
     int rc = sqlite3_open("./src/db/server.db", &db);
 
     if (rc != SQLITE_OK) {

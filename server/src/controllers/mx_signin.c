@@ -1,15 +1,19 @@
 #include "header.h"
 
 static int callback_signin(void *data, int argc, char **argv, char **ColName) {
-    t_data *udata = (t_data*)data;
-
+    t_data *udata = (t_data *)data;
     ColName = NULL;
-    if (argc > 0) {
+
+    if (argc > 0 && argv) {
         udata->login = strdup(argv[0]);
         udata->password = strdup(argv[1]);
     }
 
-    return 1;
+      printf("===================CALLBACK============================\n");
+      printf("data LOGIN: %s\n", ((t_data *)data)->login);
+      printf("data PASSW: %s\n", ((t_data *)data)->password);
+
+    return 0;
 }
 
 int mx_contr_signin(t_log_in *user) {
@@ -19,15 +23,15 @@ int mx_contr_signin(t_log_in *user) {
 
 
     asprintf(&vals, "Users WHERE login = '%s'", user->login);
-    rs = mx_model_select("login, pass", vals, callback_signin, &data);
+    rs = mx_model_select("login,pass", vals, callback_signin, &data);
 
-    printf("===================CALLBACK IN CONTROLLER============================\n");
+    printf("\n==============CALLBACK IN CONTROLLER======================\n");
     printf("data LOGIN: %s\n", data.login);
     printf("data PASSW: %s\n", data.password);
 
-    if (mx_strcmp(user->login, data.login) == 0 &&
-        mx_strcmp(user->password, data.password) == 0)
-        return 0;
+//    if (mx_strcmp(user->login, data.login) == 0 &&
+//        mx_strcmp(user->password, data.password) == 0)
+//        return 0;
     free(vals);
     return 1;
 }
