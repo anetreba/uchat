@@ -52,7 +52,6 @@ void mx_connecion(int sock) {
 
         if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_open_socket) < 0)
             mx_printerr("Could not create the client thread!");
-
         pthread_detach(client_thread);
     }
 }

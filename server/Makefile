@@ -60,7 +60,7 @@ uchat : $(SRC) inc/header.h libmx/libmx.a json-c/libjson-c.a
 	@mv $(OBJ) $(OBJ_DIR)
 	@rm -rf ./*.c ./*.h
 	@rm -rf $(OBJ_DIR)
-	@printf "$(NAME) \033[31;1minstalled\033[0m\n"
+	@printf "$(APP_NAME) \033[31;1minstalled\033[0m\n"
 
 uninstall : clean
 	@make uninstall -C $(JSONF)
