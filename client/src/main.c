@@ -4,7 +4,7 @@ void mx_built_struct(t_event *event) {
     event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
     event->log_in->login = "nas.ua";
     event->log_in->nick = "anetreba";
-    event->log_in->password = "password";
+    event->log_in->password = "passwordcsg";
 }
 
 void mx_json(struct json_object *jobj, int network_socket, t_event *event) {

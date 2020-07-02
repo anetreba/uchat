@@ -29,9 +29,9 @@ int mx_contr_signin(t_log_in *user) {
     printf("data LOGIN: %s\n", data.login);
     printf("data PASSW: %s\n", data.password);
 
-//    if (mx_strcmp(user->login, data.login) == 0 &&
-//        mx_strcmp(user->password, data.password) == 0)
-//        return 0;
+    if (mx_strcmp(user->login, data.login) == 0 &&
+        mx_strcmp(user->password, data.password) == 0)
+        return 0;
     free(vals);
     return 1;
 }
