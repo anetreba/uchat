@@ -1,12 +1,13 @@
 #include "header.h"
 
 static int callback_signin(void *data, int argc, char **argv, char **ColName) {
-    t_data *udata = (t_data *)data;
+    t_data *udata = (t_data*)data;
 
     ColName = NULL;
-    argc = 0;
-    udata->login = mx_strdup(argv[0]);
-    udata->password = mx_strdup(argv[1]);
+    if (argc > 0) {
+        udata->login = strdup(argv[0]);
+        udata->password = strdup(argv[1]);
+    }
 
     return 1;
 }
@@ -27,5 +28,6 @@ int mx_contr_signin(t_log_in *user) {
     if (mx_strcmp(user->login, data.login) == 0 &&
         mx_strcmp(user->password, data.password) == 0)
         return 0;
+    free(vals);
     return 1;
 }
