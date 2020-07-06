@@ -13,6 +13,7 @@
 #include <pthread.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <time.h>
 
 #include <sqlite3.h>
 #include "../json-c/inc/json.h"
