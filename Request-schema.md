@@ -47,3 +47,6 @@ Response:
 
 Request:
 { "event" : "send", "room": "3", "message" : "hi them all!", "auth_token: "ASDf4vs424g24gasdfas4fwq2e2e2c" }
+
+Response:
+{ status: "0" }
