@@ -1,10 +1,10 @@
 1. Client SignUP
 
 Request:
-{ "event" : "sign_up", "login" : "somelogin", "password": "somepassword", "nickname" : "somenickname"}
+{"event" : "sign_up", "login" : "somelogin", "password": "somepassword", "nickname" : "somenickname"}
 
 Response:
-{"status" : "1" } or { "status" : "2" }
+{"status" : "1" } or {"status" : "2"}
 ================================================================================
 
 
