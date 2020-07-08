@@ -22,8 +22,8 @@ int mx_contr_signup(t_log_in *user) {
     asprintf(&vals, "Users WHERE login = '%s' OR nick = '%s'", user->login, user->nick);
     rs = mx_model_select("login,nick", vals, callback_signup, &data);
     if (rs == 0) {
-        asprintf(&vals, "'%s','%s','%s'", user->login, user->password, user->nick);
-        mx_model_insert("Users", "login, pass, nick", vals);
+        asprintf(&vals, "'%s','%s','%s','%u'", user->login, user->password, user->nick, 10);
+        mx_model_insert("Users", "login, pass, nick, tokens", vals);
         return 0;
     }
     return 1;
