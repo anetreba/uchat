@@ -25,7 +25,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		models/mx_model_update.c \
 		models/mx_model_del.c \
 		controllers/mx_signup.c \
-		controllers/mx_signin.c)
+		controllers/mx_signin.c \
+		controllers/mx_gen_auth_token.c)
 
 
 OBJ = main.o \
@@ -39,7 +40,8 @@ OBJ = main.o \
 	  mx_model_update.o \
 	  mx_model_del.o \
 	  mx_signup.o \
-	  mx_signin.o
+	  mx_signin.o \
+	  mx_gen_auth_token.o
 
 CC = clang
 

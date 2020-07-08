@@ -45,6 +45,11 @@ typedef struct s_event {
     t_send_message *send_message;
 }              t_event;
 
+typedef struct s_response {
+    int status;
+    char *auth_token;
+}               t_response;
+
 void mx_valid_event(struct json_object *jobj, int sock);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 void mx_server_socket(int port);
@@ -64,6 +69,7 @@ void mx_model_del(char *table, char *condition);
 
 //controllers
 int mx_contr_signup(t_log_in *user);
-int mx_contr_signin(t_log_in *user);
+t_response *mx_contr_signin(t_log_in *user);
+char *mx_gen_auth_token(int len);
 
 #endif
