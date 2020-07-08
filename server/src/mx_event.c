@@ -14,6 +14,18 @@ void mx_return_signin_json(t_response resp, int sock) {
     send(sock, jstr, strlen(jstr), 0);
 }
 
+void mx_return_signup_json(int status, int sock) {
+    struct json_object *jobj = json_object_new_object();
+
+    json_object_object_add(jobj, "status", json_object_new_int(status));
+    printf("obj == %s\n", json_object_to_json_string(jobj));
+
+    const char *jstr = json_object_to_json_string(jobj);
+    printf("JSON  == %s\n", jstr);
+
+    send(sock, jstr, strlen(jstr), 0);
+}
+
 //void mx_return_status_json(int status, int sock) {
 //    struct json_object *jobj = json_object_new_object();
 //
@@ -45,8 +57,7 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
     event.log_in->password = json_object_get_string(password);
 
     if (strcmp(ev, events[0]) == 0)
-        if (mx_contr_signup(event.log_in) == 1)
-            printf("This User Is Registered\n");
+        mx_return_signup_json(mx_contr_signup(event.log_in), sock);
     if (strcmp(ev, events[1]) == 0) {
         resp = mx_contr_signin(event.log_in);
         mx_return_signin_json(*resp, sock);
