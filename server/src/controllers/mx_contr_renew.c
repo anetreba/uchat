@@ -1,5 +1,16 @@
 #include "header.h"
 
+static int callback_renew(void *data, int argc, char **argv, char **ColName) {
+    t_data *udata = (t_data *)data;
+    ColName = NULL;
+
+    if (argc > 0 && argv) {
+        udata->login = strdup(argv[0]);
+        udata->password = strdup(argv[1]);
+    }
+    return 0;
+}
+
 t_response mx_contr_renew(t_renew *tok) {
     char *vals;
     char *str;
