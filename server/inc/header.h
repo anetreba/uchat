@@ -40,9 +40,14 @@ typedef struct s_send_message {
     int group;
 }               t_send_message;
 
+typedef struct s_renew {
+    const char *auth_token;
+}               t_renew;
+
 typedef struct s_event {
     t_log_in *log_in;
     t_send_message *send_message;
+    t_renew *renew;
 }              t_event;
 
 typedef struct s_response {

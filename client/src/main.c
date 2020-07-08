@@ -58,15 +58,17 @@ int main(int argc, char const **argv) {
 	mx_json(jobj, network_socket, &event);
 
 	int n;
-    char buf;
+    char buf = 0;
     char *jstr = mx_strnew(0);
 //    struct json_object *jobj = json_object_new_object();
 
     while ((n = read(network_socket, &buf, 1)) > 0) {
         jstr = mx_parse_str(jstr, buf);
+        if (jstr[strlen(jstr) - 1] == '}')
+            break;
     }
 
-	printf("THE SERVER DATA -- %s\n", jstr);
+    printf("THE SERVER DATA -- %s\n", jstr);
 
 	close(network_socket);
 
