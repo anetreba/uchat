@@ -20,6 +20,9 @@ void mx_return_signup_json(int status, int sock) {
     json_object_object_add(jobj, "status", json_object_new_int(status));
     printf("obj == %s\n", json_object_to_json_string(jobj));
 
+    json_object_object_add(jobj, "tokens", json_object_new_int(10));
+    printf("obj == %s\n", json_object_to_json_string(jobj));
+
     const char *jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
@@ -61,7 +64,6 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
     if (strcmp(ev, events[1]) == 0) {
         resp = mx_contr_signin(event.log_in);
         mx_return_signin_json(*resp, sock);
-    }
 
     printf("=====================================================\n");
     printf("LOGIN = %s\n", event.log_in->login);
@@ -104,7 +106,7 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
 
 void mx_valid_event(struct json_object *jobj, int sock) {
     struct json_object *event;
-    char *events[] = {"sign_up", "sign_in", "send_message"};
+    char *events[] = {"sign_up", "sign_in", "renew", "send_message"};
     const char *ev;
 
     json_object_object_get_ex(jobj, "event", &event);
