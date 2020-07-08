@@ -35,13 +35,13 @@ t_response *mx_contr_signin(t_log_in *user) {
     if (mx_strcmp(user->login, data.login) == 0 &&
         mx_strcmp(user->password, data.password) == 0) {
         auth_token = mx_gen_auth_token(24);
-
-        printf("***********************************\n");
-        printf("Auth_Token: %s\n", auth_token);
-        printf("***********************************\n");
+//
+//        printf("***********************************\n");
+//        printf("Auth_Token: %s\n", auth_token);
+//        printf("***********************************\n");
 
         asprintf(&vals, "login = '%s'", user->login);
-        asprintf(&str, "auth_token = '%s'", auth_token);
+        asprintf(&str, "auth_token='%s', token_aval='%u'", auth_token, mx_date_aval(864000));
         mx_model_update("Users", str, vals);
         return create_response(auth_token);
     }

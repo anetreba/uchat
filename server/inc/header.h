@@ -71,5 +71,7 @@ void mx_model_del(char *table, char *condition);
 int mx_contr_signup(t_log_in *user);
 t_response *mx_contr_signin(t_log_in *user);
 char *mx_gen_auth_token(int len);
+int mx_date_now();
+int mx_date_aval(int time);
 
 #endif
