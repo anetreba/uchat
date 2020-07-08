@@ -4,7 +4,7 @@ Request:
 {"event" : "sign_up", "login" : "somelogin", "password": "somepassword", "nickname" : "somenickname"}
 
 Response:
-{"status" : "1" } or {"status" : "2"}
+{"status" : "0", "tokens" : "10"} or {"status" : "1"}
 ================================================================================
 
 
@@ -15,7 +15,7 @@ Request:
 
 Response:
 If loggesIn { "status" : "0", auth_token: "ASDf4vs424g24gasdfas4fwq2e2e2c" }
-If worng log/pass { "status" : "1" }
+If worng log/pass { "status" : "1", "tokens" : "10" }
 ================================================================================
 
 
@@ -40,6 +40,7 @@ Response:
             "atacments" : "0"
         },
         ...
+        "tokens" : "10"
 }
 ================================================================================
 
@@ -49,4 +50,4 @@ Request:
 { "event" : "send", "room": "3", "message" : "hi them all!", "auth_token: "ASDf4vs424g24gasdfas4fwq2e2e2c" }
 
 Response:
-{ status: "0" }
+{ status: "0", , "tokens" : "9" }
