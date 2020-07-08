@@ -48,3 +48,19 @@ INSERT INTO Messages(message, sender_id, room_id, recieve_status, ataches) VALUE
 
 
 SELECT message FROM Messages INNER JOIN Rooms ON Rooms.id = room_id;
+
+
+SELECT
+    Messages.message as message,
+    Messages.sender_id as sender_id,
+    Rooms.room_name as room_name
+FROM Messages
+         LEFT JOIN
+     Rooms ON Messages.room_id = Rooms.id
+WHERE
+        room_id = (SELECT room_id
+                   FROM Messages
+                   WHERE sender_id = (SELECT id
+                                    FROM Users
+                                    WHERE auth_token = 'djbEHKvrLK5t5pJqPyehHGCc')
+                   group by room_id)
