@@ -64,6 +64,7 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
     if (strcmp(ev, events[1]) == 0) {
         resp = mx_contr_signin(event.log_in);
         mx_return_signin_json(*resp, sock);
+    }
 
     printf("=====================================================\n");
     printf("LOGIN = %s\n", event.log_in->login);
