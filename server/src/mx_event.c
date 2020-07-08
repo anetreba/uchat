@@ -53,7 +53,7 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
     }
 
     printf("=====================================================\n");
-    printf("TOKEN = %s\n", event.log_in->login);
+    printf("LOGIN = %s\n", event.log_in->login);
     printf("NICK = %s\n", event.log_in->nick);
     printf("PASSWORD = %s\n", event.log_in->password);
     printf("TOKEN = %s\n", resp->auth_token);
