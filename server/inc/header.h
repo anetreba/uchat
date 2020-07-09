@@ -31,6 +31,11 @@ typedef struct s_data {
     char *password;
     int argc;
     char **colname;
+    char *message;
+    int room_id;
+    char *room_name;
+    int sender_id;
+    int date_send;
 }               t_data;
 
 typedef struct s_send_message {
@@ -61,6 +66,7 @@ void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
+void mx_renew(struct json_object *jobj, int sock);
 
 
 //models
@@ -78,5 +84,6 @@ t_response *mx_contr_signin(t_log_in *user);
 char *mx_gen_auth_token(int len);
 int mx_date_now();
 int mx_date_aval(int time);
+t_response mx_contr_renew(t_renew *tok);
 
 #endif

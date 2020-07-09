@@ -9,14 +9,16 @@ void mx_built_struct(t_event *event) {
 
 void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
     //Json
-
+    event = NULL;
     jobj = json_object_new_object();
 
-    json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
-    json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
-    json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
-    json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));
+//    json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
+//    json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
+//    json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
+//    json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));
 
+    json_object_object_add(jobj, "event", json_object_new_string("renew"));
+    json_object_object_add(jobj, "auth_token", json_object_new_string("djbEHKvrLK5t5pJqPyehHGCc"));
     printf("Jstr == %s\n", json_object_to_json_string(jobj));
 
     //Send Json

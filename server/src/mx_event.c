@@ -1,4 +1,19 @@
 #include "header.h"
+
+void mx_return_renew_json(t_response resp, int sock) {
+    struct json_object *jobj = json_object_new_object();
+
+    json_object_object_add(jobj, "status", json_object_new_int(resp.status));
+    //printf("obj == %s\n", json_object_to_json_string(jobj));
+
+//    json_object_object_add(jobj, "auth_token", json_object_new_string(resp.auth_token));
+//    printf("obj == %s\n", json_object_to_json_string(jobj));
+
+    const char *jstr = json_object_to_json_string(jobj);
+   // printf("JSON  == %s\n", jstr);
+
+    send(sock, jstr, strlen(jstr), 0);
+}
 void mx_return_signin_json(t_response resp, int sock) {
     struct json_object *jobj = json_object_new_object();
 
@@ -67,29 +82,6 @@ void mx_sign_up_in(struct json_object *jobj, const char *ev, char **events, int 
         mx_return_signin_json(*resp, sock);
     }
 
-    printf("=====================================================\n");
-    printf("LOGIN = %s\n", event.log_in->login);
-    printf("NICK = %s\n", event.log_in->nick);
-    printf("PASSWORD = %s\n", event.log_in->password);
-    printf("TOKEN = %s\n", resp->auth_token);
-    printf("=====================================================\n");
-    //int status = 1;
-    //mx_return_status_json(status, sock);
-}
-
-void mx_renew(struct json_object *jobj, const char *ev, char **events, int sock) {
-    t_data *data;
-    t_response *resp = NULL;
-    struct json_object *auth_token;
-
-    data = (t_data *)malloc(sizeof(t_data));
-
-    event.renew = (t_renew *)malloc(sizeof(t_renew));
-    json_object_object_get_ex(jobj, "auth_token", &auth_token);
-
-    event.renew->auth_token = json_object_get_string(auth_token);
-    mx_return_renew_json(mx_contr_renew(event.renew), sock);
-
 //    printf("=====================================================\n");
 //    printf("LOGIN = %s\n", event.log_in->login);
 //    printf("NICK = %s\n", event.log_in->nick);
@@ -98,6 +90,27 @@ void mx_renew(struct json_object *jobj, const char *ev, char **events, int sock)
 //    printf("=====================================================\n");
     //int status = 1;
     //mx_return_status_json(status, sock);
+}
+
+void mx_renew(struct json_object *jobj, int sock) {
+    t_data *data;
+    t_event event;
+    sock = 0;
+    //t_response *resp = NULL;
+    struct json_object *auth_token;
+    data = (t_data *)malloc(sizeof(t_data));
+
+    event.renew = (t_renew *)malloc(sizeof(t_renew));
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+
+        event.renew->auth_token = json_object_get_string(auth_token);
+
+    mx_return_renew_json(mx_contr_renew(event.renew), sock);
+
+    printf("=====================================================\n");
+    printf("AUTH_TOKEN = %s\n", event.renew->auth_token);
+    printf("=====================================================\n");
+
 }
 
 
@@ -140,8 +153,8 @@ void mx_valid_event(struct json_object *jobj, int sock) {
     ev = json_object_get_string(event);
     if ((strcmp(ev, events[0]) == 0) || (strcmp(ev, events[1]) == 0))
         mx_sign_up_in(jobj, ev, events, sock);
-    else if (strcmp(ev, events[2]))
-        mx_renew(jobj, ev, events, sock);
+    else if (strcmp(ev, events[2]) == 0)
+        mx_renew(jobj, sock);
 //    else if (strcmp(ev, events[3]))
 //      mx_send_message(jobj, sock);
 }
