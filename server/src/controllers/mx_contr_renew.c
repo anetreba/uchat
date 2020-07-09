@@ -14,14 +14,14 @@ static int callback_renew(void *data, int argc, char **argv, char **ColName) {
     ColName = NULL;
 
     if (argc > 0 && argv) {
+//        udata->message = strdup(argv[0]);
+//        udata->room_id = argv[1];
+//        udata->room_name = strdup(argv[2]);
+//        udata->sender_id = argv[3];
+//        udata->date_send = argv[4];
+//        udata->recieve_status = argv[5];
         for (int i = 0; i < argc; i++)
             printf("argv[%u]: %s\n", i, argv[i]);
-        udata->message = strdup(argv[0]);
-        udata->room_id = argv[1];
-        udata->room_name = strdup(argv[2]);
-        udata->sender_id = argv[3];
-        udata->date_send = argv[4];
-        udata->recieve_status = argv[5];
     }
     return 0;
 }
