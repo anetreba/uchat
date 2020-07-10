@@ -25,17 +25,21 @@ typedef struct s_log_in {
     const char *nick;
 }               t_log_in;
 
+typedef struct s_upd {
+    char *message;
+    int room_id;
+    char *room_name;
+    int sender_id;
+    int date_send;
+    int recieve_status;
+}               t_upd;
+
 typedef struct s_data {
     char *login;
     char *nick;
     char *password;
     int argc;
     char **colname;
-    char *message;
-    int room_id;
-    char *room_name;
-    int sender_id;
-    int date_send;
 }               t_data;
 
 typedef struct s_send_message {
@@ -81,9 +85,11 @@ void mx_model_del(char *table, char *condition);
 //controllers
 int mx_contr_signup(t_log_in *user);
 t_response *mx_contr_signin(t_log_in *user);
+t_list mx_contr_renew(t_renew *tok);
 char *mx_gen_auth_token(int len);
 int mx_date_now();
 int mx_date_aval(int time);
-t_response mx_contr_renew(t_renew *tok);
+void mx_return_renew_json(t_list *resp, int sock);
+
 
 #endif
