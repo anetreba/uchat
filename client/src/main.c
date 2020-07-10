@@ -1,12 +1,5 @@
 #include "header.h"
 
-void mx_built_struct(t_event *event) {
-    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
-    event->log_in->login = "nas.ua";
-    event->log_in->nick = "anetreba";
-    event->log_in->password = "passworddd";
-}
-
 void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
     //Json
 
@@ -27,42 +20,66 @@ void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
     send(network_socket, jstr, strlen(jstr), 0);
 }
 
-void fill_sign_in(GtkButton *button, GtkBuilder *builder, t_event *event) {
-    GtkWidget *pass = GTK_WIDGET(gtk_builder_get_object(builder, "entry_password"));
-    GtkWidget *log = GTK_WIDGET(gtk_builder_get_object(builder, "entry_login"));
-    event->log_in->password = gtk_entry_get_text(GTK_ENTRY(pass));
-    event->log_in->login = gtk_entry_get_text(GTK_ENTRY(log));
+void sign_up_window(GtkButton *button, GtkBuilder *builder) {
+    GtkWidget *new_nickname = GTK_WIDGET(gtk_builder_get_object(builder, "entry_nick_name"));
+    GtkWidget *new_login = GTK_WIDGET(gtk_builder_get_object(builder, "entry_login"));
+    GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "sign_up_window"));
+    GtkWidget *new_password = GTK_WIDGET(gtk_builder_get_object(builder, "entry_password"));
+    // GtkWidget *new_email = GTK_WIDGET(gtk_builder_get_object(builder, "entry_email"));
 
-    printf("LOGIN = %s\n", event->log_in->login);
-    printf("PASS  = %s\n", event->log_in->password);
+    const char *login_str = gtk_entry_get_text(GTK_ENTRY(new_login));
+    const char *pass_str = gtk_entry_get_text(GTK_ENTRY(new_password));
+
+    gtk_widget_show(window);
+}
+
+void mx_built_struct(t_event *event, const char *login_str, const char *pass_str) {
+    event->log_in->login = strdup(login_str);
+    event->log_in->password = strdup(pass_str);
+}
+
+void fill_sign_in(GtkButton *button, t_event *event) {
+
+    GtkWidget *pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
+    GtkWidget *login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_login"));
+    const char *login_str = gtk_entry_get_text(GTK_ENTRY(login));
+    const char *pass_str = gtk_entry_get_text(GTK_ENTRY(pass));
+//    event->log_in->login = strdup(login_str);
+//    event->log_in->password = strdup(pass_str);
+    mx_built_struct(event, login_str, pass_str);
+
+    (void)button;
+    printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
+//    printf("login: %s\npassword: %s\n", login_str, pass_str);
+
+    printf("STR LOG: %s\n", login_str);
+    printf("PASS LOG: %s\n", pass_str);
 
     // g_object_unref(G_OBJECT(builder));
+}
+
+void mx_init_login(t_event *event) {
+    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    event->gtk = (t_gtk *)malloc(sizeof(t_gtk));
+
+    event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
+    event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
+    event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
+    event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
+    event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
+    event->gtk->registration_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
+
+    g_signal_connect (event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
+    g_signal_connect (event->gtk->registration_btn, "clicked", G_CALLBACK(sign_up_window), event);
+    g_signal_connect(event->gtk->window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+    gtk_widget_show(event->gtk->window);
 }
 
 void mx_init_gtk(int argc, char **argv, t_event *event) {
     gtk_init(&argc, &argv);
 
-    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
-    // gpointer data;
-
-    //GtkWidget	*label1;
-    GtkBuilder *builder = gtk_builder_new_from_file ("src/view/uchat.glade");
-
-    GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "login_window"));
-
-    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
-    //gtk_builder_connect_signals(builder, NULL);
-
-    //GtkWidget *fixed = GTK_WIDGET(gtk_builder_get_object(builder, "fixed"));
-    // GtkWidget *entry_login = GTK_WIDGET(gtk_builder_get_object(builder, "entry_login"));
-    // GtkWidget *entry_password = GTK_WIDGET(gtk_builder_get_object(builder, "entry_password"));
-    GtkWidget *sign_in_btn = GTK_WIDGET(gtk_builder_get_object(builder, "sign_in_btn"));
-
-    // printf("sdsdsdsds");
-    g_signal_connect (sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), builder);
-
-    gtk_widget_show(window);
+    mx_init_login(event);
 
     gtk_main();
 }

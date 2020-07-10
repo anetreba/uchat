@@ -6,8 +6,8 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">uChat</property>
     <property name="window_position">center</property>
-    <property name="default_width">1024</property>
-    <property name="default_height">768</property>
+    <property name="default_width">820</property>
+    <property name="default_height">720</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -29,8 +29,8 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="sign_in_btn">
-            <property name="label" translatable="yes">Sign-in</property>
+          <object class="GtkButton" id="login_btn">
+            <property name="label" translatable="yes">Login</property>
             <property name="width_request">100</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
@@ -38,8 +38,8 @@
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">369</property>
-            <property name="y">405</property>
+            <property name="x">368</property>
+            <property name="y">404</property>
           </packing>
         </child>
         <child>
@@ -51,7 +51,7 @@
           </object>
           <packing>
             <property name="x">240</property>
-            <property name="y">350</property>
+            <property name="y">345</property>
           </packing>
         </child>
         <child>
@@ -65,6 +65,21 @@
           <packing>
             <property name="x">361</property>
             <property name="y">203</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="sign_up_btn">
+            <property name="label" translatable="yes">Sign-up</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="x">368</property>
+            <property name="y">450</property>
           </packing>
         </child>
       </object>

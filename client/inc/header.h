@@ -26,6 +26,14 @@
 // #include <math.h>
 #include <ctype.h>
 
+typedef struct s_gtk {
+    GtkBuilder *builder;
+    GtkBuilder *builder2;
+    GtkWidget *window;
+    GtkWidget *fixed;
+    GtkWidget *sign_in_btn;
+    GtkWidget *registration_btn;
+}               t_gtk;
 
 typedef struct s_log_in {
     const char *login;
@@ -41,8 +49,9 @@ typedef struct s_send_message {
 }               t_send_message;
 
 typedef struct s_event {
-    t_log_in *log_in;
+    t_gtk *gtk;
     t_send_message *send_message;
+    t_log_in *log_in;
 }              t_event;
 
 void mx_valid_event(struct json_object *jobj, int sock);
