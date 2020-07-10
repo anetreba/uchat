@@ -27,9 +27,47 @@ void mx_json(struct json_object *jobj, int network_socket, t_event *event) {
     send(network_socket, jstr, strlen(jstr), 0);
 }
 
+void fill_sign_in(GtkButton *button, GtkBuilder *builder, t_event *event) {
+    GtkWidget *pass = GTK_WIDGET(gtk_builder_get_object(builder, "entry_password"));
+    GtkWidget *log = GTK_WIDGET(gtk_builder_get_object(builder, "entry_login"));
+    event->log_in->password = gtk_entry_get_text(GTK_ENTRY(pass));
+    event->log_in->login = gtk_entry_get_text(GTK_ENTRY(log));
 
+    printf("LOGIN = %s\n", event->log_in->login);
+    printf("PASS  = %s\n", event->log_in->password);
 
-int main(int argc, char const **argv) {
+    // g_object_unref(G_OBJECT(builder));
+}
+
+void mx_init_gtk(int argc, char **argv, t_event *event) {
+    gtk_init(&argc, &argv);
+
+    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    // gpointer data;
+
+    //GtkWidget	*label1;
+    GtkBuilder *builder = gtk_builder_new_from_file ("src/view/uchat.glade");
+
+    GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "login_window"));
+
+    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+    //gtk_builder_connect_signals(builder, NULL);
+
+    //GtkWidget *fixed = GTK_WIDGET(gtk_builder_get_object(builder, "fixed"));
+    // GtkWidget *entry_login = GTK_WIDGET(gtk_builder_get_object(builder, "entry_login"));
+    // GtkWidget *entry_password = GTK_WIDGET(gtk_builder_get_object(builder, "entry_password"));
+    GtkWidget *sign_in_btn = GTK_WIDGET(gtk_builder_get_object(builder, "sign_in_btn"));
+
+    // printf("sdsdsdsds");
+    g_signal_connect (sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), builder);
+
+    gtk_widget_show(window);
+
+    gtk_main();
+}
+
+int main(int argc, char **argv) {
 	if (argc != 3) {
         mx_printerr("Invalid args\n");
         return 1;
@@ -51,7 +89,9 @@ int main(int argc, char const **argv) {
 
 	//Events
 	t_event event;
-	mx_built_struct(&event);
+    mx_init_gtk(argc, argv, &event);
+
+//	mx_built_struct(&event);
 
 	//Json
 	struct json_object *jobj = NULL;

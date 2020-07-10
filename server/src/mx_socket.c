@@ -6,6 +6,7 @@ static void *ws_establishconnection(void *vsock) {
     char buf;
     char *jstr = mx_strnew(0);
     struct json_object *jobj = json_object_new_object();
+//    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
     while ((n = read(sock, &buf, 1)) > 0) {
         jstr = mx_parse_str(jstr, buf);
@@ -20,6 +21,18 @@ static void *ws_establishconnection(void *vsock) {
             mx_valid_event(jobj, sock);
         }
     }
+
+//    /* Removes client socket from socks list. */
+//    pthread_mutex_lock(&mutex);
+//    for (int i = 0; i < MAX_CLIENTS; i++) {
+//        if (client_socks[i] == sock) {
+//            client_socks[i] = -1;
+//            break;
+//        }
+//    }
+//    pthread_mutex_unlock(&mutex);
+//    close(sock);
+
     return vsock;
 }
 
@@ -47,7 +60,6 @@ void mx_connecion(int sock) {
                 break;
             }
         }
-
         pthread_mutex_unlock(&mutex);
 
         if (pthread_create(&client_thread, NULL, ws_establishconnection, (void*)(intptr_t)new_open_socket) < 0)

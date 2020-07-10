@@ -18,18 +18,13 @@
 #include "../json-c/inc/json.h"
 #include "../libmx/inc/libmx.h"
 
+//EVENTS******************************************
+
 typedef struct s_log_in {
     const char *login;
     const char *password;
     const char *nick;
 }               t_log_in;
-
-typedef struct s_data {
-    char *login;
-    char *nick;
-    int argc;
-    char **colname;
-}               t_data;
 
 typedef struct s_send_message {
     int id_sender;
@@ -42,6 +37,21 @@ typedef struct s_event {
     t_log_in *log_in;
     t_send_message *send_message;
 }              t_event;
+
+
+//END EVENTS****************************************
+
+//typedef struct s_client {
+//    int sock;
+//    int *clients;
+//}               t_client;
+
+typedef struct s_data {
+    char *login;
+    char *nick;
+    int argc;
+    char **colname;
+}               t_data;
 
 void mx_valid_event(struct json_object *jobj, int sock);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
