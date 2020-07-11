@@ -15,21 +15,31 @@
 
 void mx_return_renew_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
+    const char *jstr = NULL;
+    json_object *jarray = NULL;
 
-    //json_object_object_add(jobj, "status", json_object_new_int(0));
-    //printf("obj == %s\n", json_object_to_json_string(jobj));
-    //mx_print_list(resp);
-    while (resp) {
-        json_object_object_add(jobj, "room_id", json_object_new_int(((t_upd *)(resp->data))->room_id));
-        json_object_object_add(jobj, "room_name", json_object_new_string(((t_upd *)(resp->data))->room_name));
-        json_object_object_add(jobj, "message", json_object_new_string(((t_upd *)(resp->data))->message));
-        json_object_object_add(jobj, "sender_id", json_object_new_int(((t_upd *)(resp->data))->sender_id));
-        json_object_object_add(jobj, "date_send", json_object_new_int(((t_upd *)(resp->data))->date_send));
-        json_object_object_add(jobj, "recieve_status", json_object_new_int(((t_upd *)(resp->data))->recieve_status));
+
+    for (int i = 0; resp; i++) {
+        jarray = json_object_new_array();
+
+        json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id);
+        json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name);
+        json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message);
+        json_object *jstring3 = json_object_new_int(((t_upd *)(resp->data))->sender_id);
+        json_object *jstring4 = json_object_new_int(((t_upd *)(resp->data))->date_send);
+        json_object *jstring5 = json_object_new_int(((t_upd *)(resp->data))->recieve_status);
+        json_object_array_add(jarray,jstring0);
+        json_object_array_add(jarray,jstring1);
+        json_object_array_add(jarray,jstring2);
+        json_object_array_add(jarray,jstring3);
+        json_object_array_add(jarray,jstring4);
+        json_object_array_add(jarray,jstring5);
         resp = resp->next;
-    }
+        char *iter = mx_itoa(i);
+        json_object_object_add(jobj, iter, jarray);
 
-    const char *jstr = json_object_to_json_string(jobj);
+    }
+    jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
