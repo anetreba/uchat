@@ -81,6 +81,20 @@
           </packing>
         </child>
         <child>
+          <object class="GtkButton" id="back_btn">
+            <property name="label" translatable="yes">back</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">470</property>
+            <property name="y">370</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="registration_sign">
             <property name="name">registration_sign</property>
             <property name="width_request">100</property>
@@ -101,7 +115,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">email_sign</property>
+            <property name="label" translatable="yes">email</property>
           </object>
           <packing>
             <property name="x">100</property>
@@ -114,7 +128,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">nick_name_sign</property>
+            <property name="label" translatable="yes">nick name</property>
           </object>
           <packing>
             <property name="x">100</property>
@@ -127,7 +141,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">login_sign</property>
+            <property name="label" translatable="yes">login</property>
           </object>
           <packing>
             <property name="x">100</property>
@@ -140,7 +154,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">password_sign</property>
+            <property name="label" translatable="yes">password</property>
           </object>
           <packing>
             <property name="x">100</property>
