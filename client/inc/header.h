@@ -20,10 +20,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <unistd.h>
-// #include <string.h>
 #include <gtk/gtk.h>
-// #include <gtk/gtkx.h>
-// #include <math.h>
 #include <ctype.h>
 
 typedef struct s_gtk {
@@ -32,14 +29,28 @@ typedef struct s_gtk {
     GtkWidget *window;
     GtkWidget *fixed;
     GtkWidget *sign_in_btn;
+    GtkWidget *sign_up_btn;
     GtkWidget *registration_btn;
+    GtkWidget *new_nickname;
+    GtkWidget *new_login;
+    GtkWidget *reg_window;
+    GtkWidget *new_password;
+    GtkWidget *new_email;
+    GtkWidget *reg_btn;
 }               t_gtk;
 
 typedef struct s_log_in {
     const char *login;
     const char *password;
-    const char *nick;
+//    const char *nick;
 }               t_log_in;
+
+typedef struct s_sign_up {
+    const char *login;
+    const char *password;
+    const char *nick;
+    const char *email;
+}               t_sign_up;
 
 typedef struct s_send_message {
     int id_sender;
@@ -49,9 +60,11 @@ typedef struct s_send_message {
 }               t_send_message;
 
 typedef struct s_event {
+    int network_socket;
     t_gtk *gtk;
     t_send_message *send_message;
     t_log_in *log_in;
+    t_sign_up *sign_up;
 }              t_event;
 
 void mx_valid_event(struct json_object *jobj, int sock);
