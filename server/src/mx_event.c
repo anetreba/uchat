@@ -17,6 +17,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     const char *jstr = NULL;
     json_object *jarray = NULL;
+    char *iter = NULL;
 
 
     for (int i = 0; resp; i++) {
@@ -35,7 +36,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
         json_object_array_add(jarray,jstring4);
         json_object_array_add(jarray,jstring5);
         resp = resp->next;
-        char *iter = mx_itoa(i);
+        iter = mx_itoa(i);
         json_object_object_add(jobj, iter, jarray);
 
     }
