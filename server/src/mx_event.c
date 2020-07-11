@@ -15,14 +15,12 @@
 
 void mx_return_renew_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
-    const char *jstr = NULL;
+    //const char *jstr = NULL;
     json_object *jarray = NULL;
     char *iter = NULL;
 
-
     for (int i = 0; resp; i++) {
         jarray = json_object_new_array();
-
         json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id);
         json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name);
         json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message);
@@ -38,9 +36,8 @@ void mx_return_renew_json(t_list *resp, int sock) {
         resp = resp->next;
         iter = mx_itoa(i);
         json_object_object_add(jobj, iter, jarray);
-
     }
-    jstr = json_object_to_json_string(jobj);
+    const char *jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
