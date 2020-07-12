@@ -19,17 +19,27 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
     }
 
-
-    //json_object_object_add(jobj, "nick", json_object_new_string(event->log_in->nick));
-
-//    printf("Jstr == %s\n", json_object_to_json_string(jobj));
-
     //Send Json
 
     const char *jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(event->network_socket, jstr, strlen(jstr), 0);
+
+    int n;
+    char buf;
+    char *str = mx_strnew(0);
+    struct json_object *obj = json_object_new_object();
+
+    while ((n = read(event->network_socket, &buf, 1)) > 0) {
+        str = mx_parse_str(str, buf);
+        if (str[strlen(str) - 1] == '}')
+            break ;
+    }
+    int err = parse_json((const char *)str, &obj);
+    printf("JOBJ = %s\n", json_object_to_json_string(obj));
+    printf("ERR = %d\n", err);
+
 }
 
 
@@ -139,16 +149,16 @@ int main(int argc, char **argv) {
     //struct json_object *jobj = NULL;
     //mx_json(jobj, network_socket, &event);
 
-    int n;
-    char buf;
-    char *jstr = mx_strnew(0);
-//    struct json_object *jobj = json_object_new_object();
+//    int n;
+//    char buf;
+//    char *jstr = mx_strnew(0);
+////    struct json_object *jobj = json_object_new_object();
+//
+//    while ((n = read(event.network_socket, &buf, 1)) > 0) {
+//        jstr = mx_parse_str(jstr, buf);
+//    }
 
-    while ((n = read(event.network_socket, &buf, 1)) > 0) {
-        jstr = mx_parse_str(jstr, buf);
-    }
-
-    printf("THE SERVER DATA -- %s\n", jstr);
+//    printf("THE SERVER DATA -- %s\n", jstr);
 
     close(event.network_socket);
 
