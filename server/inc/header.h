@@ -92,6 +92,7 @@ char *mx_gen_auth_token(int len);
 int mx_date_now();
 int mx_date_aval(int time);
 void mx_return_renew_json(t_list *resp, int sock);
+int sendmail(const char *to, const char *from, const char *subject, const char *message);
 
 
 #endif
