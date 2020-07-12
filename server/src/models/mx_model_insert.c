@@ -5,6 +5,7 @@ void mx_model_insert(char *table, char *rows, char *vals) {
 
     asprintf(&sql, "INSERT INTO %s (%s) VALUES (%s);", table,
              rows, vals);
+    printf("SQL QUERY: %s\n", sql);
     mx_init_sqli(sql, 0, 0);
     free(sql);
 }

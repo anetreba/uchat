@@ -27,6 +27,9 @@ CC = clang
 
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
 
+CL_GTK_FLAGS = `pkg-config --cflags --libs gtk+-3.0`
+CL_GTK_SORT_FLAGS = `pkg-config --cflags gtk+-3.0`
+
 all : install
 
 install : json uchat
@@ -35,8 +38,8 @@ json:
 	@make -C $(JSONF)
 
 uchat : $(SRC) inc/header.h libmx/libmx.a json-c/libjson-c.a
-	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
-	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
+	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d) $(CL_GTK_SORT_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) $(CL_GTK_FLAGS) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 	@mkdir -p $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
