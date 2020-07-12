@@ -52,11 +52,11 @@ void sign_up_window(GtkButton *button, t_event *event) {
     event->gtk->new_password = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_password"));
     event->gtk->new_email = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_email"));
     event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "registration_btn"));
-    event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
+    event->gtk->back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
 
     (void)button;
     g_signal_connect(event->gtk->reg_btn, "clicked", G_CALLBACK(sign_up), event);
-    g_signal_connect(event->gtk->reg_btn, "clicked", G_CALLBACK(back), event);
+    g_signal_connect(event->gtk->back_btn, "clicked", G_CALLBACK(back), event);
     gtk_widget_show(event->gtk->reg_window);
     gtk_widget_hide(event->gtk->window);
     
