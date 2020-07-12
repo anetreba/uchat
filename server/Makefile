@@ -51,7 +51,7 @@ OBJ = main.o \
 
 CC = clang
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g3 -fsanitize=address
 
 all : install
 

@@ -8,7 +8,6 @@ static int callback_signup(void *data, int argc, char **argv, char **ColName) {
     if (argc != 0){
         udata = 1;
         argv = NULL;
-        //mx_del_strarr(&argv);
         return udata;
     }
     return 0;
@@ -19,12 +18,15 @@ int mx_contr_signup(t_log_in *user) {
     int data = 0;
     int rs = 0;
 
-    asprintf(&vals, "Users WHERE login = '%s' OR nick = '%s'", user->login, user->nick);
-    rs = mx_model_select("login,nick", vals, callback_signup, &data);
-    if (rs == 0) {
-        asprintf(&vals, "'%s','%s','%s','%u'", user->login, user->password, user->nick, 10);
-        mx_model_insert("Users", "login, pass, nick, tokens", vals);
-        return 0;
+    if (user) {
+        asprintf(&vals, "Users WHERE login = '%s' OR nick = '%s'", user->login, user->nick);
+        rs = mx_model_select("login,nick", vals, callback_signup, &data);
+        if (rs == 0) {
+            asprintf(&vals, "'%s','%s','%s','%u','%s'", user->login, user->password, user->nick, 10, user->email);
+            mx_model_insert("Users", "login, pass, nick, tokens, email", vals);
+            return 0;
+        }
+
     }
     return 1;
 }

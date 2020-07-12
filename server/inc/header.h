@@ -23,6 +23,7 @@ typedef struct s_log_in {
     const char *login;
     const char *password;
     const char *nick;
+    const char *email;
 }               t_log_in;
 
 typedef struct s_upd {
@@ -38,6 +39,7 @@ typedef struct s_data {
     char *login;
     char *nick;
     char *password;
+    char *email;
     int argc;
     char **colname;
 }               t_data;
