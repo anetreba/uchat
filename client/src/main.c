@@ -45,7 +45,12 @@ void sign_up(GtkButton *button, t_event *event) {
     printf("EMAIL = %s\n", event->sign_up->email);
     printf("LOGIN = %s\n", event->sign_up->login);
 //    gtk_widget_hide(event->gtk->window);
-    mx_json(event, "sign_up");
+}
+
+void back(GtkButton *button, t_event *event) {
+    (void)button;
+    gtk_widget_show(event->gtk->window);
+    gtk_widget_hide(event->gtk->reg_window);
 }
 
 void sign_up_window(GtkButton *button, t_event *event) {
@@ -55,11 +60,15 @@ void sign_up_window(GtkButton *button, t_event *event) {
     event->gtk->new_password = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_password"));
     event->gtk->new_email = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_email"));
     event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "registration_btn"));
+    event->gtk->back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
 
     (void)button;
     g_signal_connect(event->gtk->reg_btn, "clicked", G_CALLBACK(sign_up), event);
+    g_signal_connect(event->gtk->back_btn, "clicked", G_CALLBACK(back), event);
     gtk_widget_show(event->gtk->reg_window);
     gtk_widget_hide(event->gtk->window);
+
+    g_signal_connect(event->gtk->reg_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 }
 
 void fill_sign_in(GtkButton *button, t_event *event) {
@@ -125,11 +134,11 @@ int main(int argc, char **argv) {
     //Events
     mx_init_gtk(argc, argv, &event);
 
-	//Json
-	//struct json_object *jobj = NULL;
-	//mx_json(jobj, network_socket, &event);
+    //Json
+    //struct json_object *jobj = NULL;
+    //mx_json(jobj, network_socket, &event);
 
-	int n;
+    int n;
     char buf;
     char *jstr = mx_strnew(0);
 //    struct json_object *jobj = json_object_new_object();
@@ -138,9 +147,9 @@ int main(int argc, char **argv) {
         jstr = mx_parse_str(jstr, buf);
     }
 
-	printf("THE SERVER DATA -- %s\n", jstr);
+    printf("THE SERVER DATA -- %s\n", jstr);
 
-	close(event.network_socket);
+    close(event.network_socket);
 
-	return 0;
+    return 0;
 }

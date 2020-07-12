@@ -30,13 +30,13 @@ typedef struct s_gtk {
     GtkWidget *fixed;
     GtkWidget *sign_in_btn;
     GtkWidget *sign_up_btn;
-    GtkWidget *registration_btn;
     GtkWidget *new_nickname;
     GtkWidget *new_login;
     GtkWidget *reg_window;
     GtkWidget *new_password;
     GtkWidget *new_email;
     GtkWidget *reg_btn;
+    GtkWidget *back_btn;
 }               t_gtk;
 
 typedef struct s_log_in {
