@@ -76,7 +76,7 @@
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">350</property>
+            <property name="x">310</property>
             <property name="y">370</property>
           </packing>
         </child>
@@ -90,7 +90,7 @@
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">470</property>
+            <property name="x">430</property>
             <property name="y">370</property>
           </packing>
         </child>
