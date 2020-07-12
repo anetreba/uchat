@@ -44,6 +44,7 @@ void sign_up(GtkButton *button, t_event *event) {
     printf("PASSWORD = %s\n", event->sign_up->password);
     printf("EMAIL = %s\n", event->sign_up->email);
     printf("LOGIN = %s\n", event->sign_up->login);
+    mx_json(event, "sign_up");
 //    gtk_widget_hide(event->gtk->window);
 }
 
