@@ -41,6 +41,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
+    jstr = NULL;
 }
 void mx_return_signin_json(t_response *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
@@ -56,19 +57,15 @@ void mx_return_signin_json(t_response *resp, int sock) {
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
+    jstr = NULL;
 }
 
 void mx_return_signup_json(t_signup status, int sock) {
     struct json_object *jobj = json_object_new_object();
 
     json_object_object_add(jobj, "status", json_object_new_int(status.status));
-    printf("obj == %s\n", json_object_to_json_string(jobj));
-
     json_object_object_add(jobj, "tokens", json_object_new_int(20));
-    printf("obj == %s\n", json_object_to_json_string(jobj));
-
     json_object_object_add(jobj, "verify_code", json_object_new_int(status.verify_code));
-    printf("obj == %s\n", json_object_to_json_string(jobj));
 
     const char *jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
