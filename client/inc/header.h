@@ -26,6 +26,7 @@
 typedef struct s_gtk {
     GtkBuilder *builder;
     GtkBuilder *builder2;
+    GtkBuilder *builder3;
     GtkWidget *window;
     GtkWidget *fixed;
     GtkWidget *sign_in_btn;
@@ -37,6 +38,10 @@ typedef struct s_gtk {
     GtkWidget *new_email;
     GtkWidget *reg_btn;
     GtkWidget *back_btn;
+    GtkWidget *chat_entry_message;
+    GtkWidget *chat_messages_box1;
+    GtkWidget *chat_send_btn;
+    GtkWidget *chat_window;
 }               t_gtk;
 
 typedef struct s_log_in {

@@ -95,6 +95,12 @@ void sign_up_window(GtkButton *button, t_event *event) {
 
     g_signal_connect(event->gtk->reg_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 }
+void chat_messages(GtkButton *button, t_event *event) {
+    
+    (void)button;
+    event->gtk->chat_messages_box1 = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_messages_box1"));
+    gtk_label_set_text(chat_messages_box1, event->send_message->message);
+}
 
 void fill_sign_in(GtkButton *button, t_event *event) {
     GtkWidget *pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
@@ -105,7 +111,24 @@ void fill_sign_in(GtkButton *button, t_event *event) {
 
     (void)button;
     printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
-    mx_json(event, "sign_in");
+    // mx_json(event, "sign_in");
+    
+    //chat
+    gtk_widget_hide(event->gtk->window);
+    gtk_widget_show(event->gtk->chat_window);
+    event->gtk->chat_entry_message = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "chat_entry_message"));
+    event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "chat_send_btn"));
+    
+    GtkWidget *chat_entry_message = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
+    
+    event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
+    memset(event->send_message, 0, sizeof(t_send_message));
+    
+    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(chat_entry_message));
+    
+    g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(chat_messages), event);
+    
+    g_signal_connect(event->gtk->chat_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 //     g_object_unref(G_OBJECT(event->gtk->builder));
 }
 
@@ -116,10 +139,13 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
     event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
+    event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
     g_signal_connect (event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
     g_signal_connect (event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);
