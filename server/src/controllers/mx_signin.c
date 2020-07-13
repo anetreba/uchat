@@ -1,10 +1,11 @@
 #include "header.h"
 
-static t_response *create_response(char *str, int tok) {
+static t_response *create_response(char *str, int tok, int id) {
     t_response *resp = (t_response *)malloc(sizeof(t_response));
     memset(resp, 0, sizeof(t_response));
 
     if(str) {
+        resp->id = id;
         resp->auth_token = mx_strdup(str);
         resp->status = 0;
         resp->tokens = tok;
@@ -19,9 +20,11 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
     ColName = NULL;
 
     if (argc > 0 && argv) {
-        udata->login = strdup(argv[0]);
-        udata->password = strdup(argv[1]);
-        udata->tokens = atoi(argv[2]);
+        udata->id = atoi(argv[0]);
+        udata->login = strdup(argv[1]);
+        udata->password = strdup(argv[2]);
+        udata->tokens = atoi(argv[3]);
+
     }
     return 0;
 }
@@ -34,7 +37,7 @@ t_response *mx_contr_signin(t_log_in *user) {
     int rs;
 
     asprintf(&vals, "Users WHERE login = '%s'", user->login);
-    rs = mx_model_select("login,pass,tokens", vals, callback_signin, &data);
+    rs = mx_model_select("id,login,pass,tokens", vals, callback_signin, &data);
     if (data.login != NULL && data.password != NULL &&
         mx_strcmp(user->login, data.login) == 0 &&
         mx_strcmp(user->password, data.password) == 0) {
@@ -45,5 +48,5 @@ t_response *mx_contr_signin(t_log_in *user) {
         mx_model_update("Users", str, vals);
     }
     free(vals);
-    return create_response(auth_token, data.tokens);
+    return create_response(auth_token, data.tokens, data.id);
 }

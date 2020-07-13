@@ -26,31 +26,46 @@ void mx_json(t_event *event, char *action) {
 
     send(event->network_socket, jstr, strlen(jstr), 0);
 
+//==================================================================================================
     int n;
     char buf;
     char *str = mx_strnew(0);
     struct json_object *obj = json_object_new_object();
+
 
     while ((n = read(event->network_socket, &buf, 1)) > 0) {
         str = mx_parse_str(str, buf);
         if (str[strlen(str) - 1] == '}')
             break ;
     }
-    int err = parse_json((const char *)str, &obj);
+    parse_json((const char *)str, &obj);
     printf("JOBJ = %s\n", json_object_to_json_string(obj));
-    printf("ERR = %d\n", err);
 
-    json_object_object_get_ex(jobj, "status", &event);
-    json_object_object_get_ex(jobj, "auth_token", &event);
-    json_object_object_get_ex(jobj, "tokens", &event);
-    const char resp = json_object_get_string(event);
-    if (resp[0]) == 1)
-        printf("Wrong login/pass")
-//    else if(resp[0] == 0) {
-//       mx_model_logined(resp);
-    }
+    t_data data;
+    struct json_object *status;
+    struct json_object *auth_token;
+    struct json_object *tokens;
+    struct json_object *id;
+
+    json_object_object_get_ex(obj, "status", &status);
+    json_object_object_get_ex(obj, "auth_token", &auth_token);
+    json_object_object_get_ex(obj, "tokens", &tokens);
+    json_object_object_get_ex(obj, "id", &id);
+
+    data.status = json_object_get_int(status);
+    data.auth_token = json_object_get_string(auth_token);
+    data.tokens = json_object_get_int(tokens);
+    data.id = json_object_get_int(id);
+
+    if (data.status == 1)
+        g_print("Wrong login/pass");
+    else if(data.status == 0)
+       mx_contr_logined(&data);
+
+//    if (data)
+//        free(data);
 }
-
+//====================================================================================
 
 void sign_up(GtkButton *button, t_event *event) {
     (void)button;
@@ -112,6 +127,7 @@ void mx_init_login(t_event *event) {
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
+
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
     event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
