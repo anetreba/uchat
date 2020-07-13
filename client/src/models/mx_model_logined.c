@@ -1,37 +1,36 @@
 #include "header.h"
 
-static t_response *create_response(char *str, int tok) {
-    t_response *resp = (t_response *)malloc(sizeof(t_response));
-    memset(resp, 0, sizeof(t_response));
+//static t_response *create_response(char *str, int tok) {
+//    t_response *resp = (t_response *)malloc(sizeof(t_response));
+//    memset(resp, 0, sizeof(t_response));
+//
+//    if(str) {
+//        resp->auth_token = mx_strdup(str);
+//        resp->status = 0;
+//        resp->tokens = tok;
+//    }
+//    else
+//        resp->status = 1;
+//    return resp;
+//}
 
-    if(str) {
-        resp->auth_token = mx_strdup(str);
-        resp->status = 0;
-        resp->tokens = tok;
-    }
-    else
-        resp->status = 1;
-    return resp;
-}
 
-t_response *mx_contr_logined(const char *resp) {
+
+t_response *mx_contr_logined(t_data *data) {
     char *vals;
-    char *str;
-    char *auth_token = NULL;
-    t_data data;
-    int rs;
+    char *str = NULL;
 
-    asprintf(&vals, "Users WHERE login = '%s'", user->login);
-    rs = mx_model_select("login,pass,tokens", vals, callback_signin, &data);
-    if (data.login != NULL && data.password != NULL &&
-        mx_strcmp(user->login, data.login) == 0 &&
-        mx_strcmp(user->password, data.password) == 0) {
-        auth_token = mx_gen_auth_token(24);
-
-        asprintf(&vals, "login = '%s'", user->login);
-        asprintf(&str, "auth_token='%s', token_aval='%u'", auth_token, mx_date_aval(864000));
-        mx_model_update("Users", str, vals);
-    }
+    asprintf(&vals, "setting = '%s'", "auth_token");
+    asprintf(&str, "value ='%s'", data->auth_token);
+    mx_model_update("Settings", str, vals);
     free(vals);
-    return create_response(auth_token, data.tokens);
+    asprintf(&vals, "setting = '%s'", "user_id");
+    asprintf(&str, "value ='%d'", data->id);
+    mx_model_update("Settings", str, vals);
+    free(vals);
+    asprintf(&vals, "setting = '%s'", "tokens");
+    asprintf(&str, "value ='%d'", data->tokens);
+    mx_model_update("Settings", str, vals);
+    free(vals);
+    return 0;
 }

@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <gtk/gtk.h>
 #include <ctype.h>
+#include <sqlite3.h>
 
 typedef struct s_gtk {
     GtkBuilder *builder;
@@ -67,12 +68,38 @@ typedef struct s_event {
     t_sign_up *sign_up;
 }              t_event;
 
+typedef struct s_response {
+    int id;
+    int status;
+    char *auth_token;
+    int tokens;
+}               t_response;
+
+typedef struct s_data {
+    int id;
+    int status;
+    char *login;
+    char *nick;
+    char *password;
+    char *email;
+    int argc;
+    char **colname;
+    int tokens;
+    int verify_code;
+    const char *auth_token;
+}               t_data;
+
+//crud
+void mx_model_update(char *table, char *str, char *condition);
+int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
+
 void mx_valid_event(struct json_object *jobj, int sock);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
+t_response *mx_contr_logined(t_data *data);
 
 
 #endif

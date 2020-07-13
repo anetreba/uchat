@@ -16,12 +16,24 @@ OBJ_DIR = obj
 SRC = $(addprefix $(SRC_DIR)/,\
       		main.c \
       		mx_printerr.c \
-      		mx_parse_json.c )
+      		mx_parse_json.c \
+      		mx_sqlite.c\
+      		crud/mx_model_del.c \
+      		crud/mx_model_insert.c \
+      		crud/mx_model_select.c \
+      		crud/mx_model_update.c \
+      		models/mx_model_logined.c)
 
 
 OBJ = main.o \
       mx_printerr.o \
       mx_parse_json.o \
+      mx_model_del.o \
+      mx_model_insert.o \
+      mx_model_select.o \
+      mx_model_update.o \
+      mx_model_logined.o \
+      mx_sqlite.o
 
 CC = clang
 

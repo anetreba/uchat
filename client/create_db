@@ -1,0 +1,59 @@
+create table Contacts
+(
+	id INTEGER not null
+		constraint Contacts_pk
+			primary key autoincrement,
+	login VARCHAR(50),
+	first_name VARCHAR(50),
+	second_name VARCHAR(50),
+	avatar VARCHAR(50),
+	nick VARCHAR(50)
+);
+
+create unique index Contacts_id_uindex
+	on Contacts (id);
+
+
+
+
+create table Messages
+(
+	id INTEGER not null
+		constraint Messages_pk
+			primary key autoincrement,
+	message TEXT,
+	sender_id INTEGER,
+	room_id INTEGER,
+	resieve_status INTEGER,
+	attaches TEXT,
+	date_send DATE
+);
+
+create unique index Messages_id_uindex
+	on Messages (id);
+
+create table Rooms
+(
+	id INTEGER not null
+		constraint Rooms_pk
+			primary key autoincrement,
+	name VARCAHR(50),
+	logo TEXT
+);
+
+create unique index Rooms_id_uindex
+	on Rooms (id);
+
+
+create table Settings
+(
+	id INTEGER not null
+		constraint Settings_pk
+			primary key autoincrement,
+	setting VARCHAR(255),
+	value TEXT
+);
+
+create unique index Settings_id_uindex
+	on Settings (id);
+
