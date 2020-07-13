@@ -4,6 +4,6 @@ int mx_gen_verify_code(int digits) {
     int r;
 
     srand(digits);
-    r = rand();
+    r = rand() % mx_date_now();
     return r;
 }

@@ -26,6 +26,7 @@ void mx_json(t_event *event, char *action) {
 
     send(event->network_socket, jstr, strlen(jstr), 0);
 
+
     int n;
     char buf;
     char *str = mx_strnew(0);
@@ -39,16 +40,20 @@ void mx_json(t_event *event, char *action) {
     int err = parse_json((const char *)str, &obj);
     printf("JOBJ = %s\n", json_object_to_json_string(obj));
     printf("ERR = %d\n", err);
+    struct json_object *status;
+    struct json_object *auth_token;
+    struct json_object *tokens;
 
-    json_object_object_get_ex(jobj, "status", &event);
-    json_object_object_get_ex(jobj, "auth_token", &event);
-    json_object_object_get_ex(jobj, "tokens", &event);
-    const char resp = json_object_get_string(event);
-    if (resp[0]) == 1)
-        printf("Wrong login/pass")
-//    else if(resp[0] == 0) {
+    json_object_object_get_ex(jobj, "status", &status);
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+    json_object_object_get_ex(jobj, "tokens", &tokens);
+    int resp = json_object_get_int(status);
+    printf("==================================\n");
+
+    if (resp == 1)
+        g_print("Wrong login/pass");
+//    else if(resp[0] == 0)
 //       mx_model_logined(resp);
-    }
 }
 
 
