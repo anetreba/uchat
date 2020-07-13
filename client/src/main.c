@@ -40,6 +40,15 @@ void mx_json(t_event *event, char *action) {
     printf("JOBJ = %s\n", json_object_to_json_string(obj));
     printf("ERR = %d\n", err);
 
+    json_object_object_get_ex(jobj, "status", &event);
+    json_object_object_get_ex(jobj, "auth_token", &event);
+    json_object_object_get_ex(jobj, "tokens", &event);
+    const char resp = json_object_get_string(event);
+    if (resp[0]) == 1)
+        printf("Wrong login/pass")
+//    else if(resp[0] == 0) {
+//       mx_model_logined(resp);
+    }
 }
 
 

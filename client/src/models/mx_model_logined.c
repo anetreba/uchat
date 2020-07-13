@@ -14,19 +14,7 @@ static t_response *create_response(char *str, int tok) {
     return resp;
 }
 
-static int callback_signin(void *data, int argc, char **argv, char **ColName) {
-    t_data *udata = (t_data *)data;
-    ColName = NULL;
-
-    if (argc > 0 && argv) {
-        udata->login = strdup(argv[0]);
-        udata->password = strdup(argv[1]);
-        udata->tokens = atoi(argv[2]);
-    }
-    return 0;
-}
-
-t_response *mx_contr_signin(t_log_in *user) {
+t_response *mx_contr_logined(const char *resp) {
     char *vals;
     char *str;
     char *auth_token = NULL;

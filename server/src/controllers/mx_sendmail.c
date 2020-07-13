@@ -1,8 +1,8 @@
 #include "header.h"
 
-int sendmail(const char *to, const char *from, const char *subject, const char *message) {
+int mx_sendmail(const char *to, const char *from, const char *subject, const char *message) {
     int retval = -1;
-    FILE *mailpipe = popen("/usr/lib/sendmail -t", "w");
+    FILE *mailpipe = popen("sendmail -t", "w");
     if (mailpipe != NULL) {
         fprintf(mailpipe, "To: %s\n", to);
         fprintf(mailpipe, "From: %s\n", from);

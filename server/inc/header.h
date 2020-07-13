@@ -42,7 +42,14 @@ typedef struct s_data {
     char *email;
     int argc;
     char **colname;
+    int tokens;
+    int verify_code;
 }               t_data;
+
+typedef struct s_signup {
+    int status;
+    int verify_code;
+}               t_signup;
 
 typedef struct s_send_message {
     int id_sender;
@@ -64,6 +71,7 @@ typedef struct s_event {
 typedef struct s_response {
     int status;
     char *auth_token;
+    int tokens;
 }               t_response;
 
 void mx_valid_event(struct json_object *jobj, int sock);
@@ -85,14 +93,16 @@ void mx_model_del(char *table, char *condition);
 
 
 //controllers
-int mx_contr_signup(t_log_in *user);
+t_signup mx_contr_signup(t_log_in *user);
 t_response *mx_contr_signin(t_log_in *user);
 t_list mx_contr_renew(t_renew *tok);
 char *mx_gen_auth_token(int len);
 int mx_date_now();
 int mx_date_aval(int time);
 void mx_return_renew_json(t_list *resp, int sock);
-int sendmail(const char *to, const char *from, const char *subject, const char *message);
-
+void mx_return_signup_json(t_signup status, int sock);
+int mx_gen_verify_code();
+int mx_sendmail(const char *to, const char *from, const char *subject, const char *message);
+void mx_verify_mail(char *login);
 
 #endif

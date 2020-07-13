@@ -50,7 +50,7 @@ void mx_return_signin_json(t_response *resp, int sock) {
 
     if (resp->auth_token)
         json_object_object_add(jobj, "auth_token", json_object_new_string(resp->auth_token));
-    printf("obj == %s\n", json_object_to_json_string(jobj));
+    json_object_object_add(jobj, "tokens", json_object_new_int(resp->tokens));
 
     const char *jstr = json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
@@ -58,13 +58,16 @@ void mx_return_signin_json(t_response *resp, int sock) {
     send(sock, jstr, strlen(jstr), 0);
 }
 
-void mx_return_signup_json(int status, int sock) {
+void mx_return_signup_json(t_signup status, int sock) {
     struct json_object *jobj = json_object_new_object();
 
-    json_object_object_add(jobj, "status", json_object_new_int(status));
+    json_object_object_add(jobj, "status", json_object_new_int(status.status));
     printf("obj == %s\n", json_object_to_json_string(jobj));
 
-    json_object_object_add(jobj, "tokens", json_object_new_int(10));
+    json_object_object_add(jobj, "tokens", json_object_new_int(20));
+    printf("obj == %s\n", json_object_to_json_string(jobj));
+
+    json_object_object_add(jobj, "verify_code", json_object_new_int(status.verify_code));
     printf("obj == %s\n", json_object_to_json_string(jobj));
 
     const char *jstr = json_object_to_json_string(jobj);
@@ -103,7 +106,6 @@ void mx_renew(struct json_object *jobj, int sock) {
 void mx_sign_up(struct json_object *jobj, const char *ev, char **events, int sock) {
     t_event event;
     t_data *data;
-    t_response *resp = NULL;
     struct json_object *nick;
     struct json_object *password;
     struct json_object *login;
@@ -124,10 +126,6 @@ void mx_sign_up(struct json_object *jobj, const char *ev, char **events, int soc
 
     if (strcmp(ev, events[0]) == 0)
         mx_return_signup_json(mx_contr_signup(event.log_in), sock);
-    if (strcmp(ev, events[1]) == 0) {
-        resp = mx_contr_signin(event.log_in);
-        mx_return_signin_json(resp, sock);
-    }
 }
 
 void mx_sign_in(struct json_object *jobj, const char *ev, char **events, int sock) {
@@ -146,8 +144,6 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, int soc
     event.log_in->login = json_object_get_string(login);
     event.log_in->password = json_object_get_string(password);
 
-    if (strcmp(ev, events[0]) == 0)
-        mx_return_signup_json(mx_contr_signup(event.log_in), sock);
     if (strcmp(ev, events[1]) == 0) {
         resp = mx_contr_signin(event.log_in);
         mx_return_signin_json(resp, sock);
