@@ -37,15 +37,16 @@ void mx_return_renew_json(t_list *resp, int sock) {
         iter = mx_itoa(i);
         json_object_object_add(jobj, iter, jarray);
     }
-    const char *jstr = json_object_to_json_string(jobj);
+    char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
-    jstr = NULL;
+
+    mx_strdel(&jstr);
 }
 void mx_return_signin_json(t_response *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
-
+    json_object_object_add(jobj, "id", json_object_new_int(resp->id));
     json_object_object_add(jobj, "status", json_object_new_int(resp->status));
     //printf("obj == %s\n", json_object_to_json_string(jobj));
 
@@ -53,11 +54,11 @@ void mx_return_signin_json(t_response *resp, int sock) {
         json_object_object_add(jobj, "auth_token", json_object_new_string(resp->auth_token));
     json_object_object_add(jobj, "tokens", json_object_new_int(resp->tokens));
 
-    const char *jstr = json_object_to_json_string(jobj);
+    char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
-    jstr = NULL;
+    mx_strdel(&jstr);
 }
 
 void mx_return_signup_json(t_signup status, int sock) {
@@ -67,11 +68,11 @@ void mx_return_signup_json(t_signup status, int sock) {
     json_object_object_add(jobj, "tokens", json_object_new_int(20));
     json_object_object_add(jobj, "verify_code", json_object_new_int(status.verify_code));
 
-    const char *jstr = json_object_to_json_string(jobj);
+    char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
 
     send(sock, jstr, strlen(jstr), 0);
-    jstr = NULL;
+    mx_strdel(&jstr);
 }
 
 //void mx_return_status_json(int status, int sock) {

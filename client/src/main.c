@@ -48,8 +48,6 @@ void mx_json(t_event *event, char *action) {
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
     json_object_object_get_ex(jobj, "tokens", &tokens);
     int resp = json_object_get_int(status);
-    printf("==================================\n");
-
     if (resp == 1)
         g_print("Wrong login/pass");
 //    else if(resp[0] == 0)
@@ -116,10 +114,27 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
+//////////////////////////////////////////////////////////////////////////////////////////////
+    GtkCssProvider *cssProvider  = gtk_css_provider_new();
+    GtkWidget *label = gtk_label_new("Label 0123456789");
+    gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
+    gtk_style_context_add_provider(gtk_widget_get_style_context(label),
+                                   GTK_STYLE_PROVIDER(cssProvider),
+                                   GTK_STYLE_PROVIDER_PRIORITY_USER);
+///////////////////////////////////////////////////////////////////////////////////////////////
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
+
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
     event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
+
+
+    gtk_style_context_add_provider(gtk_widget_get_style_context(label),
+                                   GTK_STYLE_PROVIDER(cssProvider),
+                                   GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    gtk_container_add(GTK_CONTAINER(event->gtk->window), label);
+    gtk_widget_show_all(event->gtk->window);
 
     g_signal_connect (event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
     g_signal_connect (event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);

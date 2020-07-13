@@ -36,6 +36,7 @@ typedef struct s_upd {
 }               t_upd;
 
 typedef struct s_data {
+    int id;
     char *login;
     char *nick;
     char *password;
@@ -69,6 +70,7 @@ typedef struct s_event {
 }              t_event;
 
 typedef struct s_response {
+    int id;
     int status;
     char *auth_token;
     int tokens;

@@ -14,8 +14,10 @@ static void *ws_establishconnection(void *vsock) {
 
             if (parse_json((const char *)jstr, &jobj))
                 mx_printerr("Failed to parse JSON responses.\n");
-            printf("JSON = %s\n", json_object_to_json_string(jobj));
+            mx_strdel(&jstr);
 
+            printf("JSON = %s\n", json_object_to_json_string(jobj));
+            jstr = mx_strnew(0);
             //JSON OBJ GET
             mx_valid_event(jobj, sock);
         }

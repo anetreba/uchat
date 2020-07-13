@@ -20,8 +20,7 @@ int mx_sendmail(const char *to, const char *from, const char *subject, const cha
         close(p2cFd[0]);
         close(p2cFd[1]);
 
-        char n =execlp("mail", "mail", "-s", subject, to, message);
-        printf("EXEC: %c\n", n);
+        execlp("mail", "mail", "-s", subject, to, message);
     }
 
     close(p2cFd[0]);
