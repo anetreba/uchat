@@ -116,9 +116,8 @@ void mx_init_login(t_event *event) {
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
 //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
-    GtkWidget *label = gtk_label_new("Label 0123456789");
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
-    gtk_style_context_add_provider(gtk_widget_get_style_context(label),
+    gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
                                    GTK_STYLE_PROVIDER(cssProvider),
                                    GTK_STYLE_PROVIDER_PRIORITY_USER);
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,12 +128,12 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
 
 
-    gtk_style_context_add_provider(gtk_widget_get_style_context(label),
-                                   GTK_STYLE_PROVIDER(cssProvider),
-                                   GTK_STYLE_PROVIDER_PRIORITY_USER);
-
-    gtk_container_add(GTK_CONTAINER(event->gtk->window), label);
-    gtk_widget_show_all(event->gtk->window);
+//    gtk_style_context_add_provider(gtk_widget_get_style_context(label),
+//                                   GTK_STYLE_PROVIDER(cssProvider),
+//                                   GTK_STYLE_PROVIDER_PRIORITY_USER);
+//
+//    gtk_container_add(GTK_CONTAINER(event->gtk->window), label);
+//    gtk_widget_show_all(event->gtk->window);
 
     g_signal_connect (event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
     g_signal_connect (event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);

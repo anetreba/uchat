@@ -1,23 +1,9 @@
-#login_btn {
-    background: #000000;
-    color: red;
-}
 
 GtkButton {
     background: #000000;
 }
 
-.login_window {
+GtkButton#login_btn {
     background: #000000;
-    color: red;
-}
-
-login_window {
-    background: #000000;
-    color: red;
-}
-
-#login_window {
-    background: #000000;
-    color: red;
+    background-color: #000000;
 }
