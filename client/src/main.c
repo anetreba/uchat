@@ -119,6 +119,15 @@ void mx_init_login(t_event *event) {
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
     event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    GtkCssProvider *cssProvider  = gtk_css_provider_new();
+    gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
+    gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+                                              GTK_STYLE_PROVIDER(cssProvider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    // css_set(cssProvider, event->gtk->window);
+///////////////////////////////////////////////////////////////////////////////////////////////
 
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
