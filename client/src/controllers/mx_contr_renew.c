@@ -15,7 +15,7 @@ void mx_json_read(t_event *event) {
             break ;
         }
     }
-    parse_json((const char *)str, &obj);
+    parse_json_arr((const char *)str, &obj);
 
     printf("JOBJ = %s\n", json_object_to_json_string(obj));
 }
@@ -31,11 +31,11 @@ void mx_contr_renew(t_event *event, t_data *data) {
 
 
     char *jstr = (char *)json_object_to_json_string(jobj);
-    printf("JSON  == %s\n", jstr);
+    printf("JSON1 == %s\n", jstr);
 
     send(event->network_socket, jstr, strlen(jstr), 0);
-    mx_strdel(&jstr);
     mx_json_read(event);
+    mx_strdel(&jstr);
 
     //write_data(obj);
 }
