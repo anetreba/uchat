@@ -9,6 +9,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
+        mx_contr_auth(event, jobj);
     }
 
     if (strcmp(action, ev[1]) == 0) {
@@ -18,7 +19,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
     }
-    mx_contr_auth(event, jobj);
+
 }
 //====================================================================================
 
