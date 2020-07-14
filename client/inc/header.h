@@ -102,4 +102,9 @@ int parse_json(const char *json, json_object **responses);
 t_response *mx_contr_logined(t_data *data);
 
 
+
+//controllers
+void mx_contr_auth(t_event *event, json_object *jobj);
+
+
 #endif
