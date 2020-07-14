@@ -16,7 +16,7 @@
 
 
 
-t_response *mx_contr_logined(t_data *data) {
+t_response *mx_model_logined(t_data *data) {
     char *vals;
     char *str = NULL;
 

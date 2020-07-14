@@ -105,7 +105,7 @@ void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
-t_response *mx_contr_logined(t_data *data);
+t_response *mx_model_logined(t_data *data);
 
 
 

@@ -17,10 +17,9 @@ static void write_data(json_object *obj, t_event *event) {
     event->data->tokens = json_object_get_int(tokens);
     event->data->id = json_object_get_int(id);
 
-    if (event->data->status == 1)
-        g_print("Wrong login/pass");
-    else if (event->data->status == 0)
-        mx_contr_logined(event->data);
+    if (event->data->status == 0)
+        mx_model_logined(event->data);
+
 }
 
 void mx_contr_auth(t_event *event, json_object *jobj) {
