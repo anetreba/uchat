@@ -90,10 +90,14 @@ void fill_sign_in(GtkButton *button, t_event *event) {
 
     (void)button;
     printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
-    // mx_json(event, "sign_in");
+    mx_json(event, "sign_in");
 
     //chat
-    gtk_widget_hide(event->gtk->window);
+    if (event->data->status == 0) {
+        gtk_widget_hide(event->gtk->window);
+        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
+    }
+    //Wrong Password or login
 
 //***************
 //***************
@@ -122,8 +126,8 @@ void mx_init_login(t_event *event) {
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
-    if (111111)
-        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
+//    if (event->data->status == 0)
+//        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
     //if (222222)
     g_signal_connect(event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);
     g_signal_connect(event->gtk->window , "destroy", G_CALLBACK(gtk_main_quit), NULL);

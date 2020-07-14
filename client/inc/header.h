@@ -45,6 +45,20 @@ typedef struct s_gtk {
     GtkWidget *chat_window;
 }               t_gtk;
 
+typedef struct s_data {
+    int id;
+    int status;
+    char *login;
+    char *nick;
+    char *password;
+    char *email;
+    int argc;
+    char **colname;
+    int tokens;
+    int verify_code;
+    const char *auth_token;
+}               t_data;
+
 typedef struct s_log_in {
     const char *login;
     const char *password;
@@ -71,6 +85,7 @@ typedef struct s_event {
     t_send_message *send_message;
     t_log_in *log_in;
     t_sign_up *sign_up;
+    t_data *data;
 }              t_event;
 
 typedef struct s_response {
@@ -79,20 +94,6 @@ typedef struct s_response {
     char *auth_token;
     int tokens;
 }               t_response;
-
-typedef struct s_data {
-    int id;
-    int status;
-    char *login;
-    char *nick;
-    char *password;
-    char *email;
-    int argc;
-    char **colname;
-    int tokens;
-    int verify_code;
-    const char *auth_token;
-}               t_data;
 
 //crud
 void mx_model_update(char *table, char *str, char *condition);
