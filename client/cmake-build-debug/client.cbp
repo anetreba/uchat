@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="client"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client">
+				<Option output="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/."/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/src"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 client"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client/fast">
+				<Option output="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/."/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/inc"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src"/>
+					<Add directory="/Users/vzhukovsky/Desktop/uchat_nata/client/src"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 client/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/vzhukovsky/Desktop/uchat_nata/client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/inc/header.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/apps_config.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/arraylist.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/config.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/debug.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_c_version.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_config.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_inttypes.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_object.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_object_iterator.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_object_private.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_pointer.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_tokener.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_types.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_util.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/json_visit.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/linkhash.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/math_compat.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/printbuf.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/random_seed.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/snprintf_compat.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/strdup_compat.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/strerror_override.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/strerror_override_private.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/inc/vasprintf_compat.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/arraylist.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/debug.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_c_version.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_object.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_object_iterator.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_pointer.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_tokener.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_util.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/json_visit.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/libjson.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/linkhash.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/printbuf.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/random_seed.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/json-c/src/strerror_override.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/inc/libmx.h">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_arrlen.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_atoi.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_binary_search.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_bubble_sort.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_count_char.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_count_digits.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_count_letters.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_count_substr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_count_words.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_create_node.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_del_extra_spaces.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_del_strarr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_file_to_str.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_foreach.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_get_char_index.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_get_substr_index.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_hex_to_nbr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_is_char.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_is_space.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_isdigit.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_itoa.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_list_size.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memccpy.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memchr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memcmp.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memcpy.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memmem.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memmove.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memrchr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_memset.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_nbr_to_hex.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_pop_back.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_pop_front.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_pow.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_print_strarr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_print_unicode.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_printchar.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_printerr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_printint.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_printstr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_push_back.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_push_front.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_quicksort.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_read_line.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_realloc.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_replace_substr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_sort_list.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_sqrt.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_str_reverse.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strcat.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strcmp.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strcpy.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strdel.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strdup.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strjoin.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strlen.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strncpy.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strndup.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strnew.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strsplit.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strstr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_strtrim.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_swap_char.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/libmx/src/mx_swap_elem.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/src/main.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/src/mx_parse_json.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/src/mx_printerr.c">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/Users/vzhukovsky/Desktop/uchat_nata/client/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

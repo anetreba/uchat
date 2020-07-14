@@ -1,0 +1,124 @@
+cmake_minimum_required(VERSION 3.15)
+project(client C)
+
+set(CMAKE_C_STANDARD 11)
+
+include_directories(.)
+include_directories(inc)
+include_directories(json-c)
+include_directories(json-c/inc)
+include_directories(json-c/src)
+include_directories(libmx)
+include_directories(libmx/inc)
+include_directories(libmx/src)
+include_directories(src)
+
+add_executable(client
+        inc/header.h
+        json-c/inc/apps_config.h
+        json-c/inc/arraylist.h
+        json-c/inc/config.h
+        json-c/inc/debug.h
+        json-c/inc/json.h
+        json-c/inc/json_c_version.h
+        json-c/inc/json_config.h
+        json-c/inc/json_inttypes.h
+        json-c/inc/json_object.h
+        json-c/inc/json_object_iterator.h
+        json-c/inc/json_object_private.h
+        json-c/inc/json_pointer.h
+        json-c/inc/json_tokener.h
+        json-c/inc/json_types.h
+        json-c/inc/json_util.h
+        json-c/inc/json_visit.h
+        json-c/inc/linkhash.h
+        json-c/inc/math_compat.h
+        json-c/inc/printbuf.h
+        json-c/inc/random_seed.h
+        json-c/inc/snprintf_compat.h
+        json-c/inc/strdup_compat.h
+        json-c/inc/strerror_override.h
+        json-c/inc/strerror_override_private.h
+        json-c/inc/vasprintf_compat.h
+        json-c/src/arraylist.c
+        json-c/src/debug.c
+        json-c/src/json_c_version.c
+        json-c/src/json_object.c
+        json-c/src/json_object_iterator.c
+        json-c/src/json_pointer.c
+        json-c/src/json_tokener.c
+        json-c/src/json_util.c
+        json-c/src/json_visit.c
+        json-c/src/libjson.c
+        json-c/src/linkhash.c
+        json-c/src/printbuf.c
+        json-c/src/random_seed.c
+        json-c/src/strerror_override.c
+        libmx/inc/libmx.h
+        libmx/src/mx_arrlen.c
+        libmx/src/mx_atoi.c
+        libmx/src/mx_binary_search.c
+        libmx/src/mx_bubble_sort.c
+        libmx/src/mx_count_char.c
+        libmx/src/mx_count_digits.c
+        libmx/src/mx_count_letters.c
+        libmx/src/mx_count_substr.c
+        libmx/src/mx_count_words.c
+        libmx/src/mx_create_node.c
+        libmx/src/mx_del_extra_spaces.c
+        libmx/src/mx_del_strarr.c
+        libmx/src/mx_file_to_str.c
+        libmx/src/mx_foreach.c
+        libmx/src/mx_get_char_index.c
+        libmx/src/mx_get_substr_index.c
+        libmx/src/mx_hex_to_nbr.c
+        libmx/src/mx_is_char.c
+        libmx/src/mx_is_space.c
+        libmx/src/mx_isdigit.c
+        libmx/src/mx_itoa.c
+        libmx/src/mx_list_size.c
+        libmx/src/mx_memccpy.c
+        libmx/src/mx_memchr.c
+        libmx/src/mx_memcmp.c
+        libmx/src/mx_memcpy.c
+        libmx/src/mx_memmem.c
+        libmx/src/mx_memmove.c
+        libmx/src/mx_memrchr.c
+        libmx/src/mx_memset.c
+        libmx/src/mx_nbr_to_hex.c
+        libmx/src/mx_pop_back.c
+        libmx/src/mx_pop_front.c
+        libmx/src/mx_pow.c
+        libmx/src/mx_print_strarr.c
+        libmx/src/mx_print_unicode.c
+        libmx/src/mx_printchar.c
+        libmx/src/mx_printerr.c
+        libmx/src/mx_printint.c
+        libmx/src/mx_printstr.c
+        libmx/src/mx_push_back.c
+        libmx/src/mx_push_front.c
+        libmx/src/mx_quicksort.c
+        libmx/src/mx_read_line.c
+        libmx/src/mx_realloc.c
+        libmx/src/mx_replace_substr.c
+        libmx/src/mx_sort_list.c
+        libmx/src/mx_sqrt.c
+        libmx/src/mx_str_reverse.c
+        libmx/src/mx_strcat.c
+        libmx/src/mx_strcmp.c
+        libmx/src/mx_strcpy.c
+        libmx/src/mx_strdel.c
+        libmx/src/mx_strdup.c
+        libmx/src/mx_strjoin.c
+        libmx/src/mx_strlen.c
+        libmx/src/mx_strncpy.c
+        libmx/src/mx_strndup.c
+        libmx/src/mx_strnew.c
+        libmx/src/mx_strsplit.c
+        libmx/src/mx_strstr.c
+        libmx/src/mx_strtrim.c
+        libmx/src/mx_swap_char.c
+        libmx/src/mx_swap_elem.c
+        src/main.c
+        src/mx_parse_json.c
+        src/mx_printerr.c)

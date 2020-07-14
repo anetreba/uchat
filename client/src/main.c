@@ -95,11 +95,25 @@ void sign_up_window(GtkButton *button, t_event *event) {
 
     g_signal_connect(event->gtk->reg_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 }
-void chat_messages(GtkButton *button, t_event *event) {
-    
+
+void send_messages(GtkButton *button, t_event *event) {
+    GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
+
+    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+    printf("\n\n\n%s send message: ::::%s::::\n", event->log_in->login, event->send_message->message);
     (void)button;
-    event->gtk->chat_messages_box1 = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_messages_box1"));
-    gtk_label_set_text(chat_messages_box1, event->send_message->message);
+
+}
+
+void chat_window(GtkButton *button, t_event *event) {
+    event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
+    event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
+
+    gtk_widget_show(event->gtk->chat_window);
+    gtk_widget_hide(event->gtk->window);
+    g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
+
+    (void)button;
 }
 
 void fill_sign_in(GtkButton *button, t_event *event) {
@@ -115,19 +129,12 @@ void fill_sign_in(GtkButton *button, t_event *event) {
     
     //chat
     gtk_widget_hide(event->gtk->window);
-    gtk_widget_show(event->gtk->chat_window);
-    event->gtk->chat_entry_message = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "chat_entry_message"));
-    event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "chat_send_btn"));
-    
-    GtkWidget *chat_entry_message = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
-    
-    event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
-    memset(event->send_message, 0, sizeof(t_send_message));
-    
-    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(chat_entry_message));
-    
-    g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(chat_messages), event);
-    
+
+//***************
+//***************
+//***************
+//***************
+
     g_signal_connect(event->gtk->chat_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 //     g_object_unref(G_OBJECT(event->gtk->builder));
 }
@@ -135,7 +142,9 @@ void fill_sign_in(GtkButton *button, t_event *event) {
 void mx_init_login(t_event *event) {
     event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
     event->gtk = (t_gtk *)malloc(sizeof(t_gtk));
+    event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
     memset(event->log_in, 0, sizeof(t_log_in));
+    memset(event->send_message, 0, sizeof(t_send_message));
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
@@ -147,8 +156,11 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
-    g_signal_connect (event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
-    g_signal_connect (event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);
+    g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
+    if (111111)
+        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
+    //if (222222)
+    g_signal_connect(event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);
     g_signal_connect(event->gtk->window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show(event->gtk->window);
 }
