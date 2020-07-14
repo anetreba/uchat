@@ -65,9 +65,16 @@ void send_messages(GtkButton *button, t_event *event) {
     GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
 
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
-    printf("\n\n\n%s send message: ::::%s::::\n", event->log_in->login, event->send_message->message);
+    printf("login %s message %s\n", event->log_in->login, event->send_message->message);
     (void)button;
 
+    // messages
+    // gtk_label_set_text(GTK_LABEL(event->gtk->chat_messages_box1), event->send_message->message);
+    // gtk_label_set_xalign(GTK_LABEL(event->gtk->chat_messages_box1), 1);
+    
+    gtk_label_set_text(GTK_LABEL(event->gtk->message1), event->send_message->message);
+    gtk_entry_set_text(GTK_ENTRY(msg), "");
+    
 }
 
 void chat_window(GtkButton *button, t_event *event) {
@@ -120,6 +127,11 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
+    event->gtk->chat_messages_box1 = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_messages_box1"));
+    // event->gtk->chat_view = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_view"));
+    event->gtk->message_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "message_box"));
+    event->gtk->message1 = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "message1"));
+    
 
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
     if (111111)

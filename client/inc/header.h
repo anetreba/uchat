@@ -41,8 +41,11 @@ typedef struct s_gtk {
     GtkWidget *back_btn;
     GtkWidget *chat_entry_message;
     GtkWidget *chat_messages_box1;
+    GtkWidget *chat_view;
     GtkWidget *chat_send_btn;
     GtkWidget *chat_window;
+    GtkWidget *message_box;
+    GtkWidget *message1;
 }               t_gtk;
 
 typedef struct s_log_in {
