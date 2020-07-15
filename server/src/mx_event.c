@@ -42,7 +42,6 @@ void mx_return_renew_json(t_list *resp, int sock) {
 
     send(sock, jstr, strlen(jstr), 0);
 
-
     mx_strdel(&jstr);
 }
 void mx_return_signin_json(t_response *resp, int sock) {
