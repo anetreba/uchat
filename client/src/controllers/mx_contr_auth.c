@@ -1,11 +1,12 @@
 #include "header.h"
 
 static void write_auth_data(t_event *event, json_object *obj) {
-    event->data = (t_data *)malloc(sizeof(t_data));
     struct json_object *status;
     struct json_object *auth_token;
     struct json_object *tokens;
     struct json_object *id;
+    event->data = (t_data *)malloc(sizeof(t_data));
+    memset(event->data, 0, sizeof(t_data));
 
     json_object_object_get_ex(obj, "status", &status);
     json_object_object_get_ex(obj, "auth_token", &auth_token);
@@ -17,11 +18,18 @@ static void write_auth_data(t_event *event, json_object *obj) {
     event->data->tokens = json_object_get_int(tokens);
     event->data->id = json_object_get_int(id);
 
-    if (event->data->status == 1)
+    if (event->data->status == 1) {
         g_print("Wrong login/pass");
-    else if(event->data->status == 0)
+    }
+    else if(event->data->status == 0) {
         mx_model_logined(event->data);
-   // mx_contr_renew(event, &data);
+    }
+//
+//    printf("22================================================\n");
+//    printf("ID %d\n", event->data->id);
+//    printf("TOKEN %s\n", event->data->auth_token);
+//    printf("22================================================\n");
+   mx_contr_renew(event);
 }
 
 void mx_contr_auth(t_event *event, json_object *jobj) {

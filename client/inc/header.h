@@ -111,6 +111,6 @@ t_response *mx_model_logined(t_data *data);
 
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
-void mx_contr_renew(t_event *event, t_data *data);
+void mx_contr_renew(t_event *event);
 
 #endif
