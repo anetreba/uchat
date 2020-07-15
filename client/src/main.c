@@ -96,7 +96,7 @@ void fill_sign_in(GtkButton *button, t_event *event) {
     //chat
     if (event->data->status == 0) {
         gtk_widget_hide(event->gtk->window);
-        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
+        chat_window(button, event);
     }
     //Wrong Password or login
 
