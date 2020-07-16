@@ -97,7 +97,7 @@ void fill_sign_in(GtkButton *button, t_event *event) {
     printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
     // mx_json(event, "sign_in");
 
-    //chat
+    // chat
     gtk_widget_hide(event->gtk->window);
 
 //***************
@@ -118,7 +118,7 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat1.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
 
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
