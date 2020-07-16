@@ -76,4 +76,5 @@ void mx_server_socket(int port) {
         mx_printerr("Bind failed");
     listen(sock, MAX_CLIENTS);
     mx_connecion(sock);
+    system("leaks -q chat_server");
 }

@@ -17,6 +17,7 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkEntry" id="chat_entry_message">
+            <property name="name">chat_entry_message</property>
             <property name="width_request">495</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
