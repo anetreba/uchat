@@ -68,8 +68,9 @@ void print_json_value(json_object *jobj){
 
 void json_parse_array( json_object *jobj, char *key, t_list *list) {
     enum json_type type;
-
     json_object *jarray = jobj;
+    t_list *lst = (t_list *)list;
+    t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
 
     if (key)
         jarray = json_object_object_get(jobj, key);
@@ -82,14 +83,27 @@ void json_parse_array( json_object *jobj, char *key, t_list *list) {
         jvalue = json_object_array_get_idx(jarray, i); /*Getting the array element at position i*/
         type = json_object_get_type(jvalue);
         if (type == json_type_array)
-            json_parse_array(jvalue, NULL);
+            json_parse_array(jvalue, key, NULL);
         else if (type != json_type_object) {
-            printf("value[%d]: ",i);
-            print_json_value(jvalue);
+            //printf("value[%d]: ",i);
+            if(i == 0)
+                udata->room_id = json_object_get_int(jvalue);
+            if(i == 1)
+                udata->name_room = strdup(json_object_get_string(jvalue));
+            if(i == 2)
+                udata->message = strdup(json_object_get_string(jvalue));
+            if(i == 3)
+                udata->sender_id = json_object_get_int(jvalue);
+            if(i == 4)
+                udata->date_send = json_object_get_int(jvalue);
+            if(i == 5)
+                udata->recieve_status = json_object_get_int(jvalue);
+
         }
         else
-            json_parse(jvalue);
+            json_parse(jvalue, list);
     }
+    mx_push_back(&lst, udata);
 }
 
 void json_parse(json_object *jobj, t_list *lst) {
@@ -107,9 +121,10 @@ void json_parse(json_object *jobj, t_list *lst) {
             case json_type_object:
                 printf("json_type_object\n");
                 jobj = json_object_object_get(jobj, key);
-                json_parse(jobj);
+                json_parse(jobj, lst);
                 break;
-            case json_type_array: printf("type: json_type_array, ");
+            case json_type_array:
+                printf("type: json_type_array, ");
                 json_parse_array(jobj, key, lst);
             case json_type_null:
                 break;

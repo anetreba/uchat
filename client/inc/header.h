@@ -105,6 +105,7 @@ typedef struct s_response {
 
 //crud
 void mx_model_update(char *table, char *str, char *condition);
+void mx_model_insert (char *table, char *rows, char *vals);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 
 void mx_valid_event(struct json_object *jobj, int sock);
