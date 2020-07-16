@@ -2,27 +2,10 @@
 
 static void write_data_to_db(t_event *event, json_object *obj) {
     event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
-    event = NULL;
-    obj = NULL;
+    t_list *lst = (t_list *)malloc(sizeof(t_list));
 
-//    for (int i = 0; i < 3; i++) {
-//        struct json_object *pos;
-//
-//        print_json_object(obj, "Before the glitch in the matrix");
-//
-//        pos = json_object_array_get_idx(obj, i);
-//
-//        // json_object_array_put_idx decrement the refcount if you replace an
-//        // element, but we don't whant that.
-//        json_object_array_put_idx(obj, i, json_object_get(pos));
-//
-//        print_json_object(obj, "After the glitch in the matrix");
-//
-//
-//
-//    }
-
-
+    printf("%s\n", json_object_to_json_string(obj));
+    json_parse(obj, lst);
 
 
 

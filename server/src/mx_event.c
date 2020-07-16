@@ -21,12 +21,12 @@ void mx_return_renew_json(t_list *resp, int sock) {
 
     for (int i = 0; resp; i++) {
         jarray = json_object_new_array();
-        json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id);
-        json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name);
-        json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message);
-        json_object *jstring3 = json_object_new_int(((t_upd *)(resp->data))->sender_id);
-        json_object *jstring4 = json_object_new_int(((t_upd *)(resp->data))->date_send);
-        json_object *jstring5 = json_object_new_int(((t_upd *)(resp->data))->recieve_status);
+        json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id); // id komnaty
+        json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name); // imya komnaty
+        json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message); // soobschenie
+        json_object *jstring3 = json_object_new_int(((t_upd *)(resp->data))->sender_id); // id otpravitelya
+        json_object *jstring4 = json_object_new_int(((t_upd *)(resp->data))->date_send); // data otpravki
+        json_object *jstring5 = json_object_new_int(((t_upd *)(resp->data))->recieve_status); // status polucheniya
         json_object_array_add(jarray,jstring0);
         json_object_array_add(jarray,jstring1);
         json_object_array_add(jarray,jstring2);
