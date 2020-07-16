@@ -63,16 +63,48 @@ void sign_up_window(GtkButton *button, t_event *event) {
 
 void send_messages(GtkButton *button, t_event *event) {
     GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
+    GtkWidget *list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
+
+    //test_label
     event->gtk->test_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "test_label"));
-    
+
+    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *row1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
+
+    // message buttons
+    GtkWidget *new_button = gtk_button_new_with_label(event->send_message->message);
+    gtk_widget_set_hexpand(new_button, TRUE);
+    gtk_widget_set_halign(new_button, GTK_ALIGN_END);
+    gtk_widget_set_valign(new_button, GTK_ALIGN_CENTER);
+    gtk_widget_set_size_request(new_button, 300, 5);
+    gtk_container_add(GTK_CONTAINER(row), new_button);
+
+    GtkWidget *new_button1 = gtk_button_new_with_label(event->log_in->login);
+    gtk_widget_set_hexpand(new_button1, TRUE);
+    gtk_widget_set_halign(new_button1, GTK_ALIGN_END);
+    gtk_widget_set_valign(new_button1, GTK_ALIGN_CENTER);
+    gtk_widget_set_size_request(new_button1, 20, 5);
+    gtk_widget_set_opacity(new_button1, 1);
+    gtk_container_add(GTK_CONTAINER(row1), new_button1);
+
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
-    printf("\n\n\n%s send message: ::::%s::::\n", event->log_in->login, event->send_message->message);
+    printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
+
     (void)button;
-    
-    // msg
-    gtk_label_set_text(GTK_LABEL(event->gtk->test_label), event->send_message->message);
+
+    gtk_label_set_text(GTK_LABEL(event->gtk->test_label), event->log_in->login);
     gtk_entry_set_text(GTK_ENTRY(msg), "");
-    // gtk_list_box_insert();
+
+    gtk_list_box_insert(GTK_LIST_BOX(list_box), row1, -1);
+    gtk_list_box_insert(GTK_LIST_BOX(list_box), row, -1);
+
+    gtk_widget_show(list_box);
+
+    gtk_widget_show(row1);
+    gtk_widget_show(new_button1);
+
+    gtk_widget_show(row);
+    gtk_widget_show(new_button);
 }
 
 void chat_window(GtkButton *button, t_event *event) {
