@@ -24,7 +24,7 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">160</property>
+            <property name="y">190</property>
           </packing>
         </child>
         <child>
@@ -37,7 +37,7 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">210</property>
+            <property name="y">250</property>
           </packing>
         </child>
         <child>
@@ -50,7 +50,7 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">260</property>
+            <property name="y">310</property>
           </packing>
         </child>
         <child>
@@ -63,35 +63,35 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">310</property>
+            <property name="y">370</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="registration_btn">
-            <property name="label" translatable="yes">registration</property>
-            <property name="width_request">100</property>
+            <property name="label" translatable="yes">Confirm</property>
+            <property name="width_request">165</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">310</property>
-            <property name="y">370</property>
+            <property name="x">230</property>
+            <property name="y">420</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="back_btn">
-            <property name="label" translatable="yes">back</property>
-            <property name="width_request">100</property>
+            <property name="label" translatable="yes">Back</property>
+            <property name="width_request">165</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">430</property>
-            <property name="y">370</property>
+            <property name="x">420</property>
+            <property name="y">420</property>
           </packing>
         </child>
         <child>
