@@ -37,24 +37,12 @@ int mx_check_msgs (t_list *lst) {
     return rs;
 }
 
-int mx_check_rooms(t_list *lst) {
-    char *vals;
-    int rs;
-
-    asprintf(&vals, "Rooms WHERE room_id = '%d' AND name = '%s'",
-             ((t_renew *)(lst->data))->room_id,
-             ((t_renew *)(lst->data))->name_room);
-    rs = mx_model_select("id", vals, callback_check_msg, NULL);
-    return rs;
-}
-
 static void write_data_to_db(json_object *obj) {
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
     memset(udata, 0, sizeof(t_renew));
     t_list *lst = (t_list *)malloc(sizeof(t_list));
     lst =  mx_create_node(udata);
     char *vals;
-    char *vls;
 
     printf("%s\n", json_object_to_json_string(obj));
     json_parse(obj, lst);
@@ -62,13 +50,7 @@ static void write_data_to_db(json_object *obj) {
     //mx_print_list(lst);
 
     if (lst){
-        while(lst) {
-            if (mx_check_rooms(lst) != 1) {
-                asprintf(&vls, "'%d','%s'",
-                        ((t_renew *)(lst->data))->room_id,
-                         ((t_renew *)(lst->data))->name_room);
-                mx_model_insert("Rooms", "room_id, name", vls);
-            }
+        while (lst) {
             if (mx_check_msgs(lst) != 1) {
                 asprintf(&vals, "'%d','%s','%d','%d','%d'",
                          ((t_renew *)(lst->data))->room_id,

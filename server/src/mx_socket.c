@@ -72,6 +72,8 @@ void mx_server_socket(int port) {
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(port);
+    int on = 1;
+    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
     if (bind(sock, (struct sockaddr *)&server, sizeof(server)) < 0)
         mx_printerr("Bind failed");
     listen(sock, MAX_CLIENTS);

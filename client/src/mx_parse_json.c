@@ -69,7 +69,7 @@ void print_json_value(json_object *jobj){
 void json_parse_array( json_object *jobj, char *key, t_list *list) {
     enum json_type type;
     json_object *jarray = jobj;
-    t_list *lst = (t_list *)list;
+    t_list *lst = list;
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
 
     if (key)
