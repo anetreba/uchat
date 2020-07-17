@@ -60,13 +60,20 @@ typedef struct s_send_message {
 }               t_send_message;
 
 typedef struct s_renew {
+    int id;
     const char *auth_token;
 }               t_renew;
+
+typedef struct s_renrooms {
+    int room_id;
+    const char *room_name;
+}               t_renrooms;
 
 typedef struct s_event {
     t_log_in *log_in;
     t_send_message *send_message;
     t_renew *renew;
+    t_renrooms *renrooms;
 }              t_event;
 
 typedef struct s_response {
@@ -106,5 +113,7 @@ void mx_return_signup_json(t_signup status, int sock);
 int mx_gen_verify_code();
 int mx_sendmail(const char *to, const char *from, const char *subject, const char *message);
 void mx_verify_mail(char *login);
+void mx_renew_rooms(struct json_object *jobj, int sock);
+t_list mx_contr_renew_rooms(t_renew *tok);
 
 #endif

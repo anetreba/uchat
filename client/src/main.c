@@ -22,7 +22,6 @@ void mx_json(t_event *event, char *action) {
         jstr = json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
     }
-
 }
 //====================================================================================
 

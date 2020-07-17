@@ -53,6 +53,7 @@ typedef struct s_data {
     char *login;
     char *nick;
     char *password;
+    char *name_room;
     char *email;
     char **colname;
     int tokens;
@@ -121,6 +122,7 @@ char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
+int mx_update_rooms(t_list *lst);
 
 
 //controllers
