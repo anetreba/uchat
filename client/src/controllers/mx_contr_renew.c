@@ -50,7 +50,7 @@ static void write_data_to_db(json_object *obj) {
     //mx_print_list(lst);
 
     if (lst){
-        while(lst) {
+        while (lst) {
             if (mx_check_msgs(lst) != 1) {
                 asprintf(&vals, "'%d','%s','%d','%d','%d'",
                          ((t_renew *)(lst->data))->room_id,
