@@ -1,19 +1,5 @@
 #include "header.h"
 
-void mx_print_list(t_list *lst) {
-    while(lst) {
-        printf("********************************************************\n");
-        printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
-        printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
-        printf("ROOM NAME = %s\n",((t_upd *)(lst->data))->room_name);
-        printf("SENDER ID = %d\n",((t_upd *)(lst->data))->sender_id);
-        printf("DATA SEND = %d\n",((t_upd *)(lst->data))->date_send);
-        printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
-        lst = lst->next;
-        printf("********************************************************\n");
-    }
-}
-
 static int callback_renew(void *data, int argc, char **argv, char **ColName) {
     t_list *lst = (t_list *)data;
     data = NULL;

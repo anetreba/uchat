@@ -83,7 +83,7 @@ void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 void mx_renew(struct json_object *jobj, int sock);
-
+void mx_shuffle(void *array, size_t n, size_t size);
 
 //models
 void mx_model_insert (char *table, char *rows, char *vals);

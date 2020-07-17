@@ -9,6 +9,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
+        mx_contr_auth(event, jobj);
     }
 
     if (strcmp(action, ev[1]) == 0) {
@@ -18,7 +19,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
     }
-    mx_contr_auth(event, jobj);
+
 }
 //====================================================================================
 
@@ -127,10 +128,15 @@ void fill_sign_in(GtkButton *button, t_event *event) {
 
     (void)button;
     printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
-    // mx_json(event, "sign_in");
+    mx_json(event, "sign_in");
 
-    // chat
-    gtk_widget_hide(event->gtk->window);
+
+    //chat
+    if (event->data->status == 0) {
+        gtk_widget_hide(event->gtk->window);
+        chat_window(button, event);
+    }
+    //Wrong Password or login
 
 //***************
 //***************
@@ -151,6 +157,15 @@ void mx_init_login(t_event *event) {
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
     event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    GtkCssProvider *cssProvider  = gtk_css_provider_new();
+    gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
+    gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+                                              GTK_STYLE_PROVIDER(cssProvider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    // css_set(cssProvider, event->gtk->window);
+///////////////////////////////////////////////////////////////////////////////////////////////
 
     event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
@@ -159,8 +174,9 @@ void mx_init_login(t_event *event) {
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
-//    if (111111)
-        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
+
+//    if (event->data->status == 0)
+//        g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(chat_window), event);
     //if (222222)
     g_signal_connect(event->gtk->sign_up_btn, "clicked", G_CALLBACK(sign_up_window), event);
     g_signal_connect(event->gtk->window , "destroy", G_CALLBACK(gtk_main_quit), NULL);

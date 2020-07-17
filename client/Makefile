@@ -19,6 +19,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		mx_parse_json.c \
       		mx_sqlite.c\
       		controllers/mx_contr_auth.c \
+      		controllers/mx_contr_renew.c\
       		crud/mx_model_del.c \
       		crud/mx_model_insert.c \
       		crud/mx_model_select.c \
@@ -33,9 +34,10 @@ OBJ = main.o \
       mx_model_insert.o \
       mx_model_select.o \
       mx_model_update.o \
-      mx_model_logined.o \
       mx_sqlite.o \
-      mx_contr_auth.o
+      mx_model_logined.o \
+      mx_contr_auth.o \
+      mx_contr_renew.o
 
 CC = clang
 

@@ -89,7 +89,6 @@ void mx_return_signup_json(t_signup status, int sock) {
 
 void mx_renew(struct json_object *jobj, int sock) {
     t_event event;
-    sock = 0;
     //t_response *resp = NULL;
     struct json_object *auth_token;
     t_list resp;
@@ -189,8 +188,9 @@ void mx_valid_event(struct json_object *jobj, int sock) {
         mx_sign_up(jobj, ev, events, sock);
     else if (strcmp(ev, events[1]) == 0)
         mx_sign_in(jobj, ev, events, sock);
-    else if (strcmp(ev, events[2]) == 0)
+    else if (strcmp(ev, events[2]) == 0) {
         mx_renew(jobj, sock);
+    }
 //    else if (strcmp(ev, events[3]))
 //      mx_send_message(jobj, sock);
 }

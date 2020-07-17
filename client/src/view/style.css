@@ -1,23 +1,8 @@
-#login_btn {
-    background: #000000;
-    color: red;
+.backgound {
+    background-image: url("images/signinBackground.jpg");
 }
 
-GtkButton {
-    background: #000000;
+.background {
+    background-image: url("images/signinBackground.jpg");
 }
-
-.login_window {
-    background: #000000;
-    color: red;
-}
-
-login_window {
-    background: #000000;
-    color: red;
-}
-
-#login_window {
-    background: #000000;
-    color: red;
-}
+/* xxx  background-color: rgba(240, 240, 240, 0.999); } */

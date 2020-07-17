@@ -47,6 +47,20 @@ typedef struct s_gtk {
     GtkWidget *test_label;
 }               t_gtk;
 
+typedef struct s_data {
+    int id;
+    int status;
+    char *login;
+    char *nick;
+    char *password;
+    char *email;
+    int argc;
+    char **colname;
+    int tokens;
+    int verify_code;
+    const char *auth_token;
+}               t_data;
+
 typedef struct s_log_in {
     const char *login;
     const char *password;
@@ -73,6 +87,7 @@ typedef struct s_event {
     t_send_message *send_message;
     t_log_in *log_in;
     t_sign_up *sign_up;
+    t_data *data;
 }              t_event;
 
 typedef struct s_response {
@@ -81,20 +96,6 @@ typedef struct s_response {
     char *auth_token;
     int tokens;
 }               t_response;
-
-typedef struct s_data {
-    int id;
-    int status;
-    char *login;
-    char *nick;
-    char *password;
-    char *email;
-    int argc;
-    char **colname;
-    int tokens;
-    int verify_code;
-    const char *auth_token;
-}               t_data;
 
 //crud
 void mx_model_update(char *table, char *str, char *condition);
@@ -106,12 +107,12 @@ void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
-t_response *mx_contr_logined(t_data *data);
+t_response *mx_model_logined(t_data *data);
 
 
 
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
-
+void mx_contr_renew(t_event *event);
 
 #endif
