@@ -54,12 +54,20 @@ typedef struct s_data {
     char *nick;
     char *password;
     char *email;
-    int argc;
     char **colname;
     int tokens;
     int verify_code;
     const char *auth_token;
 }               t_data;
+
+typedef struct s_renew {
+    int room_id;
+    char *name_room;
+    char *message;
+    int sender_id;
+    int date_send;
+    int recieve_status;
+}               t_renew;
 
 typedef struct s_log_in {
     const char *login;
@@ -99,6 +107,10 @@ typedef struct s_response {
 
 //crud
 void mx_model_update(char *table, char *str, char *condition);
+void mx_model_insert (char *table, char *rows, char *vals);
+int mx_model_select(const char *search, char *tables,
+                    int (*callback)(void *, int, char **, char **),
+                    void *data);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 
 void mx_valid_event(struct json_object *jobj, int sock);
@@ -108,7 +120,7 @@ void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
-
+void json_parse(json_object *jobj, t_list *lst);
 
 
 //controllers

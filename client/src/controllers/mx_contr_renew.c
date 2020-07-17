@@ -1,29 +1,68 @@
 #include "header.h"
 
-static void write_data_to_db(t_event *event, json_object *obj) {
-    event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
-    event = NULL;
-    obj = NULL;
-
-//    for (int i = 0; i < 3; i++) {
-//        struct json_object *pos;
-//
-//        print_json_object(obj, "Before the glitch in the matrix");
-//
-//        pos = json_object_array_get_idx(obj, i);
-//
-//        // json_object_array_put_idx decrement the refcount if you replace an
-//        // element, but we don't whant that.
-//        json_object_array_put_idx(obj, i, json_object_get(pos));
-//
-//        print_json_object(obj, "After the glitch in the matrix");
-//
-//
-//
+//void mx_print_list(t_list *lst) {
+//    while(lst) {
+//        printf("********************************************************\n");
+//        printf("MESSAGE = %s\n",((t_renew *)(lst->data))->message);
+//        printf("ROOM ID = %d\n",((t_renew *)(lst->data))->room_id);
+//        printf("ROOM NAME = %s\n",((t_renew *)(lst->data))->name_room);
+//        printf("SENDER ID = %d\n",((t_renew *)(lst->data))->sender_id);
+//        printf("DATA SEND = %d\n",((t_renew *)(lst->data))->date_send);
+//        printf("REC STATUS = %d\n",((t_renew *)(lst->data))->recieve_status);
+//        lst = lst->next;
+//        printf("********************************************************\n");
 //    }
+//}
+static int callback_check_msg(void *data, int argc, char **argv, char **ColName) {
+    ColName = NULL;
 
+    if (argv[0]) {
+        argc = 0;
+        data = NULL;
+        return 1;
+    }
+    return 0;
+}
 
+int mx_check_msgs (t_list *lst) {
+    char *vals;
+    int rs;
 
+    asprintf(&vals, "Messages WHERE room_id = '%d' AND message = '%s' AND sender_id = '%d' AND date_send = '%d'",
+             ((t_renew *)(lst->data))->room_id,
+             ((t_renew *)(lst->data))->message,
+             ((t_renew *)(lst->data))->sender_id,
+             ((t_renew *)(lst->data))->date_send);
+    rs = mx_model_select("id", vals, callback_check_msg, NULL);
+    return rs;
+}
+
+static void write_data_to_db(json_object *obj) {
+    t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
+    memset(udata, 0, sizeof(t_renew));
+    t_list *lst = (t_list *)malloc(sizeof(t_list));
+    lst =  mx_create_node(udata);
+    char *vals;
+
+    printf("%s\n", json_object_to_json_string(obj));
+    json_parse(obj, lst);
+    mx_pop_front(&lst);
+    //mx_print_list(lst);
+
+    if (lst){
+        while (lst) {
+            if (mx_check_msgs(lst) != 1) {
+                asprintf(&vals, "'%d','%s','%d','%d','%d'",
+                         ((t_renew *)(lst->data))->room_id,
+                         ((t_renew *)(lst->data))->message,
+                         ((t_renew *)(lst->data))->sender_id,
+                         ((t_renew *)(lst->data))->date_send,
+                         ((t_renew *)(lst->data))->recieve_status);
+                mx_model_insert("Messages", "room_id, message, sender_id, date_send, resieve_status", vals);
+            }
+            lst = lst->next;
+        }
+    }
 
 
 }
@@ -45,7 +84,7 @@ void mx_json_read(t_event *event) {
         }
     }
     parse_json((const char *)str, &obj);
-    write_data_to_db(event, obj);
+    write_data_to_db(obj);
 }
 
 void mx_contr_renew(t_event *event) {

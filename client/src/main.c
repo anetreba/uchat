@@ -3,6 +3,7 @@
 void mx_json(t_event *event, char *action) {
     char *ev[] = {"sign_in", "sign_up"};
     struct json_object *jobj = json_object_new_object();
+    const char *jstr;
     //Json
 
     if (strcmp(action, ev[0]) == 0) {
@@ -18,6 +19,8 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "nick", json_object_new_string(event->sign_up->nick));
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
+        jstr = json_object_to_json_string(jobj);
+        send(event->network_socket, jstr, strlen(jstr), 0);
     }
 
 }

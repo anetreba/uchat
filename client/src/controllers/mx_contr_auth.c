@@ -24,11 +24,6 @@ static void write_auth_data(t_event *event, json_object *obj) {
     else if(event->data->status == 0) {
         mx_model_logined(event->data);
     }
-//
-//    printf("22================================================\n");
-//    printf("ID %d\n", event->data->id);
-//    printf("TOKEN %s\n", event->data->auth_token);
-//    printf("22================================================\n");
    mx_contr_renew(event);
 }
 
