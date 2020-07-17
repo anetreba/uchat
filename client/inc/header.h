@@ -43,6 +43,8 @@ typedef struct s_gtk {
     GtkWidget *chat_messages_box1;
     GtkWidget *chat_send_btn;
     GtkWidget *chat_window;
+    GtkWidget *list_box;
+    GtkWidget *test_label;
 }               t_gtk;
 
 typedef struct s_data {
