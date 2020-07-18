@@ -45,6 +45,7 @@ typedef struct s_gtk {
     GtkWidget *chat_window;
     GtkWidget *list_box;
     GtkWidget *test_label;
+    GtkWidget *scrolled_window;
 }               t_gtk;
 
 typedef struct s_data {

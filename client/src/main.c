@@ -70,13 +70,32 @@ void sign_up_window(GtkButton *button, t_event *event) {
 
 void send_messages(GtkButton *button, t_event *event) {
     GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
+    event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
     GtkWidget *list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
+
+//    GtkScrolledWindow *scrolled_window = event->gtk->scrolled_window;
+
+//    GtkAdjustment *adjustment = NULL;
+//
+//    gtk_adjustment_set_value(adjustment, 100.0);
+//
+//    gtk_scrolled_window_set_vadjustment(scrolled_window, adjustment);
+
+    // gtk_scrolled_window_set_overlay_scrolling(event->gtk->scrolled_window, TRUE);
+
+    // scrolled_window
+//    event->gtk->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+//    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(event->gtk->scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+
 
     //test_label
     event->gtk->test_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "test_label"));
 
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
     GtkWidget *row1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
+
+//    gtk_container_add(GTK_CONTAINER(event->gtk->scrolled_window), row);
+//    gtk_container_add(GTK_CONTAINER(event->gtk->scrolled_window), row1);
 
     // message buttons
     GtkWidget *new_button = gtk_button_new_with_label(event->send_message->message);
@@ -86,6 +105,9 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_set_size_request(new_button, 300, 5);
     gtk_container_add(GTK_CONTAINER(row), new_button);
 
+    // test
+//    gtk_container_add(GTK_CONTAINER(event->gtk->scrolled_window), row);
+
     GtkWidget *new_button1 = gtk_button_new_with_label(event->log_in->login);
     gtk_widget_set_hexpand(new_button1, TRUE);
     gtk_widget_set_halign(new_button1, GTK_ALIGN_END);
@@ -93,6 +115,9 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_set_size_request(new_button1, 20, 5);
     gtk_widget_set_opacity(new_button1, 1);
     gtk_container_add(GTK_CONTAINER(row1), new_button1);
+
+    // test1
+//    gtk_container_add(GTK_CONTAINER(event->gtk->scrolled_window), row1);
 
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
@@ -104,6 +129,8 @@ void send_messages(GtkButton *button, t_event *event) {
 
     gtk_list_box_insert(GTK_LIST_BOX(list_box), row1, -1);
     gtk_list_box_insert(GTK_LIST_BOX(list_box), row, -1);
+
+    gtk_widget_show(event->gtk->scrolled_window);
 
     gtk_widget_show(list_box);
 
@@ -178,6 +205,7 @@ void mx_init_login(t_event *event) {
     event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
     event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
+    // event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
 //    mx_json_read(event);
