@@ -4,7 +4,7 @@ static int callback_renew_rooms(void *data, int argc, char **argv, char **ColNam
     t_list *lst = (t_list *)data;
     data = NULL;
     ColName = NULL;
-    t_renrooms *udata = (t_renrooms *)malloc(sizeof(t_renrooms));
+    t_renew_rooms *udata = (t_renew_rooms *)malloc(sizeof(t_renew_rooms));
     if (argc > 0 && argv) {
         udata->room_id = atoi(argv[0]);
         udata->room_name = strdup(argv[1]);
@@ -13,11 +13,11 @@ static int callback_renew_rooms(void *data, int argc, char **argv, char **ColNam
     return 0;
 }
 
-t_list *mx_contr_renew_rooms(t_renew *tok) {
+t_list *mx_contr_renew_rooms(t_renew_rooms *tok) {
     char *vals;
-    t_renrooms *udata = (t_renrooms *)malloc(sizeof(t_renrooms));
+    t_renew_rooms *udata = (t_renew_rooms *)malloc(sizeof(t_renew_rooms));
     t_list *data =  mx_create_node(udata);
-    memset(udata, 0, sizeof(t_renrooms));
+    memset(udata, 0, sizeof(t_renew_rooms));
 
     asprintf(&vals, "Rooms WHERE user_id = (SELECT id FROM Users "
                     " WHERE auth_token = '%s')"

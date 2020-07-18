@@ -24,7 +24,7 @@ static int callback_check_msg(void *data, int argc, char **argv, char **ColName)
     return 0;
 }
 
-int mx_check_msgs (t_list *lst) {
+static int mx_check_msgs(t_list *lst) {
     char *vals;
     int rs;
 
@@ -44,7 +44,6 @@ static void write_data_to_db(json_object *obj) {
     lst =  mx_create_node(udata);
     char *vals;
 
-    printf("%s\n", json_object_to_json_string(obj));
     json_parse(obj, lst);
     mx_pop_front(&lst);
     if (lst){
@@ -64,27 +63,15 @@ static void write_data_to_db(json_object *obj) {
 }
 
 
-static void mx_json_renew(t_event *event) {
-    int n = 0;
-    char buf;
-    char *str = mx_strnew(0);
-    struct json_object *obj = json_object_new_object();
+static void mx_json_renew(json_object *obj) {
+    char *str = (char *)json_object_to_json_string(obj);
 
-    event->data = (t_data *)malloc(sizeof(t_data));
-    memset(event->data, 0, sizeof(t_data));
-
-    while ((n = read(event->network_socket, &buf, 1)) > 0) {
-        str = mx_parse_str(str, buf);
-        if (str[strlen(str) - 1] == '}') {
-            break ;
-        }
-    }
     parse_json((const char *)str, &obj);
     write_data_to_db(obj);
 }
 
-void mx_contr_renew(t_event *event) {
-    struct json_object *jobj = json_object_new_object();
+void mx_contr_renew(t_event *event, json_object *jobj) {
+    struct json_object *obj = json_object_new_object();
     char *jstr;
 
     if (event->data) {
@@ -92,10 +79,10 @@ void mx_contr_renew(t_event *event) {
         json_object_object_add(jobj, "id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
         json_object_object_add(jobj, "last_renew", json_object_new_int(0));
-        jstr = (char *)json_object_to_json_string(jobj);
+        jstr = (char *)json_object_to_json_string(obj);
         send(event->network_socket, jstr, strlen(jstr), 0);
         mx_strdel(&jstr);
-        mx_json_renew(event);
+        mx_json_renew(obj);
     }
     else
         printf("WAT`S WRONG");

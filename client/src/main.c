@@ -1,10 +1,12 @@
 #include "header.h"
 
 void mx_json(t_event *event, char *action) {
-    char *ev[] = {"sign_in", "sign_up"};
+    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
-
+    printf("1111111===============\n");
+    printf("ACTION:%s\n", action);
+    printf("1111111===============\n");
     //Json
 
     if (strcmp(action, ev[0]) == 0) {
@@ -22,6 +24,18 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "nick", json_object_new_string(event->sign_up->nick));
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
+        jstr = json_object_to_json_string(jobj);
+        send(event->network_socket, jstr, strlen(jstr), 0);
+    }
+    if (strcmp(action, ev[2]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+        jstr = json_object_to_json_string(jobj);
+        send(event->network_socket, jstr, strlen(jstr), 0);
+    }
+    if (strcmp(action, ev[3]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("renew"));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
         jstr = json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
     }

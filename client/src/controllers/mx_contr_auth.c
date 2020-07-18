@@ -19,12 +19,11 @@ static void write_auth_data(t_event *event, json_object *obj) {
     event->data->id = json_object_get_int(id);
 
     printf("%d\n",event->data->status);
-//    if (event->data->status == 1) {
-//        g_print("Wrong login/pass");
-//    }
+
     if(event->data->status == 0) {
         mx_model_logined(event->data);
-        mx_contr_renew(event);
+        mx_json(event, "renew_rooms");
+        //mx_json(event, "renew");
     }
 }
 
