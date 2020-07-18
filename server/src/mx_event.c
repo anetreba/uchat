@@ -1,21 +1,25 @@
 #include "header.h"
-void mx_print_list(t_list *lst) {
-    while(lst) {
-        printf("********************************************************\n");
-        printf("ROOM ID = %d\n",((t_renrooms *)(lst->data))->room_id);
-        printf("ROOM NAME = %s\n",((t_renrooms *)(lst->data))->room_name);
-        lst = lst->next;
-        printf("********************************************************\n");
-    }
-}
+//void mx_print_list(t_list *lst) {
+//    while(lst) {
+//        printf("********************************************************\n");
+//        printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
+//        printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
+//        printf("ROOM NAME = %s\n",((t_upd *)(lst->data))->room_name);
+//        printf("SENDER ID = %d\n",((t_upd *)(lst->data))->sender_id);
+//        printf("DATA SEND = %d\n",((t_upd *)(lst->data))->date_send);
+//        printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
+//        lst = lst->next;
+//        printf("********************************************************\n");
+//    }
+//}
 
 void mx_return_renew_rooms_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object *jarray = NULL;
     char *iter = NULL;
-    mx_print_list(resp);
-    if (resp){
-        json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
+
+    json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
+    if (resp) {
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
             json_object *jstring0 = json_object_new_int(((t_renrooms *)(resp->data))->room_id);
@@ -28,10 +32,9 @@ void mx_return_renew_rooms_json(t_list *resp, int sock) {
         }
     }
     char *jstr = (char *)json_object_to_json_string(jobj);
-
     printf("JSON  == %s\n", jstr);
     send(sock, jstr, strlen(jstr), 0);
-   // mx_strdel(&jstr);
+    mx_strdel(&jstr);
 }
 
 void mx_return_renew_json(t_list *resp, int sock) {
@@ -40,6 +43,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
     json_object *jarray = NULL;
     char *iter = NULL;
 
+    json_object_object_add(jobj, "event", json_object_new_string("renew"));
     if (resp) {
         json_object_object_add(jobj, "event", json_object_new_string("renew_response"));
         for (int i = 0; resp; i++) {
@@ -60,6 +64,9 @@ void mx_return_renew_json(t_list *resp, int sock) {
             iter = mx_itoa(i);
             json_object_object_add(jobj, iter, jarray);
         }
+    }
+    else {
+        json_object_object_add(jobj, "status", json_object_new_int(1));
     }
     char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
@@ -114,32 +121,31 @@ void mx_return_signup_json(t_signup status, int sock) {
 //    send(sock, jstr, strlen(jstr), 0);
 //}
 
-void mx_renew_rooms(struct json_object *jobj, int sock) {
-    t_event event;
+void mx_renew_rooms(struct json_object *jobj, t_event *event) {
+//    t_event event;
     struct json_object *auth_token;
-    t_list resp;
-    event.renew = (t_renew *)malloc(sizeof(t_renew));
+    t_list *resp;
+    event->renew = (t_renew *)malloc(sizeof(t_renew));
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
-    event.renew->auth_token = json_object_get_string(auth_token);
-    resp = mx_contr_renew_rooms(event.renew);
-    printf("1==================================\n");
-    mx_return_renew_rooms_json(&resp, sock);
+    event->renew->auth_token = json_object_get_string(auth_token);
+    resp = mx_contr_renew_rooms(event->renew);
+    mx_return_renew_rooms_json(resp, event->new_open_socket);
 }
 
-void mx_renew(struct json_object *jobj, int sock) {
-    t_event event;
+void mx_renew(struct json_object *jobj, t_event *event) {
+//    t_event event;
     struct json_object *auth_token;
-    t_list resp;
+    t_list *resp;
 
-    event.renew = (t_renew *)malloc(sizeof(t_renew));
+    event->renew = (t_renew *)malloc(sizeof(t_renew));
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
-    event.renew->auth_token = json_object_get_string(auth_token);
-    resp = mx_contr_renew(event.renew);
-    mx_return_renew_json(&resp, sock);
+    event->renew->auth_token = json_object_get_string(auth_token);
+    resp = mx_contr_renew(event->renew);
+    mx_return_renew_json(resp, event->new_open_socket);
 }
 
-void mx_sign_up(struct json_object *jobj, const char *ev, char **events, int sock) {
-    t_event event;
+void mx_sign_up(struct json_object *jobj, const char *ev, char **events, t_event *event) {
+//    t_event event;
     t_data *data;
     struct json_object *nick;
     struct json_object *password;
@@ -148,23 +154,23 @@ void mx_sign_up(struct json_object *jobj, const char *ev, char **events, int soc
 
     data = (t_data *) malloc(sizeof(t_data));
 
-    event.log_in = (t_log_in *) malloc(sizeof(t_log_in));
+    event->log_in = (t_log_in *) malloc(sizeof(t_log_in));
     json_object_object_get_ex(jobj, "login", &login);
     json_object_object_get_ex(jobj, "password", &password);
     json_object_object_get_ex(jobj, "nick", &nick);
     json_object_object_get_ex(jobj, "email", &email);
 
-    event.log_in->login = json_object_get_string(login);
-    event.log_in->nick = json_object_get_string(nick);
-    event.log_in->password = json_object_get_string(password);
-    event.log_in->email = json_object_get_string(email);
+    event->log_in->login = json_object_get_string(login);
+    event->log_in->nick = json_object_get_string(nick);
+    event->log_in->password = json_object_get_string(password);
+    event->log_in->email = json_object_get_string(email);
 
     if (strcmp(ev, events[0]) == 0)
-        mx_return_signup_json(mx_contr_signup(event.log_in), sock);
+        mx_return_signup_json(mx_contr_signup(event->log_in), event->new_open_socket);
 }
 
-void mx_sign_in(struct json_object *jobj, const char *ev, char **events, int sock) {
-    t_event event;
+void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event *event) {
+//    t_event event;
     t_data *data;
     t_response *resp = NULL;
     struct json_object *password;
@@ -172,16 +178,16 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, int soc
 
     data = (t_data *)malloc(sizeof(t_data));
 
-    event.log_in = (t_log_in *)malloc(sizeof(t_log_in));
+    event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
     json_object_object_get_ex(jobj, "login", &login);
     json_object_object_get_ex(jobj, "password", &password);
 
-    event.log_in->login = json_object_get_string(login);
-    event.log_in->password = json_object_get_string(password);
+    event->log_in->login = json_object_get_string(login);
+    event->log_in->password = json_object_get_string(password);
 
     if (strcmp(ev, events[1]) == 0) {
-        resp = mx_contr_signin(event.log_in);
-        mx_return_signin_json(resp, sock);
+        resp = mx_contr_signin(event->log_in);
+        mx_return_signin_json(resp, event->new_open_socket);
     }
 }
 
@@ -215,20 +221,20 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, int soc
 //    mx_return_status_json(status, sock);
 //}
 
-void mx_valid_event(struct json_object *jobj, int sock) {
-    struct json_object *event;
+void mx_valid_event(struct json_object *jobj, t_event *event) {
+    struct json_object *action;
     char *events[] = {"sign_up", "sign_in", "renew","send_message"};
     const char *ev;
 
-    json_object_object_get_ex(jobj, "event", &event);
-    ev = json_object_get_string(event);
+    json_object_object_get_ex(jobj, "event", &action);
+    ev = json_object_get_string(action);
     if (strcmp(ev, events[0]) == 0)
-        mx_sign_up(jobj, ev, events, sock);
+        mx_sign_up(jobj, ev, events, event);
     else if (strcmp(ev, events[1]) == 0)
-        mx_sign_in(jobj, ev, events, sock);
+        mx_sign_in(jobj, ev, events, event);
     else if (strcmp(ev, events[2]) == 0) {
-        mx_renew_rooms(jobj, sock);
-        mx_renew(jobj, sock);
+        mx_renew_rooms(jobj, event);
+        mx_renew(jobj, event);
     }
 
 //    else if (strcmp(ev, events[3]))

@@ -13,7 +13,7 @@ static int callback_renew_rooms(void *data, int argc, char **argv, char **ColNam
     return 0;
 }
 
-t_list mx_contr_renew_rooms(t_renew *tok) {
+t_list *mx_contr_renew_rooms(t_renew *tok) {
     char *vals;
     t_renrooms *udata = (t_renrooms *)malloc(sizeof(t_renrooms));
     t_list *data =  mx_create_node(udata);
@@ -25,5 +25,5 @@ t_list mx_contr_renew_rooms(t_renew *tok) {
     mx_model_select("DISTINCT room_id, room_name", vals, callback_renew_rooms, data);
     mx_pop_front(&data);
     free(vals);
-    return *data;
+    return data;
 }
