@@ -80,15 +80,6 @@ void mx_json_read(t_event *event) {
         }
     }
     parse_json((const char *)str, &obj);
-
-//    if (json_object_object_get_ex(obj, "event", &obj)) {
-//        const char *ev = json_object_get_string(obj);
-//        if(strcmp(ev, "renew_rooms") == 0){
-//            printf("===========1=1=1=1=1=1=1=1=1=1=1=1=1=1=========\n\n\n");
-//            //mx_update_rooms(obj);
-//        }
-//
-//    }
     write_data_to_db(obj);
 
 }

@@ -85,20 +85,18 @@ void json_parse_array( json_object *jobj, char *key, t_list *list) {
         if (type == json_type_array)
             json_parse_array(jvalue, key, NULL);
         else if (type != json_type_object) {
-            //printf("value[%d]: ",i);
-            if(i == 0)
-                udata->room_id = json_object_get_int(jvalue);
-            if(i == 1)
-                udata->name_room = strdup(json_object_get_string(jvalue));
-            if(i == 2)
-                udata->message = strdup(json_object_get_string(jvalue));
-            if(i == 3)
-                udata->sender_id = json_object_get_int(jvalue);
-            if(i == 4)
-                udata->date_send = json_object_get_int(jvalue);
-            if(i == 5)
-                udata->recieve_status = json_object_get_int(jvalue);
-
+               if(i == 1)
+                   udata->room_id = json_object_get_int(jvalue);
+               if(i == 2)
+                   udata->name_room = strdup(json_object_get_string(jvalue));
+               if(i == 3)
+                   udata->message = strdup(json_object_get_string(jvalue));
+               if(i == 4)
+                   udata->sender_id = json_object_get_int(jvalue);
+               if(i == 5)
+                   udata->date_send = json_object_get_int(jvalue);
+               if(i == 6)
+                   udata->recieve_status = json_object_get_int(jvalue);
         }
         else
             json_parse(jvalue, list);

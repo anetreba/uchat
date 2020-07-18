@@ -200,6 +200,7 @@ int main(int argc, char **argv) {
     }
     t_event event;
     int port = atoi(argv[2]);
+
     event.network_socket = socket(AF_INET, SOCK_STREAM, 0);
 
     struct sockaddr_in server_adress;
@@ -217,20 +218,23 @@ int main(int argc, char **argv) {
     //Events
     mx_init_gtk(argc, argv, &event);
 
-    //Json
-    //struct json_object *jobj = NULL;
-    //mx_json(jobj, network_socket, &event);
+//    Json
+   // struct json_object *jobj = NULL;
+//    mx_json(jobj, network_socket, &event);
 
-//    int n;
-//    char buf;
-//    char *jstr = mx_strnew(0);
-////    struct json_object *jobj = json_object_new_object();
-//
-//    while ((n = read(event.network_socket, &buf, 1)) > 0) {
-//        jstr = mx_parse_str(jstr, buf);
-//    }
+    int n;
+    char buf;
+    char *jstr = mx_strnew(0);
+    struct json_object *jobj = json_object_new_object();
 
-//    printf("THE SERVER DATA -- %s\n", jstr);
+    while ((n = read(event.network_socket, &buf, 1)) > 0) {
+        jstr = mx_parse_str(jstr, buf);
+    }
+
+    printf("THE SERVER DATA -- %s\n", jstr);
+
+    //JSON OBJ GET
+    mx_valid_event(jobj, event.network_socket);
 
     close(event.network_socket);
 

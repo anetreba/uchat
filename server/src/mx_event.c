@@ -43,6 +43,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
     char *iter = NULL;
 
     if (resp) {
+        json_object_object_add(jobj, "event", json_object_new_string("renew_response"));
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
             json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id); // id komnaty
@@ -72,6 +73,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
 
 void mx_return_signin_json(t_response *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
+    json_object_object_add(jobj, "event", json_object_new_string("signin_response"));
     json_object_object_add(jobj, "id", json_object_new_int(resp->id));
     json_object_object_add(jobj, "status", json_object_new_int(resp->status));
     //printf("obj == %s\n", json_object_to_json_string(jobj));
@@ -90,6 +92,7 @@ void mx_return_signin_json(t_response *resp, int sock) {
 void mx_return_signup_json(t_signup status, int sock) {
     struct json_object *jobj = json_object_new_object();
 
+    json_object_object_add(jobj, "event", json_object_new_string("signup_response"));
     json_object_object_add(jobj, "status", json_object_new_int(status.status));
     json_object_object_add(jobj, "tokens", json_object_new_int(20));
     json_object_object_add(jobj, "verify_code", json_object_new_int(status.verify_code));

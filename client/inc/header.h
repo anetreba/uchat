@@ -106,6 +106,8 @@ typedef struct s_response {
     int tokens;
 }               t_response;
 
+
+void mx_valid_event(struct json_object *jobj, int sock);
 //crud
 void mx_model_update(char *table, char *str, char *condition);
 void mx_model_insert (char *table, char *rows, char *vals);
