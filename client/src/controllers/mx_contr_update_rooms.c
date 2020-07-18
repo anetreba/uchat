@@ -1,5 +1,7 @@
 #include "header.h"
 
+
+
 static int callback_rooms(void *data, int argc, char **argv, char **ColName) {
     t_data *udata = (t_data *)data;
     ColName = NULL;
@@ -11,7 +13,7 @@ static int callback_rooms(void *data, int argc, char **argv, char **ColName) {
     return 0;
 }
 
-int mx_select_rooms(t_list *lst) {
+int mx_contr_update_rooms(t_event *event) {
     char *vals;
     char *str;
     char *auth_token = NULL;
@@ -22,4 +24,3 @@ int mx_select_rooms(t_list *lst) {
     rs = mx_model_select("id, name", vals, callback_rooms, &data);
     return rs;
 }
-

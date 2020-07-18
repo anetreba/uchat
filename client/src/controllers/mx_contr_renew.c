@@ -47,8 +47,6 @@ static void write_data_to_db(json_object *obj) {
     printf("%s\n", json_object_to_json_string(obj));
     json_parse(obj, lst);
     mx_pop_front(&lst);
-    //mx_print_list(lst);
-
     if (lst){
         while (lst) {
             if (mx_check_msgs(lst) != 1) {
@@ -63,8 +61,6 @@ static void write_data_to_db(json_object *obj) {
             lst = lst->next;
         }
     }
-
-
 }
 
 
@@ -85,23 +81,19 @@ void mx_json_read(t_event *event) {
     }
     parse_json((const char *)str, &obj);
     write_data_to_db(obj);
+
 }
 
 void mx_contr_renew(t_event *event) {
     struct json_object *jobj = json_object_new_object();
+    char *jstr;
 
     if (event->data) {
         json_object_object_add(jobj, "event", json_object_new_string("renew"));
         json_object_object_add(jobj, "id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
         json_object_object_add(jobj, "last_renew", json_object_new_int(0));
-
-        printf("obj == %s\n", json_object_to_json_string(jobj));
-
-
-        char *jstr = (char *)json_object_to_json_string(jobj);
-        printf("JSON  == %s\n", jstr);
-
+        jstr = (char *)json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
         mx_strdel(&jstr);
         mx_json_read(event);
