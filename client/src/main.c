@@ -4,13 +4,16 @@ void mx_json(t_event *event, char *action) {
     char *ev[] = {"sign_in", "sign_up"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
+
     //Json
 
     if (strcmp(action, ev[0]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
-        mx_contr_auth(event, jobj);
+        jstr = json_object_to_json_string(jobj);
+        send(event->network_socket, jstr, strlen(jstr), 0);
+        //mx_contr_auth(event, jobj);
     }
 
     if (strcmp(action, ev[1]) == 0) {
@@ -22,6 +25,7 @@ void mx_json(t_event *event, char *action) {
         jstr = json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
     }
+    mx_json_read(event);
 }
 //====================================================================================
 
@@ -166,6 +170,7 @@ void mx_init_login(t_event *event) {
                                               GTK_STYLE_PROVIDER(cssProvider),
                                               GTK_STYLE_PROVIDER_PRIORITY_USER);
 
+//    mx_valid_event(jobj, event);
     // css_set(cssProvider, event->gtk->window);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -175,6 +180,7 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
+//    mx_json_read(event);
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
 
 //    if (event->data->status == 0)
@@ -218,23 +224,24 @@ int main(int argc, char **argv) {
     //Events
     mx_init_gtk(argc, argv, &event);
 
+
 //    Json
    // struct json_object *jobj = NULL;
 //    mx_json(jobj, network_socket, &event);
-
-    int n;
-    char buf;
-    char *jstr = mx_strnew(0);
-    struct json_object *jobj = json_object_new_object();
-
-    while ((n = read(event.network_socket, &buf, 1)) > 0) {
-        jstr = mx_parse_str(jstr, buf);
-    }
-
-    printf("THE SERVER DATA -- %s\n", jstr);
-
-    //JSON OBJ GET
-    mx_valid_event(jobj, event.network_socket);
+//
+//    int n;
+//    char buf;
+//    char *jstr = mx_strnew(0);
+//    struct json_object *jobj = json_object_new_object();
+//
+//    while ((n = read(event.network_socket, &buf, 1)) > 0) {
+//        jstr = mx_parse_str(jstr, buf);
+//    }
+//
+//    printf("THE SERVER DATA -- %s\n", jstr);
+//
+//    //JSON OBJ GET
+//    mx_valid_event(jobj, event);
 
     close(event.network_socket);
 

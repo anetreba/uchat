@@ -107,7 +107,7 @@ typedef struct s_response {
 }               t_response;
 
 
-void mx_valid_event(struct json_object *jobj, int sock);
+void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud
 void mx_model_update(char *table, char *str, char *condition);
 void mx_model_insert (char *table, char *rows, char *vals);
@@ -116,7 +116,6 @@ int mx_model_select(const char *search, char *tables,
                     void *data);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 
-void mx_valid_event(struct json_object *jobj, int sock);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 void mx_server_socket(int port);
 void mx_printerr(char *str);
@@ -126,7 +125,7 @@ t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
 int mx_update_rooms(t_list *lst);
 
-
+void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event);

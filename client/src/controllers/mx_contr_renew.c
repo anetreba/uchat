@@ -64,7 +64,7 @@ static void write_data_to_db(json_object *obj) {
 }
 
 
-void mx_json_read(t_event *event) {
+static void mx_json_renew(t_event *event) {
     int n = 0;
     char buf;
     char *str = mx_strnew(0);
@@ -96,7 +96,7 @@ void mx_contr_renew(t_event *event) {
         jstr = (char *)json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
         mx_strdel(&jstr);
-        mx_json_read(event);
+        mx_json_renew(event);
     }
     else
         printf("WAT`S WRONG");
