@@ -12,7 +12,6 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
         mx_contr_auth(event, jobj);
     }
-
     if (strcmp(action, ev[1]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
         json_object_object_add(jobj, "login", json_object_new_string(event->sign_up->login));
@@ -222,19 +221,19 @@ int main(int argc, char **argv) {
    // struct json_object *jobj = NULL;
 //    mx_json(jobj, network_socket, &event);
 
-    int n;
-    char buf;
-    char *jstr = mx_strnew(0);
-    struct json_object *jobj = json_object_new_object();
-
-    while ((n = read(event.network_socket, &buf, 1)) > 0) {
-        jstr = mx_parse_str(jstr, buf);
-    }
-
-    printf("THE SERVER DATA -- %s\n", jstr);
+//    int n;
+//    char buf;
+//    char *jstr = mx_strnew(0);
+//    struct json_object *jobj = json_object_new_object();
+//
+//    while ((n = read(event.network_socket, &buf, 1)) > 0) {
+//        jstr = mx_parse_str(jstr, buf);
+//    }
+//
+//    printf("THE SERVER DATA -- %s\n", jstr);
 
     //JSON OBJ GET
-    mx_valid_event(jobj, event.network_socket);
+//    mx_valid_event(jobj, event.network_socket);
 
     close(event.network_socket);
 

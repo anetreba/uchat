@@ -70,6 +70,9 @@ typedef struct s_renrooms {
 }               t_renrooms;
 
 typedef struct s_event {
+    int server_sock;
+    int *client_socks;
+    int new_open_socket;
     t_log_in *log_in;
     t_send_message *send_message;
     t_renew *renew;
@@ -83,13 +86,13 @@ typedef struct s_response {
     int tokens;
 }               t_response;
 
-void mx_valid_event(struct json_object *jobj, int sock);
+void mx_valid_event(struct json_object *jobj, t_event *event);
 int mx_init_sqli(char *sql, int (*callback)(void *, int, char **, char **), void *data);
 void mx_server_socket(int port);
 void mx_printerr(char *str);
 char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
-void mx_renew(struct json_object *jobj, int sock);
+void mx_renew(struct json_object *jobj, t_event *event);
 void mx_shuffle(void *array, size_t n, size_t size);
 
 //models
@@ -113,7 +116,7 @@ void mx_return_signup_json(t_signup status, int sock);
 int mx_gen_verify_code();
 int mx_sendmail(const char *to, const char *from, const char *subject, const char *message);
 void mx_verify_mail(char *login);
-void mx_renew_rooms(struct json_object *jobj, int sock);
+void mx_renew_rooms(struct json_object *jobj, t_event *event);
 t_list mx_contr_renew_rooms(t_renew *tok);
 
 #endif
