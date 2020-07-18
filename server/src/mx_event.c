@@ -1,22 +1,19 @@
 #include "header.h"
-//void mx_print_list(t_list *lst) {
-//    while(lst) {
-//        printf("********************************************************\n");
-//        printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
-//        printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
-//        printf("ROOM NAME = %s\n",((t_upd *)(lst->data))->room_name);
-//        printf("SENDER ID = %d\n",((t_upd *)(lst->data))->sender_id);
-//        printf("DATA SEND = %d\n",((t_upd *)(lst->data))->date_send);
-//        printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
-//        lst = lst->next;
-//        printf("********************************************************\n");
-//    }
-//}
+void mx_print_list(t_list *lst) {
+    while(lst) {
+        printf("********************************************************\n");
+        printf("ROOM ID = %d\n",((t_renrooms *)(lst->data))->room_id);
+        printf("ROOM NAME = %s\n",((t_renrooms *)(lst->data))->room_name);
+        lst = lst->next;
+        printf("********************************************************\n");
+    }
+}
 
 void mx_return_renew_rooms_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object *jarray = NULL;
     char *iter = NULL;
+    mx_print_list(resp);
     if (resp){
         json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
         for (int i = 0; resp; i++) {
@@ -31,9 +28,10 @@ void mx_return_renew_rooms_json(t_list *resp, int sock) {
         }
     }
     char *jstr = (char *)json_object_to_json_string(jobj);
+
     printf("JSON  == %s\n", jstr);
     send(sock, jstr, strlen(jstr), 0);
-    mx_strdel(&jstr);
+   // mx_strdel(&jstr);
 }
 
 void mx_return_renew_json(t_list *resp, int sock) {
@@ -124,6 +122,7 @@ void mx_renew_rooms(struct json_object *jobj, int sock) {
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
     event.renew->auth_token = json_object_get_string(auth_token);
     resp = mx_contr_renew_rooms(event.renew);
+    printf("1==================================\n");
     mx_return_renew_rooms_json(&resp, sock);
 }
 

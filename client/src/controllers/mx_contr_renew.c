@@ -81,7 +81,6 @@ static void mx_json_renew(t_event *event) {
     }
     parse_json((const char *)str, &obj);
     write_data_to_db(obj);
-
 }
 
 void mx_contr_renew(t_event *event) {

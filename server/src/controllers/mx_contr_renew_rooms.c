@@ -16,8 +16,9 @@ static int callback_renew_rooms(void *data, int argc, char **argv, char **ColNam
 t_list mx_contr_renew_rooms(t_renew *tok) {
     char *vals;
     t_renrooms *udata = (t_renrooms *)malloc(sizeof(t_renrooms));
-    memset(udata, 0, sizeof(t_renrooms));
     t_list *data =  mx_create_node(udata);
+    memset(udata, 0, sizeof(t_renrooms));
+
     asprintf(&vals, "Rooms WHERE user_id = (SELECT id FROM Users "
                     " WHERE auth_token = '%s')"
                     " GROUP BY room_id", tok->auth_token);
