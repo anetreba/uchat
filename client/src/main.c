@@ -71,6 +71,7 @@ void send_messages(GtkButton *button, t_event *event) {
     event->gtk->test_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "test_label"));
 
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+    
 
     GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     GtkWidget *row1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
