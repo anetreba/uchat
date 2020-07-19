@@ -31,7 +31,7 @@ void mx_contr_update_rooms(json_object *jobj) {
     lst =  mx_create_node(udata);
     json_parse(jobj, lst);
     mx_pop_front(&lst);
-    if (lst) {
+    if (lst){
         while (lst) {
             if (mx_check_msgs(lst) != 1) {
                 asprintf(&vals, "'%d','%s'",
