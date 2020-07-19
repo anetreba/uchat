@@ -64,10 +64,11 @@ typedef struct s_renew {
     const char *auth_token;
 }               t_renew;
 
-typedef struct s_renrooms {
+typedef struct s_renew_rooms {
     int room_id;
     const char *room_name;
-}               t_renrooms;
+    const char *auth_token;
+}               t_renew_rooms;
 
 typedef struct s_event {
     int server_sock;
@@ -76,7 +77,7 @@ typedef struct s_event {
     t_log_in *log_in;
     t_send_message *send_message;
     t_renew *renew;
-    t_renrooms *renrooms;
+    t_renew_rooms *renew_rooms;
 }              t_event;
 
 typedef struct s_response {
@@ -107,7 +108,7 @@ void mx_model_del(char *table, char *condition);
 //controllers
 t_signup mx_contr_signup(t_log_in *user);
 t_response *mx_contr_signin(t_log_in *user);
-t_list mx_contr_renew(t_renew *tok);
+t_list *mx_contr_renew(t_renew *tok);
 char *mx_gen_auth_token(int len);
 int mx_date_now();
 int mx_date_aval(int time);
@@ -117,6 +118,7 @@ int mx_gen_verify_code();
 int mx_sendmail(const char *to, const char *from, const char *subject, const char *message);
 void mx_verify_mail(char *login);
 void mx_renew_rooms(struct json_object *jobj, t_event *event);
-t_list mx_contr_renew_rooms(t_renew *tok);
+t_list *mx_contr_renew_rooms(t_renew_rooms *tok);
 
 #endif
+
