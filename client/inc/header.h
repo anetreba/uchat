@@ -98,6 +98,7 @@ typedef struct s_event {
     t_log_in *log_in;
     t_sign_up *sign_up;
     t_data *data;
+    t_list *renew;
 }              t_event;
 
 typedef struct s_response {
@@ -128,7 +129,7 @@ void json_parse(json_object *jobj, t_list *lst);
 void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
-void mx_contr_renew(json_object *jobj);
+void mx_contr_renew(t_event *event, json_object *jobj);
 void mx_contr_update_rooms(json_object *jobj);
 
 void mx_json(t_event *event, char *action);
