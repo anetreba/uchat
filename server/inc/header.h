@@ -121,3 +121,4 @@ void mx_renew_rooms(struct json_object *jobj, t_event *event);
 t_list *mx_contr_renew_rooms(t_renew_rooms *tok);
 
 #endif
+

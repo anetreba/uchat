@@ -4,10 +4,6 @@ void mx_json(t_event *event, char *action) {
     char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
-    printf("1111111===============\n");
-    printf("ACTION:%s\n", action);
-    printf("1111111===============\n");
-    //Json
 
     if (strcmp(action, ev[0]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
@@ -182,7 +178,6 @@ void mx_init_login(t_event *event) {
                                               GTK_STYLE_PROVIDER(cssProvider),
                                               GTK_STYLE_PROVIDER_PRIORITY_USER);
 
-//    mx_valid_event(jobj, event);
     // css_set(cssProvider, event->gtk->window);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,7 +187,6 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
-//    mx_json_read(event);
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
 
 //    if (event->data->status == 0)
@@ -236,11 +230,10 @@ int main(int argc, char **argv) {
     //Events
     mx_init_gtk(argc, argv, &event);
 
-
 //    Json
-   // struct json_object *jobj = NULL;
+    // struct json_object *jobj = NULL;
 //    mx_json(jobj, network_socket, &event);
-//
+
 //    int n;
 //    char buf;
 //    char *jstr = mx_strnew(0);
@@ -251,9 +244,9 @@ int main(int argc, char **argv) {
 //    }
 //
 //    printf("THE SERVER DATA -- %s\n", jstr);
-//
-//    //JSON OBJ GET
-//    mx_valid_event(jobj, event);
+
+    //JSON OBJ GET
+//    mx_valid_event(jobj, event.network_socket);
 
     close(event.network_socket);
 
