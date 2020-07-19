@@ -128,7 +128,7 @@ void json_parse(json_object *jobj, t_list *lst);
 void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
-void mx_contr_renew(t_event *event, json_object *jobj);
+void mx_contr_renew(json_object *jobj);
 void mx_contr_update_rooms(json_object *jobj);
 
 void mx_json(t_event *event, char *action);

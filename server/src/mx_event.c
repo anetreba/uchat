@@ -1,7 +1,7 @@
 #include "header.h"
-void mx_print_list(t_list *lst) {
-    if(lst){
-        while(lst) {
+//void mx_print_list(t_list *lst) {
+//    if(lst){
+//        while(lst) {
 //            printf("********************************************************\n");
 //            printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
 //            printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
@@ -11,29 +11,28 @@ void mx_print_list(t_list *lst) {
 //            printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
 //            lst = lst->next;
 //            printf("********************************************************\n");
-            printf("********************************************************\n");
-            printf("ROOM ID = %d\n",((t_renew_rooms *)(lst->data))->room_id);
-            printf("ROOM NAME = %s\n",((t_renew_rooms *)(lst->data))->room_name);
-            lst = lst->next;
-            printf("********************************************************\n");
-        }
-    }
-    else {
-        printf("********************************************************\n");
-        printf("EMPTY LIST\n");
-        printf("********************************************************\n");
-    }
-
-}
+//            printf("********************************************************\n");
+//            printf("ROOM ID = %d\n",((t_renew_rooms *)(lst->data))->room_id);
+//            printf("ROOM NAME = %s\n",((t_renew_rooms *)(lst->data))->room_name);
+//            lst = lst->next;
+//            printf("********************************************************\n");
+//        }
+//    }
+//    else {
+//        printf("********************************************************\n");
+//        printf("EMPTY LIST\n");
+//        printf("********************************************************\n");
+//    }
+//
+//}
 
 void mx_return_renew_rooms_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
-    json_object *jarray = NULL;
+    struct json_object *jarray = NULL;
     char *iter = NULL;
-    mx_print_list(resp);
     json_object_object_add(jobj, "event", json_object_new_string("renew_rooms_response"));
-    json_object_object_add(jobj, "status", json_object_new_int(0));
     if (resp && resp->next != NULL) {
+        json_object_object_add(jobj, "status", json_object_new_int(0));
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
             json_object *jstring0 = json_object_new_int(((t_renew_rooms *)(resp->data))->room_id);
@@ -50,27 +49,29 @@ void mx_return_renew_rooms_json(t_list *resp, int sock) {
     }
 
     char *jstr = (char *)json_object_to_json_string(jobj);
-    printf("JSON  == %s\n", jstr);
+    printf("=================================================================================\n");
+    printf("JSON_RENEW_ROOMS  == %s\n", jstr);
+    printf("=================================================================================\n");
     send(sock, jstr, strlen(jstr), 0);
     mx_strdel(&jstr);
 }
 
 void mx_return_renew_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
-    json_object *jarray = NULL;
+    struct json_object *jarray = NULL;
     char *iter = NULL;
-    mx_print_list(resp);
+    json_object_object_add(jobj, "event", json_object_new_string("renew_response"));
+
     if (resp && resp->next != NULL) {
-        json_object_object_add(jobj, "event", json_object_new_string("renew_response"));
         json_object_object_add(jobj, "status", json_object_new_int(0));
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
-            json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id); // id komnaty
-            json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name); // imya komnaty
-            json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message); // soobschenie
-            json_object *jstring3 = json_object_new_int(((t_upd *)(resp->data))->sender_id); // id otpravitelya
-            json_object *jstring4 = json_object_new_int(((t_upd *)(resp->data))->date_send); // data otpravki
-            json_object *jstring5 = json_object_new_int(((t_upd *)(resp->data))->recieve_status); // status polucheniya
+            json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id);
+            json_object *jstring1 = json_object_new_string(((t_upd *)(resp->data))->room_name);
+            json_object *jstring2 = json_object_new_string(((t_upd *)(resp->data))->message);
+            json_object *jstring3 = json_object_new_int(((t_upd *)(resp->data))->sender_id);
+            json_object *jstring4 = json_object_new_int(((t_upd *)(resp->data))->date_send);
+            json_object *jstring5 = json_object_new_int(((t_upd *)(resp->data))->recieve_status);
             json_object_array_add(jarray,jstring0);
             json_object_array_add(jarray,jstring1);
             json_object_array_add(jarray,jstring2);
@@ -86,7 +87,9 @@ void mx_return_renew_json(t_list *resp, int sock) {
         json_object_object_add(jobj, "status", json_object_new_int(1));
     }
     char *jstr = (char *)json_object_to_json_string(jobj);
-    printf("JSON  == %s\n", jstr);
+    printf("=================================================================================\n");
+    printf("JSON_RENEW  == %s\n", jstr);
+    printf("=================================================================================\n");
     send(sock, jstr, strlen(jstr), 0);
     mx_strdel(&jstr);
 }
@@ -96,7 +99,6 @@ void mx_return_signin_json(t_response *resp, int sock) {
     json_object_object_add(jobj, "event", json_object_new_string("signin_response"));
     json_object_object_add(jobj, "id", json_object_new_int(resp->id));
     json_object_object_add(jobj, "status", json_object_new_int(resp->status));
-    //printf("obj == %s\n", json_object_to_json_string(jobj));
 
     if (resp->auth_token)
         json_object_object_add(jobj, "auth_token", json_object_new_string(resp->auth_token));
@@ -123,18 +125,6 @@ void mx_return_signup_json(t_signup status, int sock) {
     send(sock, jstr, strlen(jstr), 0);
     mx_strdel(&jstr);
 }
-
-//void mx_return_status_json(int status, int sock) {
-//    struct json_object *jobj = json_object_new_object();
-//
-//    json_object_object_add(jobj, "status", json_object_new_int(status));
-//    printf("obj == %s\n", json_object_to_json_string(jobj));
-//
-//    const char *jstr = json_object_to_json_string(jobj);
-//    printf("JSON  == %s\n", jstr);
-//
-//    send(sock, jstr, strlen(jstr), 0);
-//}
 
 void mx_renew_rooms(struct json_object *jobj, t_event *event) {
 //    t_event event;
@@ -246,13 +236,10 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     ev = json_object_get_string(action);
     if (strcmp(ev, events[0]) == 0)
         mx_sign_up(jobj, ev, events, event);
-    else if (strcmp(ev, events[1]) == 0) {
+    else if (strcmp(ev, events[1]) == 0)
         mx_sign_in(jobj, ev, events, event);
-    }
-    else if (strcmp(ev, events[2]) == 0) {
+    else if (strcmp(ev, events[2]) == 0)
         mx_renew_rooms(jobj, event);
-    }
-    else if (strcmp(ev, events[3]) == 0) {
+    else if (strcmp(ev, events[3]) == 0)
         mx_renew(jobj, event);
-    }
 }

@@ -15,9 +15,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
         jstr = json_object_to_json_string(jobj);
         send(event->network_socket, jstr, strlen(jstr), 0);
-        //mx_contr_auth(event, jobj);
     }
-
     if (strcmp(action, ev[1]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
         json_object_object_add(jobj, "login", json_object_new_string(event->sign_up->login));

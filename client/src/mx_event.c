@@ -26,7 +26,7 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     if (strcmp(ev, events[0]) == 0)
         mx_contr_update_rooms(jobj);
     if (strcmp(ev, events[1]) == 0)
-        mx_contr_renew(event, jobj);
+        mx_contr_renew(jobj);
     if (strcmp(ev, events[2]) == 0)
         printf("%s\n", ev);
     if (strcmp(ev, events[3]) == 0)
