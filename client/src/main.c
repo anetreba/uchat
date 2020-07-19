@@ -120,6 +120,13 @@ void chat_window(GtkButton *button, t_event *event) {
     (void)button;
 }
 
+void show_error_label(t_event *event) {
+    GtkWidget *error_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "wrong_pass_lbl"));
+    gtk_label_set_text(GTK_LABEL(error_label), "Wrong login or Password");
+    printf("Wrong login or Password\n");
+    gtk_widget_show(error_label);
+}
+
 void fill_sign_in(GtkButton *button, t_event *event) {
     GtkWidget *pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
     GtkWidget *login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_login"));
@@ -137,7 +144,9 @@ void fill_sign_in(GtkButton *button, t_event *event) {
         gtk_widget_hide(event->gtk->window);
         chat_window(button, event);
     }
-    //Wrong Password or login
+    if (event->data->status == 1) {
+        show_error_label(event);
+    }
 
 //***************
 //***************
