@@ -98,6 +98,7 @@ typedef struct s_event {
     t_log_in *log_in;
     t_sign_up *sign_up;
     t_data *data;
+    t_list *renew;
 }              t_event;
 
 typedef struct s_response {

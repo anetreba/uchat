@@ -40,24 +40,25 @@ static int mx_check_msgs(t_list *lst) {
 static void write_data_to_db(json_object *obj) {
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
     memset(udata, 0, sizeof(t_renew));
-    t_list *lst = (t_list *)malloc(sizeof(t_list));
-    lst =  mx_create_node(udata);
+    //event->renew = (t_list *)malloc(sizeof(t_list));
+  //  t_list *lst = (t_list *)malloc(sizeof(t_list));
+    c =  mx_create_node(udata);
     char *vals;
 
-    json_parse(obj, lst);
-    mx_pop_front(&lst);
-    if (lst){
-        while (lst) {
-            if (mx_check_msgs(lst) != 1) {
+    json_parse(obj, event->renew);
+    mx_pop_front(&event->renew);
+    if (event->renew){
+        while (event->renew) {
+            if (mx_check_msgs(event->renew) != 1) {
                 asprintf(&vals, "'%d','%s','%d','%d','%d'",
-                         ((t_renew *)(lst->data))->room_id,
-                         ((t_renew *)(lst->data))->message,
-                         ((t_renew *)(lst->data))->sender_id,
-                         ((t_renew *)(lst->data))->date_send,
-                         ((t_renew *)(lst->data))->recieve_status);
+                         ((t_renew *)(event->renew->data))->room_id,
+                         ((t_renew *)(event->renew->data))->message,
+                         ((t_renew *)(event->renew->data))->sender_id,
+                         ((t_renew *)(event->renew->data))->date_send,
+                         ((t_renew *)(event->renew->data))->recieve_status);
                 mx_model_insert("Messages", "room_id, message, sender_id, date_send, resieve_status", vals);
             }
-            lst = lst->next;
+            event->renew = event->renew->next;
         }
     }
 }
