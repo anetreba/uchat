@@ -12,13 +12,13 @@ static void *ws_establishconnection(void *vsock) {
     while ((n = read(event->new_open_socket, &buf, 1)) > 0) {
         jstr = mx_parse_str(jstr, buf);
         if (jstr[mx_strlen(jstr) - 1] == '}') {
-            printf("jstr = %s\n", jstr);
+            printf("jstr_on_socket = %s\n", jstr);
 
             if (parse_json((const char *)jstr, &jobj))
                 mx_printerr("Failed to parse JSON responses.\n");
             mx_strdel(&jstr);
 
-            printf("JSON = %s\n", json_object_to_json_string(jobj));
+            printf("JSON_ON_SOCKET = %s\n", json_object_to_json_string(jobj));
             jstr = mx_strnew(0);
             //JSON OBJ GET
             mx_valid_event(jobj, event);
@@ -38,8 +38,8 @@ static void *ws_establishconnection(void *vsock) {
 
 void mx_connecion(t_event *event) {
     event->client_socks = (int *)malloc(sizeof(int));
-   // int client_socks[MAX_CLIENTS]; // Mass of client sock
-   // int new_open_socket; // New opened connection.
+    // int client_socks[MAX_CLIENTS]; // Mass of client sock
+    // int new_open_socket; // New opened connection.
     struct sockaddr_in client; // Client.
     int len = sizeof(struct sockaddr_in);
     pthread_t client_thread; // Client thread.
