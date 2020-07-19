@@ -15,7 +15,6 @@ static int callback_res_message(void *data, int argc, char **argv, char **ColNam
     if (argc > 0 && argv) {
         udata->auth_token = strcpy(argv[0]);
         udata->tokens = atoi(argv[1]);
-
     }
     return 0;
 }
