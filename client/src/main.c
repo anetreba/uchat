@@ -31,6 +31,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
         json_object_object_add(jobj, "id_sender", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "room_id", json_object_new_int(1));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
