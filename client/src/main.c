@@ -1,44 +1,40 @@
 #include "header.h"
 
 void mx_json(t_event *event, char *action) {
-    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew"};
+    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
-    printf("1111111===============\n");
-    printf("ACTION:%s\n", action);
-    printf("1111111===============\n");
     //Json
 
     if (strcmp(action, ev[0]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
-        jstr = json_object_to_json_string(jobj);
-        send(event->network_socket, jstr, strlen(jstr), 0);
-        //mx_contr_auth(event, jobj);
     }
-
     if (strcmp(action, ev[1]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
         json_object_object_add(jobj, "login", json_object_new_string(event->sign_up->login));
         json_object_object_add(jobj, "nick", json_object_new_string(event->sign_up->nick));
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
-        jstr = json_object_to_json_string(jobj);
-        send(event->network_socket, jstr, strlen(jstr), 0);
     }
     if (strcmp(action, ev[2]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
-        jstr = json_object_to_json_string(jobj);
-        send(event->network_socket, jstr, strlen(jstr), 0);
     }
     if (strcmp(action, ev[3]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("renew"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
-        jstr = json_object_to_json_string(jobj);
-        send(event->network_socket, jstr, strlen(jstr), 0);
     }
+    if (strcmp(action, ev[4]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("send_message"));
+        json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
+        json_object_object_add(jobj, "id_sender", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "room_id", json_object_new_int(1));
+    }
+    jstr = json_object_to_json_string(jobj);
+    printf("JSTR = %s\n", jstr);
+    send(event->network_socket, jstr, strlen(jstr), 0);
     mx_json_read(event);
 }
 //====================================================================================
@@ -110,6 +106,7 @@ void send_messages(GtkButton *button, t_event *event) {
 
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
+    mx_json(event, "send_message");
 
     (void)button;
 

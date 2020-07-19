@@ -88,7 +88,7 @@ typedef struct s_send_message {
     int id_sender;
     const char *message;
     int type;
-    int group;
+    int room_id;
 }               t_send_message;
 
 typedef struct s_event {
