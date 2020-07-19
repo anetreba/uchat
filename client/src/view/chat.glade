@@ -17,7 +17,7 @@
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window">
             <property name="name">scrolled_window</property>
-            <property name="width_request">658</property>
+            <property name="width_request">650</property>
             <property name="height_request">505</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -38,20 +38,21 @@
             </child>
           </object>
           <packing>
-            <property name="x">148</property>
+            <property name="x">180</property>
             <property name="y">53</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="chat_entry_message">
             <property name="name">entry_msg_field</property>
-            <property name="width_request">550</property>
+            <property name="width_request">545</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your message</property>
           </object>
           <packing>
-            <property name="x">125</property>
+            <property name="x">177</property>
             <property name="y">580</property>
           </packing>
         </child>
@@ -66,22 +67,81 @@
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">720</property>
+            <property name="x">732</property>
             <property name="y">580</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="test_label">
-            <property name="name">test_label</property>
-            <property name="width_request">100</property>
-            <property name="height_request">80</property>
+          <object class="GtkSearchEntry" id="search_box">
+            <property name="name">search_box</property>
+            <property name="width_request">130</property>
+            <property name="height_request">34</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">test_label</property>
+            <property name="can_focus">True</property>
+            <property name="primary_icon_name">edit-find-symbolic</property>
+            <property name="primary_icon_activatable">False</property>
+            <property name="primary_icon_sensitive">False</property>
+            <property name="placeholder_text" translatable="yes">Serch users</property>
           </object>
           <packing>
-            <property name="x">33</property>
-            <property name="y">250</property>
+            <property name="x">6</property>
+            <property name="y">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_rooms">
+            <property name="name">scrolled_rooms</property>
+            <property name="width_request">160</property>
+            <property name="height_request">504</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="list_rooms">
+                    <property name="name">list_rooms</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">10</property>
+            <property name="y">54</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="new_room_btn">
+            <property name="label" translatable="yes">New room</property>
+            <property name="name">new_rim_btn</property>
+            <property name="width_request">153</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">15</property>
+            <property name="y">580</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="room_name">
+            <property name="name">room_name</property>
+            <property name="width_request">642</property>
+            <property name="height_request">32</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Room name</property>
+          </object>
+          <packing>
+            <property name="x">184</property>
+            <property name="y">7</property>
           </packing>
         </child>
       </object>

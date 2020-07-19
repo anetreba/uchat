@@ -45,6 +45,8 @@ typedef struct s_gtk {
     GtkWidget *chat_window;
     GtkWidget *list_box;
     GtkWidget *test_label;
+    GtkWidget *list_rooms;
+    GtkWidget *new_room;
 }               t_gtk;
 
 typedef struct s_data {
@@ -70,6 +72,13 @@ typedef struct s_renew {
     int date_send;
     int recieve_status;
 }               t_renew;
+
+typedef struct s_room {
+    int room_id;
+    char *room_name;
+    GtkWidget *row;
+    GtkWidget *room_btn;
+}               t_room;
 
 typedef struct s_log_in {
     const char *login;
@@ -99,6 +108,7 @@ typedef struct s_event {
     t_sign_up *sign_up;
     t_data *data;
     t_list *renew;
+    t_list *room;
 }              t_event;
 
 typedef struct s_response {
@@ -107,7 +117,6 @@ typedef struct s_response {
     char *auth_token;
     int tokens;
 }               t_response;
-
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud
@@ -130,7 +139,7 @@ void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event, json_object *jobj);
-void mx_contr_update_rooms(json_object *jobj);
+void mx_contr_update_rooms(json_object *jobj, t_event *event);
 
 void mx_json(t_event *event, char *action);
 

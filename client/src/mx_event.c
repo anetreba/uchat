@@ -13,6 +13,10 @@ void mx_json_read(t_event *event) {
         }
     }
     parse_json((const char *)str, &obj);
+
+    printf("#############################################################\n");
+    printf("STR = %s\n", str);
+    printf("#############################################################\n");
     mx_valid_event(obj, event);
 }
 
@@ -24,7 +28,7 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     json_object_object_get_ex(jobj, "event", &obj);
     ev = json_object_get_string(obj);
     if (strcmp(ev, events[0]) == 0)
-        mx_contr_update_rooms(jobj);
+        mx_contr_update_rooms(jobj, event);
     if (strcmp(ev, events[1]) == 0)
         mx_contr_renew(event, jobj);
     if (strcmp(ev, events[2]) == 0)

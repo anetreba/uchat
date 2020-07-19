@@ -19,6 +19,7 @@ int mx_select_rooms(t_list *lst) {
     int rs;
 
     asprintf(&vals, "Rooms");
+
     rs = mx_model_select("id, name", vals, callback_rooms, &data);
     return rs;
 }

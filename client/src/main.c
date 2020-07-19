@@ -83,8 +83,7 @@ void send_messages(GtkButton *button, t_event *event) {
     GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
     GtkWidget *list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
 
-    //test_label
-    event->gtk->test_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "test_label"));
+    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
 
     GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     GtkWidget *row1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
@@ -105,13 +104,11 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_set_opacity(new_button1, 1);
     gtk_container_add(GTK_CONTAINER(row1), new_button1);
 
-    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+    // event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
-    mx_json(event, "send_message");
 
     (void)button;
 
-    gtk_label_set_text(GTK_LABEL(event->gtk->test_label), event->log_in->login);
     gtk_entry_set_text(GTK_ENTRY(msg), "");
 
     gtk_list_box_insert(GTK_LIST_BOX(list_box), row1, -1);
@@ -126,13 +123,108 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_show(new_button);
 }
 
+void mx_create_list_room(t_event *event) {
+
+    for (int i = 0; i < 5; i++) {
+    //while (event->renew) {
+        t_room *room = (t_room *)malloc(sizeof(t_room));
+//        room->room_name = strdup(((t_renew *)(event->renew->data))->name_room);
+//        room->room_id = ((t_renew *)(event->renew->data))->room_id;
+        room->room_name = strdup("ЛЮТИКИ");
+        room->room_id = i;
+        room->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+        room->room_btn = gtk_button_new_with_label(room->room_name);
+
+        gtk_widget_set_hexpand(room->room_btn, TRUE);
+        gtk_widget_set_halign(room->room_btn, GTK_ALIGN_CENTER);
+        gtk_widget_set_valign(room->room_btn, GTK_ALIGN_CENTER);
+        gtk_widget_set_size_request(room->room_btn, 60, 5);
+        gtk_container_add(GTK_CONTAINER(room->row), room->room_btn);
+
+        gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), room->row, 1);
+
+        gtk_widget_show(room->row);
+        gtk_widget_show(room->room_btn);
+        printf("==========error=========\n");
+
+        //event->renew = event->renew->next;
+        mx_push_back(&(event->room), room);
+    }
+}
+
+void new_room(GtkButton *button, t_event *event) {
+//    event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
+//    t_room *room = (t_room *)malloc(sizeof(t_room));
+//    event->room = mx_create_node(room);
+//    mx_create_list_room(event);
+//    mx_pop_front(&event->room);
+
+    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+
+    GtkWidget *room1 = gtk_button_new_with_label("test_room1");
+    gtk_widget_set_hexpand(room1, TRUE);
+    gtk_widget_set_halign(room1, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(room1, GTK_ALIGN_CENTER);
+    gtk_widget_set_size_request(room1, 60, 5);
+    gtk_container_add(GTK_CONTAINER(row), room1);
+
+    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
+
+    gtk_widget_show(row);
+    gtk_widget_show(room1);
+
+    (void)button;
+}
+
+void mx_print_list(t_event *event) {
+    t_list *lst = event->room;
+
+    printf("===LIST==\n");
+    while (lst) {
+        printf("****************************************************************\n");
+        printf("ROOM_NAME = %s\n", ((t_room *)(lst->data))->room_name);
+        printf("ROOM_ID = %d\n", ((t_room *)(lst->data))->room_id);
+        printf("****************************************************************\n");
+        lst = lst->next;
+    }
+}
+
+//void mx_print_list2(t_event *event) {
+//    t_list *lst = event->renew;
+//
+//    printf("===LIST==\n");
+//    while (lst) {
+//        printf("****************************************************************\n");
+//        printf("ROOM_NAME = %s\n", ((t_renew *)(lst->data))->name_room);
+//        printf("ROOM_ID = %d\n", ((t_renew *)(lst->data))->room_id);
+//        printf("****************************************************************\n");
+//        lst = lst->next;
+//    }
+//}
+
 void chat_window(GtkButton *button, t_event *event) {
+    //rooms(event);
+
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
     event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
 
+    event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
+
     gtk_widget_show(event->gtk->chat_window);
     gtk_widget_hide(event->gtk->window);
+
+    event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
+
+
+  //  mx_print_list2(event);
+    t_room *room = (t_room *)malloc(sizeof(t_room));
+    event->room = mx_create_node(room);
+    mx_create_list_room(event);
+    mx_pop_front(&event->room);
+    mx_print_list(event);
+
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
+    g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(new_room), event);
 
     (void)button;
 }
@@ -182,7 +274,6 @@ void mx_init_login(t_event *event) {
                                               GTK_STYLE_PROVIDER(cssProvider),
                                               GTK_STYLE_PROVIDER_PRIORITY_USER);
 
-//    mx_valid_event(jobj, event);
     // css_set(cssProvider, event->gtk->window);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,7 +283,6 @@ void mx_init_login(t_event *event) {
     event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
-//    mx_json_read(event);
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);
 
 //    if (event->data->status == 0)
@@ -236,11 +326,10 @@ int main(int argc, char **argv) {
     //Events
     mx_init_gtk(argc, argv, &event);
 
-
 //    Json
-   // struct json_object *jobj = NULL;
+    // struct json_object *jobj = NULL;
 //    mx_json(jobj, network_socket, &event);
-//
+
 //    int n;
 //    char buf;
 //    char *jstr = mx_strnew(0);
@@ -251,9 +340,9 @@ int main(int argc, char **argv) {
 //    }
 //
 //    printf("THE SERVER DATA -- %s\n", jstr);
-//
-//    //JSON OBJ GET
-//    mx_valid_event(jobj, event);
+
+    //JSON OBJ GET
+//    mx_valid_event(jobj, event.network_socket);
 
     close(event.network_socket);
 

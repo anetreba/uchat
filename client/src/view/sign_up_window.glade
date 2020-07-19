@@ -5,8 +5,8 @@
   <object class="GtkWindow" id="sign_up_window">
     <property name="can_focus">False</property>
     <property name="window_position">center</property>
-    <property name="default_width">820</property>
-    <property name="default_height">720</property>
+    <property name="default_width">1024</property>
+    <property name="default_height">768</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -21,6 +21,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your e-mail address</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -34,6 +35,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your Nickname</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -47,6 +49,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your password</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -60,6 +63,7 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your login</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -79,58 +83,6 @@
           <packing>
             <property name="x">320</property>
             <property name="y">580</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="email_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Email*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">380</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="nick_name_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Nickname</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">430</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="login_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Login*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">530</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="password_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Password*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">480</property>
           </packing>
         </child>
         <child>
