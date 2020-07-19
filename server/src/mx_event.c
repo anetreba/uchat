@@ -1,34 +1,48 @@
 #include "header.h"
-//void mx_print_list(t_list *lst) {
-//    while(lst) {
-//        printf("********************************************************\n");
-////        printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
-//        printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
-//        printf("ROOM NAME = %s\n",((t_upd *)(lst->data))->room_name);
-////        printf("SENDER ID = %d\n",((t_upd *)(lst->data))->sender_id);
-////        printf("DATA SEND = %d\n",((t_upd *)(lst->data))->date_send);
-////        printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
-//        lst = lst->next;
-//        printf("********************************************************\n");
-//    }
-//}
+void mx_print_list(t_list *lst) {
+    if(lst){
+        while(lst) {
+//            printf("********************************************************\n");
+//            printf("MESSAGE = %s\n",((t_upd *)(lst->data))->message);
+//            printf("ROOM ID = %d\n",((t_upd *)(lst->data))->room_id);
+//            printf("ROOM NAME = %s\n",((t_upd *)(lst->data))->room_name);
+//            printf("SENDER ID = %d\n",((t_upd *)(lst->data))->sender_id);
+//            printf("DATA SEND = %d\n",((t_upd *)(lst->data))->date_send);
+//            printf("REC STATUS = %d\n",((t_upd *)(lst->data))->recieve_status);
+//            lst = lst->next;
+//            printf("********************************************************\n");
+            printf("********************************************************\n");
+            printf("ROOM ID = %d\n",((t_renew_rooms *)(lst->data))->room_id);
+            printf("ROOM NAME = %s\n",((t_renew_rooms *)(lst->data))->room_name);
+            lst = lst->next;
+            printf("********************************************************\n");
+        }
+    }
+    else {
+        printf("********************************************************\n");
+        printf("EMPTY LIST\n");
+        printf("********************************************************\n");
+    }
+
+}
 
 void mx_return_renew_rooms_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object *jarray = NULL;
     char *iter = NULL;
-    //mx_print_list(resp);
+    mx_print_list(resp);
     json_object_object_add(jobj, "event", json_object_new_string("renew_rooms_response"));
-    if (resp) {
+    json_object_object_add(jobj, "status", json_object_new_int(0));
+    if (resp && resp->next != NULL) {
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
             json_object *jstring0 = json_object_new_int(((t_renew_rooms *)(resp->data))->room_id);
             json_object *jstring1 = json_object_new_string(((t_renew_rooms *)(resp->data))->room_name);
             json_object_array_add(jarray,jstring0);
             json_object_array_add(jarray,jstring1);
-            resp = resp->next;
             iter = mx_itoa(i);
             json_object_object_add(jobj, iter, jarray);
+            resp = resp->next;
         }
     }
     else {
@@ -45,9 +59,10 @@ void mx_return_renew_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object *jarray = NULL;
     char *iter = NULL;
-
-    json_object_object_add(jobj, "event", json_object_new_string("renew"));
-    if (resp) {
+    mx_print_list(resp);
+    if (resp && resp->next != NULL) {
+        json_object_object_add(jobj, "event", json_object_new_string("renew_response"));
+        json_object_object_add(jobj, "status", json_object_new_int(0));
         for (int i = 0; resp; i++) {
             jarray = json_object_new_array();
             json_object *jstring0 = json_object_new_int(((t_upd *)(resp->data))->room_id); // id komnaty
@@ -62,9 +77,9 @@ void mx_return_renew_json(t_list *resp, int sock) {
             json_object_array_add(jarray,jstring3);
             json_object_array_add(jarray,jstring4);
             json_object_array_add(jarray,jstring5);
-            resp = resp->next;
             iter = mx_itoa(i);
             json_object_object_add(jobj, iter, jarray);
+            resp = resp->next;
         }
     }
     else {

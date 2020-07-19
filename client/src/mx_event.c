@@ -18,7 +18,7 @@ void mx_json_read(t_event *event) {
 
 void mx_valid_event(struct json_object *jobj, t_event *event) {
     struct json_object *obj;
-    char *events[] = {"renew_rooms_resonse", "renew_response", "new_message", "signup_response", "signin_response"};
+    char *events[] = {"renew_rooms_response", "renew_response", "new_message", "signup_response", "signin_response"};
     const char *ev;
 
     json_object_object_get_ex(jobj, "event", &obj);
