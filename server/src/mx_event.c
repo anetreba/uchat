@@ -242,4 +242,6 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         mx_renew_rooms(jobj, event);
     else if (strcmp(ev, events[3]) == 0)
         mx_renew(jobj, event);
+    else if (strcmp(ev, events[4]) == 0)
+        mx_renew(jobj, event);
 }
