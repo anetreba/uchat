@@ -23,7 +23,6 @@ static void write_auth_data(t_event *event, json_object *obj) {
     if(event->data->status == 0) {
         mx_model_logined(event->data);
         mx_json(event, "renew_rooms");
-        mx_json(event, "renew");
     }
 }
 
