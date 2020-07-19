@@ -85,17 +85,17 @@ void json_parse_array( json_object *jobj, char *key, t_list *list) {
         if (type == json_type_array)
             json_parse_array(jvalue, key, NULL);
         else if (type != json_type_object) {
-               if(i == 1)
+               if(i == 0)
                    udata->room_id = json_object_get_int(jvalue);
-               if(i == 2)
+               if(i == 1)
                    udata->name_room = strdup(json_object_get_string(jvalue));
-               if(i == 3)
+               if(i == 2)
                    udata->message = strdup(json_object_get_string(jvalue));
-               if(i == 4)
+               if(i == 3)
                    udata->sender_id = json_object_get_int(jvalue);
-               if(i == 5)
+               if(i == 4)
                    udata->date_send = json_object_get_int(jvalue);
-               if(i == 6)
+               if(i == 5)
                    udata->recieve_status = json_object_get_int(jvalue);
         }
         else

@@ -18,7 +18,7 @@ static int callback_renew(void *data, int argc, char **argv, char **ColName) {
     return 0;
 }
 
-t_list mx_contr_renew(t_renew *tok) {
+t_list *mx_contr_renew(t_renew *tok) {
     char *vals;
     t_upd *udata = (t_upd *)malloc(sizeof(t_upd));
     memset(udata, 0, sizeof(t_upd));
@@ -38,7 +38,7 @@ t_list mx_contr_renew(t_renew *tok) {
                          "    Messages.recieve_status",
                          vals, callback_renew, data);
     mx_pop_front(&data);
-    return *data;
     free(vals);
+    return data;
 
 }

@@ -18,33 +18,22 @@ static void write_auth_data(t_event *event, json_object *obj) {
     event->data->tokens = json_object_get_int(tokens);
     event->data->id = json_object_get_int(id);
 
-    if (event->data->status == 1) {
-        g_print("Wrong login/pass");
-    }
-    else if(event->data->status == 0) {
+    printf("%d\n",event->data->status);
+
+    if(event->data->status == 0) {
         mx_model_logined(event->data);
+        mx_json(event, "renew_rooms");
+        mx_json(event, "renew");
     }
-   mx_contr_renew(event);
 }
 
 void mx_contr_auth(t_event *event, json_object *jobj) {
-    int n;
-    char buf;
-    char *str = mx_strnew(0);
+    //char *str = mx_strnew(0);
     struct json_object *obj = json_object_new_object();
     const char *jstr = json_object_to_json_string(jobj);
-
-    printf("JSON  == %s\n", jstr);
+   // printf("JSON  == %s\n", jstr);
     send(event->network_socket, jstr, strlen(jstr), 0);
-
-
-    while ((n = read(event->network_socket, &buf, 1)) > 0) {
-        str = mx_parse_str(str, buf);
-        if (str[strlen(str) - 1] == '}')
-            break ;
-    }
-    parse_json((const char *)str, &obj);
-    printf("JOBJ = %s\n", json_object_to_json_string(obj));
-
+    parse_json((const char *)jstr, &obj);
+    //printf("JOBJ = %s\n", json_object_to_json_string(obj));
     write_auth_data(event, obj);
 }

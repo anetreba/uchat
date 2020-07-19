@@ -8,6 +8,5 @@ int main(int argc, char **argv) {
 	int port = atoi(argv[1]);
 
     mx_server_socket(port);
-	system("leaks -q chat_server");
 	return 0;
 }
