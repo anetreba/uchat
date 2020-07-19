@@ -1,0 +1,7 @@
+{
+"event" : "sendmessage",  //str
+"auth_token" : "sgdwe3#$#4f"; //str
+"id" : 2, // int
+"message" : "Hi, body!", // str
+"room_id" : 1 //int
+}

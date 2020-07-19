@@ -40,5 +40,4 @@ t_list *mx_contr_renew(t_renew *tok) {
     mx_pop_front(&data);
     free(vals);
     return data;
-
 }

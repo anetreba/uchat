@@ -44,6 +44,7 @@ typedef struct s_data {
     int argc;
     char **colname;
     int tokens;
+    char *auth_token;
     int verify_code;
 }               t_data;
 
@@ -57,6 +58,7 @@ typedef struct s_send_message {
     const char *message;
     int type;
     int group;
+    char *auth_token;
 }               t_send_message;
 
 typedef struct s_renew {
@@ -70,6 +72,14 @@ typedef struct s_renew_rooms {
     const char *auth_token;
 }               t_renew_rooms;
 
+typedef struct s_message {
+    char *message;
+    int sender_id;
+    int room_id;
+    char *attaches;
+    int date_send;
+}               t_message;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -78,6 +88,7 @@ typedef struct s_event {
     t_send_message *send_message;
     t_renew *renew;
     t_renew_rooms *renew_rooms;
+    t_message *message;
 }              t_event;
 
 typedef struct s_response {

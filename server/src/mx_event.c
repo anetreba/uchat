@@ -197,6 +197,28 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
     }
 }
 
+void mx_recieve_messege(struct json_object *jobj, t_event *event) {
+    t_data *data;
+    t_response *resp = NULL;
+    struct json_object *message;
+    struct json_object *sender_id;
+    struct json_object *room_id;
+
+    data = (t_data *)malloc(sizeof(t_data));
+    event->message = (t_log_in *)malloc(sizeof(t_log_in));
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+    json_object_object_get_ex(jobj, "id", &sender_id);
+    json_object_object_get_ex(jobj, "message", &message);
+    json_object_object_get_ex(jobj, "room_id", &room_id);
+
+    event->message->auth_token = json_object_get_string(auth_token);
+    event->message->sender_id = json_object_get_string(sender_id);
+    event->message->message = json_object_get_string(message);
+    event->message->room_id = json_object_get_string(room_id);
+
+    mx_contr_recieve_message(event);
+       // mx_return_signin_json(resp, event->new_open_socket);
+}
 
 //void mx_send_message(struct json_object *jobj, int sock) {
 //    t_event event;
@@ -243,5 +265,5 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     else if (strcmp(ev, events[3]) == 0)
         mx_renew(jobj, event);
     else if (strcmp(ev, events[4]) == 0)
-        mx_renew(jobj, event);
+        mx_recieve_messege(jobj, event);
 }
