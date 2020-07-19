@@ -23,7 +23,7 @@ static void write_auth_data(t_event *event, json_object *obj) {
     if(event->data->status == 0) {
         mx_model_logined(event->data);
         mx_json(event, "renew_rooms");
-        //mx_json(event, "renew");
+        mx_json(event, "renew");
     }
 }
 
@@ -33,9 +33,7 @@ void mx_contr_auth(t_event *event, json_object *jobj) {
     const char *jstr = json_object_to_json_string(jobj);
    // printf("JSON  == %s\n", jstr);
     send(event->network_socket, jstr, strlen(jstr), 0);
-
     parse_json((const char *)jstr, &obj);
     //printf("JOBJ = %s\n", json_object_to_json_string(obj));
-
     write_auth_data(event, obj);
 }

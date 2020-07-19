@@ -72,9 +72,7 @@ void mx_return_renew_json(t_list *resp, int sock) {
     }
     char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
-
     send(sock, jstr, strlen(jstr), 0);
-
     mx_strdel(&jstr);
 }
 

@@ -81,6 +81,7 @@ void mx_contr_renew(t_event *event, json_object *jobj) {
         json_object_object_add(jobj, "last_renew", json_object_new_int(0));
         jstr = (char *)json_object_to_json_string(obj);
         send(event->network_socket, jstr, strlen(jstr), 0);
+        printf("RENEW_REQ: %s\n", jstr);
         mx_strdel(&jstr);
         mx_json_renew(obj);
     }
