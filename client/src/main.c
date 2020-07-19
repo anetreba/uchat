@@ -70,6 +70,8 @@ void send_messages(GtkButton *button, t_event *event) {
     //test_label
     event->gtk->test_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "test_label"));
 
+    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+
     GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     GtkWidget *row1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -89,7 +91,7 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_set_opacity(new_button1, 1);
     gtk_container_add(GTK_CONTAINER(row1), new_button1);
 
-    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+    // event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
 
     (void)button;
