@@ -28,12 +28,10 @@ static void write_auth_data(t_event *event, json_object *obj) {
 }
 
 void mx_contr_auth(t_event *event, json_object *jobj) {
-    //char *str = mx_strnew(0);
     struct json_object *obj = json_object_new_object();
     const char *jstr = json_object_to_json_string(jobj);
-   // printf("JSON  == %s\n", jstr);
+
     send(event->network_socket, jstr, strlen(jstr), 0);
     parse_json((const char *)jstr, &obj);
-    //printf("JOBJ = %s\n", json_object_to_json_string(obj));
     write_auth_data(event, obj);
 }
