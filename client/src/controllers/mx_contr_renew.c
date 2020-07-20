@@ -37,12 +37,12 @@ static int mx_check_msgs(t_list *lst) {
     return rs;
 }
 
-static void write_data_to_db(json_object *obj) {
+static void write_data_to_db(json_object *obj, t_event *event) {
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
     memset(udata, 0, sizeof(t_renew));
     //event->renew = (t_list *)malloc(sizeof(t_list));
   //  t_list *lst = (t_list *)malloc(sizeof(t_list));
-    c =  mx_create_node(udata);
+    event->renew =  mx_create_node(udata);
     char *vals;
 
     json_parse(obj, event->renew);
@@ -64,11 +64,11 @@ static void write_data_to_db(json_object *obj) {
 }
 
 
-static void mx_json_renew(json_object *obj) {
+static void mx_json_renew(json_object *obj, t_event *event) {
     char *str = (char *)json_object_to_json_string(obj);
 
     parse_json((const char *)str, &obj);
-    write_data_to_db(obj);
+    write_data_to_db(obj, event);
 }
 
 void mx_contr_renew(t_event *event, json_object *jobj) {
@@ -84,7 +84,7 @@ void mx_contr_renew(t_event *event, json_object *jobj) {
         send(event->network_socket, jstr, strlen(jstr), 0);
         printf("RENEW_REQ: %s\n", jstr);
         mx_strdel(&jstr);
-        mx_json_renew(obj);
+        mx_json_renew(obj, event);
     }
     else
         printf("WAT`S WRONG");
