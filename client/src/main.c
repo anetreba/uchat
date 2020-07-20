@@ -125,13 +125,13 @@ void send_messages(GtkButton *button, t_event *event) {
 
 void mx_create_list_room(t_event *event) {
 
-    for (int i = 0; i < 5; i++) {
-    //while (event->renew) {
+//    for (int i = 0; i < 5; i++) {
+    while (event->renew) {
         t_room *room = (t_room *)malloc(sizeof(t_room));
-//        room->room_name = strdup(((t_renew *)(event->renew->data))->name_room);
-//        room->room_id = ((t_renew *)(event->renew->data))->room_id;
-        room->room_name = strdup("ЛЮТИКИ");
-        room->room_id = i;
+        room->room_name = strdup(((t_renew *)(event->renew->data))->name_room);
+        room->room_id = ((t_renew *)(event->renew->data))->room_id;
+//        room->room_name = strdup("ЛЮТИКИ");
+//        room->room_id = i;
         room->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         room->room_btn = gtk_button_new_with_label(room->room_name);
 
@@ -147,7 +147,7 @@ void mx_create_list_room(t_event *event) {
         gtk_widget_show(room->room_btn);
         printf("==========error=========\n");
 
-        //event->renew = event->renew->next;
+        event->renew = event->renew->next;
         mx_push_back(&(event->room), room);
     }
 }
@@ -156,7 +156,7 @@ void new_room(GtkButton *button, t_event *event) {
 //    event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 //    t_room *room = (t_room *)malloc(sizeof(t_room));
 //    event->room = mx_create_node(room);
-//    mx_create_list_room(event);
+    mx_create_list_room(event);
 //    mx_pop_front(&event->room);
 
     GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
