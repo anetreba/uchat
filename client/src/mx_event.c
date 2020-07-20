@@ -29,9 +29,22 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     ev = json_object_get_string(obj);
     if (strcmp(ev, events[0]) == 0) {
         mx_contr_update_rooms(jobj, event);
+        struct json_object *obj = json_object_new_object();
+        char *jstr;
+
+        if (event->data) {
+            json_object_object_add(obj, "event", json_object_new_string("renew"));
+            json_object_object_add(obj, "id", json_object_new_int(event->data->id));
+            json_object_object_add(obj, "auth_token", json_object_new_string(event->data->auth_token));
+            json_object_object_add(obj, "last_renew", json_object_new_int(0));
+            jstr = (char *) json_object_to_json_string(obj);
+            send(event->network_socket, jstr, strlen(jstr), 0);
+            printf("RENEW_REQ: %s\n", jstr);
+            mx_strdel(&jstr);
+        }
+        mx_json_read(event);
     }
     if (strcmp(ev, events[1]) == 0) {
-        printf("SUKA\n");
         mx_contr_renew(event, jobj);
     }
     if (strcmp(ev, events[2]) == 0)

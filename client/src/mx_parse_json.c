@@ -72,8 +72,9 @@ void json_parse_array( json_object *jobj, char *key, t_list *list) {
     t_list *lst = list;
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
 
-    if (key)
+    if (key) {
         jarray = json_object_object_get(jobj, key);
+    }
 
     int arraylen = json_object_array_length(jarray);
     printf("Array Length: %d\n",arraylen);
@@ -82,26 +83,27 @@ void json_parse_array( json_object *jobj, char *key, t_list *list) {
     for (int i = 0; i < arraylen; i++){
         jvalue = json_object_array_get_idx(jarray, i); /*Getting the array element at position i*/
         type = json_object_get_type(jvalue);
-        if (type == json_type_array)
+        if (type == json_type_array) {
             json_parse_array(jvalue, key, NULL);
+        }
         else if (type != json_type_object) {
-               if(i == 0)
-                   udata->room_id = json_object_get_int(jvalue);
-               if(i == 1)
-                   udata->name_room = strdup(json_object_get_string(jvalue));
-               if(i == 2)
-                   udata->message = strdup(json_object_get_string(jvalue));
-               if(i == 3)
-                   udata->sender_id = json_object_get_int(jvalue);
-               if(i == 4)
-                   udata->date_send = json_object_get_int(jvalue);
-               if(i == 5)
-                   udata->recieve_status = json_object_get_int(jvalue);
+            if(i == 0)
+                udata->room_id = json_object_get_int(jvalue);
+            if(i == 1)
+                udata->name_room = strdup(json_object_get_string(jvalue));
+            if(i == 2)
+                udata->message = strdup(json_object_get_string(jvalue));
+            if(i == 3)
+                udata->sender_id = json_object_get_int(jvalue);
+            if(i == 4)
+                udata->date_send = json_object_get_int(jvalue);
+            if(i == 5)
+                udata->recieve_status = json_object_get_int(jvalue);
         }
         else
             json_parse(jvalue, list);
+        mx_push_back(&lst, udata);
     }
-    mx_push_back(&lst, udata);
 }
 
 void json_parse(json_object *jobj, t_list *lst) {

@@ -236,10 +236,10 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     }
     else if (strcmp(ev, events[2]) == 0) {
         mx_renew_rooms(jobj, event);
+    }
+    else if (strcmp(ev, events[3]) == 0) {
         mx_renew(jobj, event);
     }
-    //else if (strcmp(ev, events[3]) == 0) {
-    //}
-    const char *jstr = json_object_to_json_string(jobj);
-    printf("JSON  == %s\n", jstr);
+//    const char *jstr = json_object_to_json_string(jobj);
+//    printf("JSON  == %s\n", jstr);
 }
