@@ -29,7 +29,7 @@ void mx_json(t_event *event, char *action) {
     if (strcmp(action, ev[4]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("send_message"));
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
-        json_object_object_add(jobj, "id_sender", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "room_id", json_object_new_int(1));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
@@ -106,7 +106,7 @@ void send_messages(GtkButton *button, t_event *event) {
 
     // event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
-
+    mx_json(event, "send_message");
     (void)button;
 
     gtk_entry_set_text(GTK_ENTRY(msg), "");
