@@ -82,7 +82,8 @@ void sign_up_window(GtkButton *button, t_event *event) {
 void send_messages(GtkButton *button, t_event *event) {
     GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
     event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
-
+    event->gtk->notebook = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "notebook"));
+    event->gtk->chat_scroll = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
 
     event->gtk->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -114,6 +115,7 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
 
+    gtk_widget_show(event->gtk->notebook);
     gtk_widget_show(event->gtk->list_box);
 
     gtk_widget_show(event->gtk->row_msg);
@@ -148,20 +150,15 @@ void mx_create_list_room(t_event *event) {
         room->room_id = ((t_renew *)(event->renew->data))->room_id;
 //        room->room_name = strdup("ЛЮТИКИ");
 //        room->room_id = i;
+
+        GtkWidget *tab1;
+        tab1 = gtk_label_new(room->room_name);
+
         room->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         room->room_btn = gtk_button_new_with_label(room->room_name);
         g_object_set_data(G_OBJECT(room->room_btn), "room", room); //создание указателя на комнату
+        gtk_notebook_insert_page(GTK_NOTEBOOK(event->gtk->notebook), GTK_WIDGET(event->gtk->list_box), tab1, 0);
 
-        gtk_widget_set_hexpand(room->room_btn, TRUE);
-        gtk_widget_set_halign(room->room_btn, GTK_ALIGN_CENTER);
-        gtk_widget_set_valign(room->room_btn, GTK_ALIGN_CENTER);
-        gtk_widget_set_size_request(room->room_btn, 60, 5);
-        gtk_container_add(GTK_CONTAINER(room->row), room->room_btn);
-
-        gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), room->row, 1);
-
-        gtk_widget_show(room->row);
-        gtk_widget_show(room->room_btn);
         g_signal_connect(room->room_btn, "clicked", G_CALLBACK(mx_select_room), event);
         printf("==========error=========\n");
 
@@ -177,19 +174,21 @@ void new_room(GtkButton *button, t_event *event) {
     mx_create_list_room(event);
 //    mx_pop_front(&event->room);
 
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    // GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
 
     GtkWidget *room1 = gtk_button_new_with_label("test_room1");
     gtk_widget_set_hexpand(room1, TRUE);
     gtk_widget_set_halign(room1, GTK_ALIGN_CENTER);
     gtk_widget_set_valign(room1, GTK_ALIGN_CENTER);
     gtk_widget_set_size_request(room1, 60, 5);
-    gtk_container_add(GTK_CONTAINER(row), room1);
+//    gtk_container_add(GTK_CONTAINER(row), room1);
 
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
 
-    gtk_widget_show(row);
-    gtk_widget_show(room1);
+    gtk_notebook_insert_page(GTK_NOTEBOOK(event->gtk->notebook), event->gtk->list_box, NULL, 0);
+
+//    gtk_widget_show(row);
+//    gtk_widget_show(room1);
 
     (void)button;
 }
@@ -249,7 +248,7 @@ void chat_window(GtkButton *button, t_event *event) {
 
 void show_error_label(t_event *event) {
     GtkWidget *error_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "wrong_pass_lbl"));
-    gtk_label_set_text(GTK_LABEL(error_label), "Wrong login or Password");
+    gtk_label_set_text(GTK_LABEL(error_label), "Wrong Login or Password");
     printf("Wrong login or Password\n");
     gtk_widget_show(error_label);
 }
@@ -294,7 +293,7 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat2.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
