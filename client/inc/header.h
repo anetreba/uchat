@@ -99,6 +99,7 @@ typedef struct s_send_message {
     int type;
     int room_id;
     int date_send;
+    int tokens;
 }               t_send_message;
 
 typedef struct s_event {

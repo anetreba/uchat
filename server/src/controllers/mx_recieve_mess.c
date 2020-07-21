@@ -67,6 +67,7 @@ void mx_create_response(t_send_message *mess, t_list *list) {
         json_object_object_add(jobj, "message", json_object_new_string(mess->message));
         json_object_object_add(jobj, "sender_id", json_object_new_int(mess->sender_id));
         json_object_object_add(jobj, "date_send", json_object_new_int(mess->date_send));
+        json_object_object_add(jobj, "tokens", json_object_new_int(mess->tokens));
 
         char *jstr = (char *)json_object_to_json_string(jobj);
         printf("=============================JSON  == %s================================\n", jstr);
@@ -105,9 +106,11 @@ t_list *mx_recieve_mess(t_send_message *mess) {
     char *vals = NULL;
     int d = check_auth(mess);
     char *str;
+
     t_data *udata = (t_data *)malloc(sizeof(t_data));
     memset(udata, 0, sizeof(t_data));
     t_list *data = mx_create_node(udata);
+    mess->tokens = mx_select_user_tokens(mess->sender_id);
 
     mess->date_send = mx_date_now();
     if (d == 0) {
@@ -118,7 +121,7 @@ t_list *mx_recieve_mess(t_send_message *mess) {
         free(vals);
         mx_select_users(mess, data);
         asprintf(&vals, "id = '%d'", mess->sender_id);
-        asprintf(&str, "tokens = '%d'", mx_select_user_tokens(mess->sender_id) - 1);
+        asprintf(&str, "tokens = '%d'", mess->tokens - 1);
         mx_model_update("Users", str, vals);
     }
     mx_pop_front(&data);

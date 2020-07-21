@@ -59,6 +59,7 @@ typedef struct s_send_message {
     int room_id;
     int type;
     int date_send;
+    int tokens;
     const char *auth_token;
     const char *message;
 }               t_send_message;
