@@ -5,8 +5,8 @@
   <object class="GtkWindow" id="sign_up_window">
     <property name="can_focus">False</property>
     <property name="window_position">center</property>
-    <property name="default_width">1024</property>
-    <property name="default_height">768</property>
+    <property name="default_width">820</property>
+    <property name="default_height">720</property>
     <child type="titlebar">
       <placeholder/>
     </child>

@@ -231,15 +231,12 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     ev = json_object_get_string(action);
     if (strcmp(ev, events[0]) == 0)
         mx_sign_up(jobj, ev, events, event);
-    else if (strcmp(ev, events[1]) == 0) {
+    else if (strcmp(ev, events[1]) == 0)
         mx_sign_in(jobj, ev, events, event);
-    }
-    else if (strcmp(ev, events[2]) == 0) {
+    else if (strcmp(ev, events[2]) == 0)
         mx_renew_rooms(jobj, event);
-    }
-    else if (strcmp(ev, events[3]) == 0) {
+    else if (strcmp(ev, events[3]) == 0)
         mx_renew(jobj, event);
-    }
 //    const char *jstr = json_object_to_json_string(jobj);
 //    printf("JSON  == %s\n", jstr);
 }

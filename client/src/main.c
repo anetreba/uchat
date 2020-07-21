@@ -189,19 +189,6 @@ void mx_print_list(t_event *event) {
     }
 }
 
-//void mx_print_list2(t_event *event) {
-//    t_list *lst = event->renew;
-//
-//    printf("===LIST==\n");
-//    while (lst) {
-//        printf("****************************************************************\n");
-//        printf("ROOM_NAME = %s\n", ((t_renew *)(lst->data))->name_room);
-//        printf("ROOM_ID = %d\n", ((t_renew *)(lst->data))->room_id);
-//        printf("****************************************************************\n");
-//        lst = lst->next;
-//    }
-//}
-
 void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
 
