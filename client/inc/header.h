@@ -16,6 +16,24 @@
 #include <malloc/malloc.h>
 #include "../libmx/inc/libmx.h"
 
+////////////////////FOR RENDER MESSAGE AND ROOMS/////////////////////
+
+typedef struct s_mess {
+    char *message;
+    int sender_id;
+    int date_send;
+    int type;
+}               t_mess;
+
+typedef struct s_list_room {
+    int room_id;
+    char *room_name;
+    t_list *mess;
+}               t_list_room;
+
+
+////////////////////////////////////////////////////////////////////
+
 #include <stdlib.h>
 #include <sys/types.h>
 #include <signal.h>
@@ -109,6 +127,7 @@ typedef struct s_event {
     t_data *data;
     t_list *renew;
     t_list *room;
+    t_list *list_room;
 }              t_event;
 
 typedef struct s_response {
@@ -117,6 +136,8 @@ typedef struct s_response {
     char *auth_token;
     int tokens;
 }               t_response;
+
+void mx_listroom_and_mess(t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud

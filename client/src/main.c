@@ -202,13 +202,13 @@ void chat_window(GtkButton *button, t_event *event) {
 
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 
-
+    mx_listroom_and_mess(event);
   //  mx_print_list2(event);
     t_room *room = (t_room *)malloc(sizeof(t_room));
     event->room = mx_create_node(room);
     mx_create_list_room(event);
     mx_pop_front(&event->room);
-    mx_print_list(event);
+    //mx_print_list(event);
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(new_room), event);

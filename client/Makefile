@@ -26,6 +26,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		crud/mx_model_select.c \
       		crud/mx_model_update.c \
       		models/mx_model_logined.c \
+      		controllers/mx_select_listroom_and_mess.c \
       		mx_event.c)
 
 
@@ -41,6 +42,7 @@ OBJ = main.o \
       mx_contr_auth.o \
       mx_contr_renew.o \
       mx_event.o \
+      mx_select_listroom_and_mess.o \
       mx_contr_update_rooms.o
 
 CC = clang
