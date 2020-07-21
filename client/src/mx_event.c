@@ -48,7 +48,7 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         mx_contr_renew(event, jobj);
     }
     if (strcmp(ev, events[2]) == 0)
-        printf("%s\n", ev);
+        mx_contr_new_message(event, jobj);
     if (strcmp(ev, events[3]) == 0)
         printf("%s\n", ev);
     if (strcmp(ev, events[4]) == 0){

@@ -55,9 +55,10 @@ typedef struct s_signup {
 }               t_signup;
 
 typedef struct s_send_message {
-    int  sender_id;
+    int sender_id;
     int room_id;
     int type;
+    int date_send;
     const char *auth_token;
     const char *message;
 }               t_send_message;

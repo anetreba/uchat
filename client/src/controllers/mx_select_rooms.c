@@ -18,9 +18,9 @@ int mx_select_rooms(t_list *lst) {
     t_data data;
     int rs;
 
-    asprintf(&vals, "Rooms");
+    asprintf(&vals, "Rooms GROUP BY id");
 
-    rs = mx_model_select("id, name", vals, callback_rooms, &data);
+    rs = mx_model_select("DISTINCT id, name", vals, callback_rooms, &data);
     return rs;
 }
 

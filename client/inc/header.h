@@ -94,10 +94,11 @@ typedef struct s_sign_up {
 }               t_sign_up;
 
 typedef struct s_send_message {
-    int id_sender;
+    int sender_id;
     const char *message;
     int type;
     int room_id;
+    int date_send;
 }               t_send_message;
 
 typedef struct s_event {
@@ -134,12 +135,14 @@ char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
+void *mx_model_new_message(t_send_message *data);
 
 void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event, json_object *jobj);
 void mx_contr_update_rooms(json_object *jobj, t_event *event);
+void mx_contr_new_message(t_event *event, json_object *jobj);
 
 void mx_json(t_event *event, char *action);
 

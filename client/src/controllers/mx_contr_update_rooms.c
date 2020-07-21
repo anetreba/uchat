@@ -18,7 +18,7 @@ static int mx_check_msgs(t_list *lst) {
     asprintf(&vals, "Rooms WHERE room_id = '%d' AND room_name = '%s'",
              ((t_renew *)(lst->data))->room_id,
              ((t_renew *)(lst->data))->name_room);
-    rs = mx_model_select("id", vals, callback_check_msg, NULL);
+    rs = mx_model_select("DISTINCT id", vals, callback_check_msg, NULL);
     return rs;
 }
 
