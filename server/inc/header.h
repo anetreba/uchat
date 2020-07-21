@@ -46,6 +46,7 @@ typedef struct s_data {
     int tokens;
     int verify_code;
     char *auth_token;
+    int sock;
 }               t_data;
 
 typedef struct s_signup {

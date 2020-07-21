@@ -20,7 +20,7 @@ static int check_auth(t_send_message *mess) {
 
     asprintf(&vals, "Users WHERE id = '%d' AND auth_token = '%s'",
              mess->sender_id, mess->auth_token);
-    rs = mx_model_select("DISTINCT id, auth_token", vals, callback_check_auth, data);
+    rs = mx_model_select("DISTINCT id, auth_token, sock", vals, callback_check_auth, data);
     return rs;
 }
 
@@ -33,7 +33,6 @@ static int callback_select_users(void *data, int argc, char **argv, char **ColNa
         printf("++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("ARGC: %d\n", argc);
         printf("ARGV[0]: %s\n", argv[0]);
-//        printf("DATA: %d\n", *udata);
         printf("++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     }
     return 0;
@@ -44,16 +43,13 @@ static int mx_select_users(t_send_message *mess) {
     char *vals;
 
     asprintf(&vals, "RoomsMeta WHERE room_id = '%d'", mess->room_id);
-    mx_model_select("user_id, sock", vals, callback_select_users, data);
+    mx_model_select("user_id", vals, callback_select_users, data);
     return 0;
 }
 
 t_list *mx_recieve_mess(t_send_message *mess) {
     char *vals = NULL;
-    t_send_message *udata = (t_send_message *)malloc(sizeof(t_send_message));
     int d = check_auth(mess);
-
-    memset(udata, 0, sizeof(t_send_message));
 
     if (d == 0) {
         asprintf(&vals, "'%s','%d','%d','%d','%i'", mess->message, mess->sender_id,
