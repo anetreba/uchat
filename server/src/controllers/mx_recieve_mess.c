@@ -29,24 +29,22 @@ static int callback_select_users(void *data, int argc, char **argv, char **ColNa
     ColName = NULL;
     data = 0;
 
-   // if (argc > 0 && argv) {
+    if (argc > 0 && argv) {
         printf("++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("ARGC: %d\n", argc);
         printf("ARGV[0]: %s\n", argv[0]);
-        printf("ARGV[1]: %s\n", argv[1]);
-        printf("ARGV[2]: %s\n", argv[2]);
 //        printf("DATA: %d\n", *udata);
         printf("++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-   // }
+    }
     return 0;
 }
 
 static int mx_select_users(t_send_message *mess) {
-    t_list *data = NULL;
+    t_list *data = (t_list *)malloc(sizeof(t_list));
     char *vals;
 
     asprintf(&vals, "RoomsMeta WHERE room_id = '%d'", mess->room_id);
-    mx_model_select("user_id", vals, callback_select_users, data);
+    mx_model_select("user_id, sock", vals, callback_select_users, data);
     return 0;
 }
 
@@ -63,7 +61,7 @@ t_list *mx_recieve_mess(t_send_message *mess) {
         mx_model_insert("Messages", "message, sender_id, room_id, "
                         "recieve_status, date_send", vals);
         mx_select_users(mess);
-        }
+    }
 
 
     free(vals);

@@ -210,7 +210,7 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
     event->log_in->password = json_object_get_string(password);
 
     if (strcmp(ev, events[1]) == 0) {
-        resp = mx_contr_signin(event->log_in);
+        resp = mx_contr_signin(event);
         mx_return_signin_json(resp, event->new_open_socket);
     }
 }

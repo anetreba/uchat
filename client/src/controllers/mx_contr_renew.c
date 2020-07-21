@@ -53,11 +53,11 @@ static void write_data_to_db(json_object *obj, t_event *event) {
         while (lst) {
             if (mx_check_msgs(lst) != 1) {
                 asprintf(&vals, "'%d','%s','%d','%d','%d'",
-                         ((t_renew *)(lst))->room_id,
-                         ((t_renew *)(lst))->message,
-                         ((t_renew *)(lst))->sender_id,
-                         ((t_renew *)(lst))->date_send,
-                         ((t_renew *)(lst))->recieve_status);
+                         ((t_renew *)(lst->data))->room_id,
+                         ((t_renew *)(lst->data))->message,
+                         ((t_renew *)(lst->data))->sender_id,
+                         ((t_renew *)(lst->data))->date_send,
+                         ((t_renew *)(lst->data))->recieve_status);
                 mx_model_insert("Messages", "room_id, message, sender_id, date_send, resieve_status", vals);
             }
             lst = lst->next;
