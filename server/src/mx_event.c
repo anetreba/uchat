@@ -123,7 +123,6 @@ void mx_return_signup_json(t_signup status, int sock) {
 
 void mx_renew_rooms(struct json_object *jobj, t_event *event) {
 //    t_event event;
-    printf("=========================ERROR=========================\n");
     struct json_object *auth_token;
     t_list *resp;
 
@@ -137,7 +136,6 @@ void mx_renew_rooms(struct json_object *jobj, t_event *event) {
 void mx_renew(struct json_object *jobj, t_event *event) {
     struct json_object *auth_token;
     t_list *resp;
-    printf("=========================ERROR1=========================\n");
 
     event->renew = (t_renew *)malloc(sizeof(t_renew));
     json_object_object_get_ex(jobj, "auth_token", &auth_token);

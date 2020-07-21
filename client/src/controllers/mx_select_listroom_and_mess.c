@@ -8,6 +8,15 @@ void mx_print(t_list *list) {
         printf("======================================================\n");
         printf("ROOM ID = %d\n", ((t_list_room *)(lst->data))->room_id);
         printf("ROOM NAME = %s\n", ((t_list_room *)(lst->data))->room_name);
+        while (((t_list_room *)(lst->data))->mess) {
+            printf("*****************************************************\n");
+            printf("MESSAGE = %s\n", ((t_mess *)((t_list_room *)(lst->data))->mess->data)->message);
+            printf("SENDER ID = %d\n", ((t_mess *)((t_list_room *)(lst->data))->mess->data)->sender_id);
+            printf("DATE SEND = %d\n", ((t_mess *)((t_list_room *)(lst->data))->mess->data)->date_send);
+            printf("TYPE = %d\n", ((t_mess *)((t_list_room *)(lst->data))->mess->data)->type);
+            printf("*****************************************************\n");
+            ((t_list_room *)(lst->data))->mess = ((t_list_room *)(lst->data))->mess->next;
+        }
         printf("======================================================\n");
         lst = lst->next;
     }
@@ -66,6 +75,7 @@ void mx_sellect_mess_to_lst(t_event *event) {
 
         asprintf(&vals2, "Messages WHERE room_id = '%d'", ((t_list_room *)(lst->data))->room_id);
         mx_model_select("message, sender_id, date_send, type ", vals2, callback_mess, ((t_list_room *)(lst->data))->mess);
+        mx_pop_front(&(((t_list_room *)(lst->data))->mess));
         lst = lst->next;
     }
 }
@@ -83,5 +93,5 @@ void mx_listroom_and_mess(t_event *event) {
     mx_pop_front(&(event->list_room));
 
     mx_sellect_mess_to_lst(event);
-   // mx_print(event->list_room);
+    mx_print(event->list_room);
 }

@@ -145,7 +145,6 @@ void mx_create_list_room(t_event *event) {
 
         gtk_widget_show(room->row);
         gtk_widget_show(room->room_btn);
-        printf("==========error=========\n");
 
         event->renew = event->renew->next;
         mx_push_back(&(event->room), room);
