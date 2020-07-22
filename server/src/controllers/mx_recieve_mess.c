@@ -50,6 +50,7 @@ void mx_create_response(t_send_message *mess, t_list *list) {
     struct json_object *jobj = json_object_new_object();
     t_list *lst = list;
     while (lst) {
+
         json_object_object_add(jobj, "event", json_object_new_string("new_message"));
         json_object_object_add(jobj, "status", json_object_new_string("0"));
         json_object_object_add(jobj, "room_id", json_object_new_int(mess->room_id));
@@ -98,17 +99,13 @@ t_list *mx_recieve_mess(t_send_message *mess) {
                  mess->room_id, 0, mess->date_send);
         mx_model_insert("Messages", "message, sender_id, room_id, "
                         "recieve_status, date_send", vals);
-        free(vals);
         mx_select_users(mess, data);
         asprintf(&vals, "id = '%d'", mess->sender_id);
         asprintf(&str, "tokens = '%d'", mess->tokens - 1);
         mx_model_update("Users", str, vals);
-        while ()
-        free(vals);
     }
     mx_pop_front(&data);
     mx_create_response(mess, data);
     free(vals);
     return 0;
 }
-
