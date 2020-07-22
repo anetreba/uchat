@@ -49,8 +49,9 @@ typedef struct s_gtk {
     GtkWidget *new_room;
     GtkWidget *row_user;
     GtkWidget *row_msg;
-    GtkWidget *notebook;
-    GtkWidget *chat_scroll;
+    GtkWidget *message_button;
+    GtkWidget *user_button;
+    GtkWidget *scrolled_window;
 }               t_gtk;
 
 typedef struct s_data {
@@ -82,6 +83,7 @@ typedef struct s_room {
     char *room_name;
     GtkWidget *row;
     GtkWidget *room_btn;
+    GtkWidget *list_box;
 }               t_room;
 
 typedef struct s_log_in {

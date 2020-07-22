@@ -79,55 +79,72 @@ void sign_up_window(GtkButton *button, t_event *event) {
     g_signal_connect(event->gtk->reg_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 }
 
-void send_messages(GtkButton *button, t_event *event) {
-    GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
-    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
-    event->gtk->notebook = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "notebook"));
-    event->gtk->chat_scroll = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
-    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
-
+void create_row(t_event *event) {
     event->gtk->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     event->gtk->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
     // message buttons
-    GtkWidget *new_button = gtk_button_new_with_label(event->send_message->message);
-    gtk_widget_set_hexpand(new_button, TRUE);
-    gtk_widget_set_halign(new_button, GTK_ALIGN_END);
-    gtk_widget_set_valign(new_button, GTK_ALIGN_CENTER);
-    gtk_widget_set_size_request(new_button, 300, 5);
-    gtk_container_add(GTK_CONTAINER(event->gtk->row_user), new_button);
+    event->gtk->message_button = gtk_button_new_with_label(event->send_message->message);
+    gtk_widget_set_hexpand(event->gtk->message_button, TRUE);
+    gtk_widget_set_halign(event->gtk->message_button, GTK_ALIGN_START);
+    gtk_widget_set_valign(event->gtk->message_button, GTK_ALIGN_CENTER);
+    gtk_widget_set_size_request(event->gtk->message_button, 300, 5);
+    gtk_container_add(GTK_CONTAINER(event->gtk->row_user), event->gtk->message_button);
 
-    GtkWidget *new_button1 = gtk_button_new_with_label(event->log_in->login);
-    gtk_widget_set_hexpand(new_button1, TRUE);
-    gtk_widget_set_halign(new_button1, GTK_ALIGN_END);
-    gtk_widget_set_valign(new_button1, GTK_ALIGN_CENTER);
-    gtk_widget_set_size_request(new_button1, 20, 5);
-    gtk_widget_set_opacity(new_button1, 1);
-    gtk_container_add(GTK_CONTAINER(event->gtk->row_msg), new_button1);
+    event->gtk->user_button = gtk_button_new_with_label(event->log_in->login);
+    gtk_widget_set_hexpand(event->gtk->user_button, TRUE);
+    gtk_widget_set_halign(event->gtk->user_button, GTK_ALIGN_START);
+    gtk_widget_set_valign(event->gtk->user_button, GTK_ALIGN_CENTER);
+    gtk_widget_set_size_request(event->gtk->user_button, 20, 5);
+    gtk_widget_set_opacity(event->gtk->user_button, 1);
+    gtk_container_add(GTK_CONTAINER(event->gtk->row_msg), event->gtk->user_button);
+}
+
+void scroll_adjustment(t_event *event) {
+    GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(event->gtk->scrolled_window));
+    double value = gtk_adjustment_get_upper(adjustment);
+    printf("adjustment %f\n", value);
+
+    gtk_adjustment_set_value(adjustment, value);
+}
+
+void send_messages(GtkButton *button, t_event *event) {
+    GtkWidget *msg = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_entry_message"));
+//    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
+
+    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
+    create_row(event);
 
     // event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
 
     (void)button;
 
-    gtk_entry_set_text(GTK_ENTRY(msg), "");
+    // scroll_adjustment(event);
 
+    gtk_entry_set_text(GTK_ENTRY(msg), "");
+//    create_row(event);
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
 
-    gtk_widget_show(event->gtk->notebook);
     gtk_widget_show(event->gtk->list_box);
 
     gtk_widget_show(event->gtk->row_msg);
-    gtk_widget_show(new_button1);
+    gtk_widget_show(event->gtk->user_button);
 
     gtk_widget_show(event->gtk->row_user);
-    gtk_widget_show(new_button);
+    gtk_widget_show(event->gtk->message_button);
+
+    scroll_adjustment(event);
 }
 
-void mx_select_room(GtkButton *button/*, t_event *event*/) {
+void mx_select_room(GtkButton *button, t_event *event) {
    t_room *room = g_object_get_data(G_OBJECT(button), "room"); // берем указатель на комнату
    printf("%d\n", room->room_id);
+   gtk_widget_destroy(event->gtk->row_user);
+   gtk_widget_destroy(event->gtk->row_msg);
+   create_row(event);
+
 }
 
 //void mx_clear_container(GtkWidget *con) {
@@ -150,15 +167,20 @@ void mx_create_list_room(t_event *event) {
         room->room_id = ((t_renew *)(event->renew->data))->room_id;
 //        room->room_name = strdup("ЛЮТИКИ");
 //        room->room_id = i;
-
-        GtkWidget *tab1;
-        tab1 = gtk_label_new(room->room_name);
-
         room->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         room->room_btn = gtk_button_new_with_label(room->room_name);
         g_object_set_data(G_OBJECT(room->room_btn), "room", room); //создание указателя на комнату
-        gtk_notebook_insert_page(GTK_NOTEBOOK(event->gtk->notebook), GTK_WIDGET(event->gtk->list_box), tab1, 0);
 
+        gtk_widget_set_hexpand(room->room_btn, TRUE);
+        gtk_widget_set_halign(room->room_btn, GTK_ALIGN_CENTER);
+        gtk_widget_set_valign(room->room_btn, GTK_ALIGN_CENTER);
+        gtk_widget_set_size_request(room->room_btn, 60, 5);
+        gtk_container_add(GTK_CONTAINER(room->row), room->room_btn);
+
+        gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), room->row, 1);
+
+        gtk_widget_show(room->row);
+        gtk_widget_show(room->room_btn);
         g_signal_connect(room->room_btn, "clicked", G_CALLBACK(mx_select_room), event);
         printf("==========error=========\n");
 
@@ -174,21 +196,19 @@ void new_room(GtkButton *button, t_event *event) {
     mx_create_list_room(event);
 //    mx_pop_front(&event->room);
 
-    // GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
 
     GtkWidget *room1 = gtk_button_new_with_label("test_room1");
     gtk_widget_set_hexpand(room1, TRUE);
     gtk_widget_set_halign(room1, GTK_ALIGN_CENTER);
     gtk_widget_set_valign(room1, GTK_ALIGN_CENTER);
     gtk_widget_set_size_request(room1, 60, 5);
-//    gtk_container_add(GTK_CONTAINER(row), room1);
+    gtk_container_add(GTK_CONTAINER(row), room1);
 
-//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
+    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
 
-    gtk_notebook_insert_page(GTK_NOTEBOOK(event->gtk->notebook), event->gtk->list_box, NULL, 0);
-
-//    gtk_widget_show(row);
-//    gtk_widget_show(room1);
+    gtk_widget_show(row);
+    gtk_widget_show(room1);
 
     (void)button;
 }
@@ -224,8 +244,9 @@ void chat_window(GtkButton *button, t_event *event) {
 
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
     event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
-
+    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
     event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
+    event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
 
     gtk_widget_show(event->gtk->chat_window);
     gtk_widget_hide(event->gtk->window);
@@ -293,7 +314,7 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat2.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
