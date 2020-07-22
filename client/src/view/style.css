@@ -1,8 +1,51 @@
-.backgound {
-    background-image: url("images/signinBackground.jpg");
+.background {
+    background-color: #1f2f3f;
 }
 
-.background {
-    background-image: url("images/signinBackground.jpg");
+
+/*==============SIGN IN     SIGN UP  WINDOW=========================*/
+
+#entry_login, #entry_password {
+    background-color: #1f2831;
+    color: #fff;
+    border-color: #F1F0E2;
+    border-radius: 5px;
+    box-shadow: 9px 14px 29px -6px rgba(0,0,0,0.75);
+    padding: 2px 6px;
+    font-size: 14px;
 }
-/* xxx  background-color: rgba(240, 240, 240, 0.999); } */
+
+button#sign_up_btn, button#sign_in_btn {
+    background: #1f2f3f;
+    border: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0px;
+
+    color: #fff;
+}
+
+button#sign_up_btn {
+    border-bottom: 3px solid #6A1A4C;
+}
+
+button#sign_in_btn {
+    border-bottom: 3px solid #278040;
+}
+
+button#cancel_btn, button#login_btn {
+    border: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0px;
+    color: #fff;
+}
+
+button#cancel_btn {
+    background: #A49E9E;
+}
+button#login_btn {
+    background: #278040;
+}
+
+/*======================== CHAT WINDOW ===========================*/
