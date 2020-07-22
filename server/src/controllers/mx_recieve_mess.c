@@ -24,17 +24,6 @@ static int check_auth(t_send_message *mess) {
     return rs;
 }
 
-void mx_print(t_list *list) {
-    t_list *lst = list;
-
-    while (lst) {
-        printf("++++++++++++++++++++++++++++++++++++++++++++++++\n");
-       printf("ID = %d\n", ((t_data *)(lst->data))->id);
-        printf("++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        lst = lst->next;
-    }
-}
-
 static int callback_select_users(void *data, int argc, char **argv, char **ColName) {
     t_list *udata = (t_list *)data;
     ColName = NULL;
@@ -68,14 +57,7 @@ void mx_create_response(t_send_message *mess, t_list *list) {
         json_object_object_add(jobj, "sender_id", json_object_new_int(mess->sender_id));
         json_object_object_add(jobj, "date_send", json_object_new_int(mess->date_send));
         json_object_object_add(jobj, "tokens", json_object_new_int(mess->tokens));
-
         char *jstr = (char *)json_object_to_json_string(jobj);
-        printf("=============================JSON  == %s================================\n", jstr);
-
-
-            printf("ID = %d\n", ((t_data *)(lst->data))->id);
-
-
         send(((t_data *)(lst->data))->id, jstr, strlen(jstr), 0);
         mx_strdel(&jstr);
         lst = lst->next;
@@ -98,7 +80,6 @@ static int mx_select_user_tokens(int id) {
 
     asprintf(&vals, "Users WHERE id = '%d'", id);
     mx_model_select("tokens", vals, callback_tokens, &data);
-
     return data.tokens;
 }
 
@@ -111,7 +92,6 @@ t_list *mx_recieve_mess(t_send_message *mess) {
     memset(udata, 0, sizeof(t_data));
     t_list *data = mx_create_node(udata);
     mess->tokens = mx_select_user_tokens(mess->sender_id);
-
     mess->date_send = mx_date_now();
     if (d == 0) {
         asprintf(&vals, "'%s','%d','%d','%d','%i'", mess->message, mess->sender_id,
@@ -123,6 +103,8 @@ t_list *mx_recieve_mess(t_send_message *mess) {
         asprintf(&vals, "id = '%d'", mess->sender_id);
         asprintf(&str, "tokens = '%d'", mess->tokens - 1);
         mx_model_update("Users", str, vals);
+        while ()
+        free(vals);
     }
     mx_pop_front(&data);
     mx_create_response(mess, data);
@@ -130,4 +112,3 @@ t_list *mx_recieve_mess(t_send_message *mess) {
     return 0;
 }
 
-//дописать добавление токенов остальным членам комнаты, протестировать.

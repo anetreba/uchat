@@ -24,7 +24,6 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
         udata->login = strdup(argv[1]);
         udata->password = strdup(argv[2]);
         udata->tokens = atoi(argv[3]);
-
     }
     return 0;
 }
