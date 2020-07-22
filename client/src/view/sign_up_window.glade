@@ -88,7 +88,7 @@
         <child>
           <object class="GtkButton" id="back_btn">
             <property name="label" translatable="yes">Sign-In</property>
-            <property name="name">back_btn</property>
+            <property name="name">sign_in_inup</property>
             <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
@@ -103,6 +103,7 @@
         <child>
           <object class="GtkButton">
             <property name="label" translatable="yes">Sign-Up</property>
+            <property name="name">sign_up_inup</property>
             <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
