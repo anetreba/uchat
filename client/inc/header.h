@@ -16,6 +16,14 @@
 #include <malloc/malloc.h>
 #include "../libmx/inc/libmx.h"
 
+#include <stdlib.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <unistd.h>
+#include <gtk/gtk.h>
+#include <ctype.h>
+#include <sqlite3.h>
+
 ////////////////////FOR RENDER MESSAGE AND ROOMS/////////////////////
 
 typedef struct s_mess {
@@ -33,14 +41,6 @@ typedef struct s_list_room {
 
 
 ////////////////////////////////////////////////////////////////////
-
-#include <stdlib.h>
-#include <sys/types.h>
-#include <signal.h>
-#include <unistd.h>
-#include <gtk/gtk.h>
-#include <ctype.h>
-#include <sqlite3.h>
 
 typedef struct s_gtk {
     GtkBuilder *builder;
@@ -112,10 +112,12 @@ typedef struct s_sign_up {
 }               t_sign_up;
 
 typedef struct s_send_message {
-    int id_sender;
+    int sender_id;
     const char *message;
     int type;
     int room_id;
+    int date_send;
+    int tokens;
 }               t_send_message;
 
 typedef struct s_event {
@@ -138,6 +140,7 @@ typedef struct s_response {
 }               t_response;
 
 void mx_listroom_and_mess(t_event *event);
+void mx_add_mess_to_list(t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud
@@ -155,12 +158,14 @@ char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
+void *mx_model_new_message(t_send_message *data);
 
 void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event, json_object *jobj);
 void mx_contr_update_rooms(json_object *jobj, t_event *event);
+void mx_contr_new_message(t_event *event, json_object *jobj);
 
 void mx_json(t_event *event, char *action);
 

@@ -123,6 +123,7 @@ void mx_return_signup_json(t_signup status, int sock) {
 
 void mx_renew_rooms(struct json_object *jobj, t_event *event) {
 //    t_event event;
+    printf("=========================ERROR=========================\n");
     struct json_object *auth_token;
     t_list *resp;
 
@@ -136,12 +137,36 @@ void mx_renew_rooms(struct json_object *jobj, t_event *event) {
 void mx_renew(struct json_object *jobj, t_event *event) {
     struct json_object *auth_token;
     t_list *resp;
+    printf("=========================ERROR1=========================\n");
 
     event->renew = (t_renew *)malloc(sizeof(t_renew));
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
     event->renew->auth_token = json_object_get_string(auth_token);
     resp = mx_contr_renew(event->renew);
     mx_return_renew_json(resp, event->new_open_socket);
+}
+
+void mx_send_message(struct json_object *jobj, t_event *event) {
+    struct json_object *auth_token;
+    struct json_object *message;
+    struct json_object *room_id;
+    struct json_object *sender_id;
+
+    t_list *resp;
+    printf("=========================ERROR2=========================\n");
+
+    event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+    json_object_object_get_ex(jobj, "message", &message);
+    json_object_object_get_ex(jobj, "room_id", &room_id);
+    json_object_object_get_ex(jobj, "sender_id", &sender_id);
+    event->send_message->auth_token = json_object_get_string(auth_token);
+    event->send_message->message = json_object_get_string(message);
+    event->send_message->room_id = json_object_get_int(room_id);
+    event->send_message->sender_id =json_object_get_int(sender_id);
+
+    resp = mx_recieve_mess(event->send_message);
+    //mx_return_sendmessage_json(resp, event->new_open_socket);
 }
 
 void mx_sign_up(struct json_object *jobj, const char *ev, char **events, t_event *event) {
@@ -185,7 +210,7 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
     event->log_in->password = json_object_get_string(password);
 
     if (strcmp(ev, events[1]) == 0) {
-        resp = mx_contr_signin(event->log_in);
+        resp = mx_contr_signin(event);
         mx_return_signin_json(resp, event->new_open_socket);
     }
 }
@@ -229,12 +254,18 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     ev = json_object_get_string(action);
     if (strcmp(ev, events[0]) == 0)
         mx_sign_up(jobj, ev, events, event);
-    else if (strcmp(ev, events[1]) == 0)
+    else if (strcmp(ev, events[1]) == 0) {
         mx_sign_in(jobj, ev, events, event);
-    else if (strcmp(ev, events[2]) == 0)
+    }
+    else if (strcmp(ev, events[2]) == 0) {
         mx_renew_rooms(jobj, event);
-    else if (strcmp(ev, events[3]) == 0)
+    }
+    else if (strcmp(ev, events[3]) == 0) {
         mx_renew(jobj, event);
+    }
+    else if (strcmp(ev, events[4]) == 0) {
+        mx_send_message(jobj, event);
+    }
 //    const char *jstr = json_object_to_json_string(jobj);
 //    printf("JSON  == %s\n", jstr);
 }

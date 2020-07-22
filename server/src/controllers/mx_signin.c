@@ -24,27 +24,26 @@ static int callback_signin(void *data, int argc, char **argv, char **ColName) {
         udata->login = strdup(argv[1]);
         udata->password = strdup(argv[2]);
         udata->tokens = atoi(argv[3]);
-
     }
     return 0;
 }
 
-t_response *mx_contr_signin(t_log_in *user) {
+t_response *mx_contr_signin(t_event *event) {
     char *vals;
     char *str;
     char *auth_token = NULL;
     t_data data;
     int rs;
 
-    asprintf(&vals, "Users WHERE login = '%s'", user->login);
+    asprintf(&vals, "Users WHERE login = '%s'", event->log_in->login);
     rs = mx_model_select("id,login,pass,tokens", vals, callback_signin, &data);
     if (data.login != NULL && data.password != NULL &&
-        mx_strcmp(user->login, data.login) == 0 &&
-        mx_strcmp(user->password, data.password) == 0) {
+        mx_strcmp(event->log_in->login, data.login) == 0 &&
+        mx_strcmp(event->log_in->password, data.password) == 0) {
         auth_token = mx_gen_auth_token(24);
 
-        asprintf(&vals, "login = '%s'", user->login);
-        asprintf(&str, "auth_token='%s', token_aval='%u'", auth_token, mx_date_aval(864000));
+        asprintf(&vals, "login = '%s'", event->log_in->login);
+        asprintf(&str, "auth_token='%s', token_aval='%u', sock='%d'", auth_token, mx_date_aval(864000), event->new_open_socket);
         mx_model_update("Users", str, vals);
 
     }

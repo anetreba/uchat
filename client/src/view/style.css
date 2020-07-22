@@ -1,53 +1,51 @@
 .background {
-    background-color: #0F4C81;
+    background-color: #1f2f3f;
 }
 
 
 /*==============SIGN IN     SIGN UP  WINDOW=========================*/
 
 #entry_login, #entry_password {
-    background-color: #F1F0E2;
+    background-color: #1f2831;
+    color: #fff;
     border-color: #F1F0E2;
-    border-radius: 0px;
+    border-radius: 5px;
     box-shadow: 9px 14px 29px -6px rgba(0,0,0,0.75);
-    margin: 10px 0px;
     padding: 2px 6px;
     font-size: 14px;
 }
 
-/*======================== CHAT WINDOW ===========================*/
-
-#chat_entry_message {
-    border: 0;
-    border-radius: 0;
-    background: #F1F0E2;
-    font-size: 14px;
-}
-
-#stk_main child {
-    background-color: #F1F0E2;
-    padding: 3px;
-}
-button#sign_in_btn, button#sign_up_btn, button#back_btn {
-    background: #0F4C81;
-    border-top: none;
-    color: #ffffff;
-    border: 0;
-    border-radius: 5px;
-    border-top: 2px solid #0F4C81;
+button#sign_up_btn, button#sign_in_btn {
+    background: #1f2f3f;
+    border: 0px;
     box-shadow: none;
     text-shadow: none;
+    border-radius: 0px;
+
+    color: #fff;
 }
 
-button#sign_in_btn  {
-    border-bottom: 5px solid #F1F0E2;
+button#sign_up_btn {
+    border-bottom: 3px solid #6A1A4C;
 }
 
-button#sign_up_btn:hover, button#back_btn{
-    border-bottom: 5px solid #F1F0E2;
+button#sign_in_btn {
+    border-bottom: 3px solid #278040;
 }
 
-GtkButton {
-    background-color: #0F4C81;
-
+button#cancel_btn, button#login_btn {
+    border: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0px;
+    color: #fff;
 }
+
+button#cancel_btn {
+    background: #A49E9E;
+}
+button#login_btn {
+    background: #278040;
+}
+
+/*======================== CHAT WINDOW ===========================*/

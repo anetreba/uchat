@@ -5,7 +5,7 @@ void mx_print(t_list *list) {
 
     printf("err\n");
     while(lst) {
-        printf("======================================================\n");
+        printf("==========================ROOM============================\n");
         printf("ROOM ID = %d\n", ((t_list_room *)(lst->data))->room_id);
         printf("ROOM NAME = %s\n", ((t_list_room *)(lst->data))->room_name);
         while (((t_list_room *)(lst->data))->mess) {
@@ -17,7 +17,25 @@ void mx_print(t_list *list) {
             printf("*****************************************************\n");
             ((t_list_room *)(lst->data))->mess = ((t_list_room *)(lst->data))->mess->next;
         }
-        printf("======================================================\n");
+        printf("============================END==========================\n");
+        lst = lst->next;
+    }
+}
+
+void mx_add_mess_to_list(t_event *event) {
+    t_list *lst = event->list_room;
+
+    while (lst) {
+        if (((t_list_room *)(lst->data))->room_id == event->send_message->room_id) {
+//            t_list *mess = ((t_list_room *)(lst->data))->mess;
+            t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
+
+            mess->sender_id = event->send_message->sender_id;
+            mess->date_send = event->send_message->date_send;
+            mess->type = event->send_message->type;
+            mess->message = strdup(event->send_message->message);
+            mx_push_back(&(((t_list_room *)(lst->data))->mess), mess);
+        }
         lst = lst->next;
     }
 }

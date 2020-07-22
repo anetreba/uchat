@@ -45,6 +45,8 @@ typedef struct s_data {
     char **colname;
     int tokens;
     int verify_code;
+    char *auth_token;
+    int sock;
 }               t_data;
 
 typedef struct s_signup {
@@ -53,10 +55,13 @@ typedef struct s_signup {
 }               t_signup;
 
 typedef struct s_send_message {
-    int id_sender;
-    const char *message;
+    int sender_id;
+    int room_id;
     int type;
-    int group;
+    int date_send;
+    int tokens;
+    const char *auth_token;
+    const char *message;
 }               t_send_message;
 
 typedef struct s_renew {
@@ -107,7 +112,7 @@ void mx_model_del(char *table, char *condition);
 
 //controllers
 t_signup mx_contr_signup(t_log_in *user);
-t_response *mx_contr_signin(t_log_in *user);
+t_response *mx_contr_signin(t_event *event);
 t_list *mx_contr_renew(t_renew *tok);
 char *mx_gen_auth_token(int len);
 int mx_date_now();
@@ -119,5 +124,6 @@ int mx_sendmail(const char *to, const char *from, const char *subject, const cha
 void mx_verify_mail(char *login);
 void mx_renew_rooms(struct json_object *jobj, t_event *event);
 t_list *mx_contr_renew_rooms(t_renew_rooms *tok);
+t_list *mx_recieve_mess(t_send_message *mess);
 
 #endif

@@ -29,7 +29,7 @@ void mx_json(t_event *event, char *action) {
     if (strcmp(action, ev[4]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("send_message"));
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
-        json_object_object_add(jobj, "id_sender", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "room_id", json_object_new_int(1));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
@@ -106,7 +106,7 @@ void send_messages(GtkButton *button, t_event *event) {
 
     // event->send_message->message = gtk_entry_get_text(GTK_ENTRY(msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
-
+    mx_json(event, "send_message");
     (void)button;
 
     gtk_entry_set_text(GTK_ENTRY(msg), "");
@@ -188,6 +188,19 @@ void mx_print_list(t_event *event) {
     }
 }
 
+//void mx_print_list2(t_event *event) {
+//    t_list *lst = event->renew;
+//
+//    printf("===LIST==\n");
+//    while (lst) {
+//        printf("****************************************************************\n");
+//        printf("ROOM_NAME = %s\n", ((t_renew *)(lst->data))->name_room);
+//        printf("ROOM_ID = %d\n", ((t_renew *)(lst->data))->room_id);
+//        printf("****************************************************************\n");
+//        lst = lst->next;
+//    }
+//}
+
 void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
 
@@ -201,13 +214,14 @@ void chat_window(GtkButton *button, t_event *event) {
 
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 
-    mx_listroom_and_mess(event);
+
   //  mx_print_list2(event);
     t_room *room = (t_room *)malloc(sizeof(t_room));
     event->room = mx_create_node(room);
     mx_create_list_room(event);
     mx_pop_front(&event->room);
-    //mx_print_list(event);
+//    mx_print_list(event);
+    mx_listroom_and_mess(event);
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(new_room), event);
