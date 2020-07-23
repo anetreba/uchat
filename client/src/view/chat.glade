@@ -52,20 +52,20 @@
         <child>
           <object class="GtkEntry" id="chat_entry_message">
             <property name="name">entry_msg_field</property>
-            <property name="width_request">545</property>
+            <property name="width_request">185</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your message</property>
           </object>
           <packing>
-            <property name="x">177</property>
+            <property name="x">540</property>
             <property name="y">580</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="chat_send_btn">
-            <property name="label" translatable="yes">send</property>
+            <property name="label" translatable="yes">Send</property>
             <property name="name">send_btn</property>
             <property name="width_request">100</property>
             <property name="height_request">40</property>
@@ -126,7 +126,7 @@
           <object class="GtkButton" id="new_room_btn">
             <property name="label" translatable="yes">New room</property>
             <property name="name">new_rim_btn</property>
-            <property name="width_request">153</property>
+            <property name="width_request">80</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -140,15 +140,100 @@
         <child>
           <object class="GtkLabel" id="room_name">
             <property name="name">room_name</property>
-            <property name="width_request">642</property>
+            <property name="width_request">250</property>
             <property name="height_request">32</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Room name</property>
           </object>
           <packing>
-            <property name="x">184</property>
+            <property name="x">180</property>
             <property name="y">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="token">
+            <property name="name">token</property>
+            <property name="width_request">82</property>
+            <property name="height_request">32</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Token: 10</property>
+          </object>
+          <packing>
+            <property name="x">430</property>
+            <property name="y">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="contacts">
+            <property name="name">contacts</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_entry">True</property>
+            <items>
+              <item translatable="yes">New contact</item>
+            </items>
+            <child internal-child="entry">
+              <object class="GtkEntry">
+                <property name="can_focus">False</property>
+                <property name="text" translatable="yes">Contacts</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">327</property>
+            <property name="y">580</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="settings">
+            <property name="name">settings</property>
+            <property name="width_request">80</property>
+            <property name="height_request">20</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="add_tearoffs">True</property>
+            <property name="tearoff_title" translatable="yes">Settings</property>
+            <property name="has_entry">True</property>
+            <items>
+              <item translatable="yes">Change NickName</item>
+              <item translatable="yes">Logout</item>
+            </items>
+            <child internal-child="entry">
+              <object class="GtkEntry">
+                <property name="can_focus">False</property>
+                <property name="text" translatable="yes">Settings</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">621</property>
+            <property name="y">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="groups">
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="has_entry">True</property>
+            <items>
+              <item translatable="yes">Add contacs to the group</item>
+            </items>
+            <child internal-child="entry">
+              <object class="GtkEntry">
+                <property name="can_focus">False</property>
+                <property name="text" translatable="yes">Groups</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">114</property>
+            <property name="y">580</property>
           </packing>
         </child>
       </object>
