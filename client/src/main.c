@@ -100,12 +100,13 @@ void create_row(t_event *event) {
     gtk_container_add(GTK_CONTAINER(event->gtk->row_msg), event->gtk->user_button);
 }
 
-void scroll_adjustment(t_event *event) {
-    GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(event->gtk->scrolled_window));
-    double value = gtk_adjustment_get_upper(adjustment);
-    printf("adjustment %f\n", value);
+static gint scroll(gpointer tmp) {
+    t_event *event = (t_event *)tmp;
+    GtkAdjustment *adj = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(event->gtk->scrolled_window));
+    double value = gtk_adjustment_get_upper(adj);
 
-    gtk_adjustment_set_value(adjustment, value);
+    gtk_adjustment_set_value(adj, value);
+    return false;
 }
 
 void send_messages(GtkButton *button, t_event *event) {
@@ -120,8 +121,6 @@ void send_messages(GtkButton *button, t_event *event) {
 
     (void)button;
 
-    // scroll_adjustment(event);
-
     gtk_entry_set_text(GTK_ENTRY(msg), "");
 //    create_row(event);
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
@@ -135,7 +134,7 @@ void send_messages(GtkButton *button, t_event *event) {
     gtk_widget_show(event->gtk->row_user);
     gtk_widget_show(event->gtk->message_button);
 
-    scroll_adjustment(event);
+    g_timeout_add(200, scroll, event);
 }
 
 void mx_select_room(GtkButton *button, t_event *event) {
@@ -314,7 +313,7 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat11.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
