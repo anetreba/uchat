@@ -29,14 +29,24 @@
 typedef struct s_mess {
     char *message;
     int sender_id;
+    char *sender_nick;
     int date_send;
     int type;
+
+    GtkWidget *row_user;
+    GtkWidget *row_msg;
+    GtkWidget *message_button;
+    GtkWidget *user_button;
+
 }               t_mess;
 
 typedef struct s_list_room {
     int room_id;
     char *room_name;
     t_list *mess;
+
+    GtkWidget *row;
+    GtkWidget *room_btn;
 }               t_list_room;
 
 
@@ -65,6 +75,11 @@ typedef struct s_gtk {
     GtkWidget *test_label;
     GtkWidget *list_rooms;
     GtkWidget *new_room;
+    GtkWidget *row_user; /////
+    GtkWidget *row_msg;
+    GtkWidget *message_button;
+    GtkWidget *user_button; ////
+    GtkWidget *scrolled_window;
 }               t_gtk;
 
 typedef struct s_data {
@@ -91,17 +106,10 @@ typedef struct s_renew {
     int recieve_status;
 }               t_renew;
 
-typedef struct s_room {
-    int room_id;
-    char *room_name;
-    GtkWidget *row;
-    GtkWidget *room_btn;
-}               t_room;
 
 typedef struct s_log_in {
     const char *login;
     const char *password;
-//    const char *nick;
 }               t_log_in;
 
 typedef struct s_sign_up {
@@ -128,7 +136,6 @@ typedef struct s_event {
     t_sign_up *sign_up;
     t_data *data;
     t_list *renew;
-    t_list *room;
     t_list *list_room;
 }              t_event;
 
@@ -140,7 +147,9 @@ typedef struct s_response {
 }               t_response;
 
 void mx_listroom_and_mess(t_event *event);
+void mx_parse_room_front(t_event *event);
 void mx_add_mess_to_list(t_event *event);
+void create_row(t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud

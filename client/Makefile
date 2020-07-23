@@ -29,6 +29,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		models/mx_model_logined.c \
       		models/mx_model_new_message.c \
       		controllers/mx_select_listroom_and_mess.c \
+      		mx_list_room_mess.c \
       		mx_event.c)
 
 
@@ -47,7 +48,8 @@ OBJ = main.o \
       mx_contr_update_rooms.o \
       mx_contr_new_message.o \
       mx_model_new_message.o \
-      mx_select_listroom_and_mess.o
+      mx_select_listroom_and_mess.o \
+      mx_list_room_mess.o
 
 CC = clang
 

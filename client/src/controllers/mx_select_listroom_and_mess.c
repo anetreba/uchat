@@ -3,7 +3,6 @@
 void mx_print(t_list *list) {
     t_list *lst = list;
 
-    printf("err\n");
     while(lst) {
         printf("==========================ROOM============================\n");
         printf("ROOM ID = %d\n", ((t_list_room *)(lst->data))->room_id);
@@ -73,16 +72,24 @@ static int callback_mess(void *data, int argc, char **argv, char **ColName) {
         else
             mess->type = 0;
     }
-    printf("MESSAGE = %s\n", mess->message);
-    printf("SENDER ID = %d\n", mess->sender_id);
-    printf("DATE SEND = %d\n", mess->date_send);
-    printf("TYPE = %d\n", mess->type);
     mx_push_back(&udata, mess);
+    return 0;
+}
+
+
+static int callback_sender(void *data, int argc, char **argv, char **ColName) {
+    t_list *udata = (t_list *)data;
+    ColName = NULL;
+
+    if (argc > 0 && argv) {
+        ((t_mess *)(udata->data))->sender_nick = strdup(argv[0]);
+    }
     return 0;
 }
 
 void mx_sellect_mess_to_lst(t_event *event) {
     t_list *lst = event->list_room;
+    char *vals1;
     char *vals2;
 
     while (lst) {
@@ -91,9 +98,17 @@ void mx_sellect_mess_to_lst(t_event *event) {
         memset(mess, 0, sizeof(t_mess));
         ((t_list_room *)(lst->data))->mess = mx_create_node(mess);
 
-        asprintf(&vals2, "Messages WHERE room_id = '%d'", ((t_list_room *)(lst->data))->room_id);
-        mx_model_select("message, sender_id, date_send, type ", vals2, callback_mess, ((t_list_room *)(lst->data))->mess);
+        asprintf(&vals1, "Messages WHERE room_id = '%d'", ((t_list_room *)(lst->data))->room_id);
+        mx_model_select("message, sender_id, date_send, type ", vals1, callback_mess, ((t_list_room *)(lst->data))->mess);
+
         mx_pop_front(&(((t_list_room *)(lst->data))->mess));
+        t_list *list = ((t_list_room *)(lst->data))->mess;
+        while (list) {
+            asprintf(&vals2, "Contacts WHERE user_id = '%d'",
+                     ((t_mess * )(list->data))->sender_id);
+            mx_model_select("nick", vals2, callback_sender, list);
+            list = list->next;
+        }
         lst = lst->next;
     }
 }
@@ -111,5 +126,5 @@ void mx_listroom_and_mess(t_event *event) {
     mx_pop_front(&(event->list_room));
 
     mx_sellect_mess_to_lst(event);
-    mx_print(event->list_room);
+   // mx_print(event->list_room);
 }
