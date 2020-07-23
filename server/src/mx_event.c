@@ -146,6 +146,18 @@ void mx_renew(struct json_object *jobj, t_event *event) {
     mx_return_renew_json(resp, event->new_open_socket);
 }
 
+void mx_renew_contacts(struct json_object *jobj, t_event *event) {
+    struct json_object *auth_token;
+    t_list *resp;
+    printf("=========================ERROR5=========================\n");
+
+    event->renew = (t_renew *)malloc(sizeof(t_renew));
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+    event->renew->auth_token = json_object_get_string(auth_token);
+    resp = mx_contr_renew_contacts(event->renew);
+    mx_return_renew_json(resp, event->new_open_socket);
+}
+
 void mx_send_message(struct json_object *jobj, t_event *event) {
     struct json_object *auth_token;
     struct json_object *message;
@@ -247,25 +259,23 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
 
 void mx_valid_event(struct json_object *jobj, t_event *event) {
     struct json_object *action;
-    char *events[] = {"sign_up", "sign_in", "renew_rooms", "renew","send_message"};
+    char *events[] = {"sign_up", "sign_in", "renew_rooms", "renew","send_message", "renew_contacts"};
     const char *ev;
 
     json_object_object_get_ex(jobj, "event", &action);
     ev = json_object_get_string(action);
     if (strcmp(ev, events[0]) == 0)
         mx_sign_up(jobj, ev, events, event);
-    else if (strcmp(ev, events[1]) == 0) {
+    else if (strcmp(ev, events[1]) == 0)
         mx_sign_in(jobj, ev, events, event);
-    }
-    else if (strcmp(ev, events[2]) == 0) {
+    else if (strcmp(ev, events[2]) == 0)
         mx_renew_rooms(jobj, event);
-    }
-    else if (strcmp(ev, events[3]) == 0) {
+    else if (strcmp(ev, events[3]) == 0)
         mx_renew(jobj, event);
-    }
-    else if (strcmp(ev, events[4]) == 0) {
+    else if (strcmp(ev, events[4]) == 0)
         mx_send_message(jobj, event);
-    }
+    else if (strcmp(ev, events[5]) == 0)
+        mx_renew_contacts(jobj, event);
 //    const char *jstr = json_object_to_json_string(jobj);
 //    printf("JSON  == %s\n", jstr);
 }

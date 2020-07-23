@@ -1,7 +1,7 @@
 #include "header.h"
 
 void mx_json(t_event *event, char *action) {
-    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message"};
+    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message", "add_contact", "renew_contacts"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
     //Json
@@ -31,6 +31,16 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
         json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "room_id", json_object_new_int(1));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+    }
+    if (strcmp(action, ev[5]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("add_contact"));
+        json_object_object_add(jobj, "nick", json_object_new_string(event->send_message->message));
+        json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+    }
+    if (strcmp(action, ev[6]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("renew_contacts"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
     jstr = json_object_to_json_string(jobj);

@@ -46,12 +46,14 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         }
         mx_json_read(event);
     }
-    if (strcmp(ev, events[1]) == 0)
+    if (strcmp(ev, events[1]) == 0) {
         mx_contr_renew(event, jobj);
+        mx_contr_renew_contacts(event);
+    }
     if (strcmp(ev, events[2]) == 0)
         mx_contr_new_message(event, jobj);
-    if (strcmp(ev, events[3]) == 0)
-        mx_contr_signup(event, jobj);
+//    if (strcmp(ev, events[3]) == 0)
+//        //mx_contr_signup(event, jobj);
     if (strcmp(ev, events[4]) == 0){
         mx_contr_auth(event, jobj);
     }

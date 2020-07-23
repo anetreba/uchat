@@ -166,7 +166,7 @@ void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event, json_object *jobj);
 void mx_contr_update_rooms(json_object *jobj, t_event *event);
 void mx_contr_new_message(t_event *event, json_object *jobj);
-
+void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
 
 #endif

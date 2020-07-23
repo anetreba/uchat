@@ -77,6 +77,12 @@ typedef struct s_renew_rooms {
     const char *auth_token;
 }               t_renew_rooms;
 
+typedef struct s_renew_contacts {
+    int user_id;
+    int contact_id;
+    const char *auth_token;
+}               t_renew_contacts;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -85,6 +91,7 @@ typedef struct s_event {
     t_send_message *send_message;
     t_renew *renew;
     t_renew_rooms *renew_rooms;
+    t_renew_contacts *renew_contacts;
 }              t_event;
 
 typedef struct s_response {
