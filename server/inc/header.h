@@ -14,6 +14,8 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <sqlite3.h>
 #include "../json-c/inc/json.h"
@@ -108,6 +110,7 @@ int mx_model_select(const char *search, char *tables,
                     void *data);
 void mx_model_update(char *table, char *str, char *condition);
 void mx_model_del(char *table, char *condition);
+void mx_demonize();
 
 
 //controllers
