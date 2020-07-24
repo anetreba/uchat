@@ -130,6 +130,7 @@ typedef struct s_send_message {
 
 typedef struct s_event {
     int network_socket;
+    int prev_room_id;
     t_gtk *gtk;
     t_send_message *send_message;
     t_log_in *log_in;
@@ -150,6 +151,8 @@ void mx_listroom_and_mess(t_event *event);
 void mx_parse_room_front(t_event *event);
 void mx_add_mess_to_list(t_event *event);
 void create_row(t_event *event);
+void mx_add_new_message(t_event *event, GtkWidget *msg);
+void new_room(GtkButton *button, t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud

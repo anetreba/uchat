@@ -5,7 +5,7 @@
 
 /*==============SIGN IN     SIGN UP  WINDOW=========================*/
 
-#entry_login, #entry_password, #entry_email, #entry_nick_name {
+#entry_login, #entry_password {
     background-color: #1f2831;
     color: #fff;
     border-color: #F1F0E2;
@@ -15,32 +15,17 @@
     font-size: 14px;
 }
 
-button#sign_up_btn, button#sign_in_btn, button#sign_up_inup, button#sign_in_inup {
+button#sign_up_btn, button#sign_in_btn {
     background: #1f2f3f;
     border: 0px;
     box-shadow: none;
     text-shadow: none;
     border-radius: 0px;
+
     color: #fff;
 }
 
-button#sign_up_inup {
-    border-bottom: 3px solid #6A1A4C;
-}
-
-button#sign_up_btn:hover, button#sign_up_btn:active {
-    border-bottom: 20px solid #6A1A4C
-}
-
-button#sign_in_inup:hover, button#sign_in_inup:active {
-    border-bottom: 3px solid #278040;
-}
-
 button#sign_up_btn {
-    border-bottom: 0px;
-}
-
-button#sign_up_btn:hover {
     border-bottom: 3px solid #6A1A4C;
 }
 
@@ -48,7 +33,7 @@ button#sign_in_btn {
     border-bottom: 3px solid #278040;
 }
 
-button#cancel_btn, button#login_btn, button#registration_btn {
+button#cancel_btn, button#login_btn {
     border: 0px;
     box-shadow: none;
     text-shadow: none;
@@ -59,15 +44,8 @@ button#cancel_btn, button#login_btn, button#registration_btn {
 button#cancel_btn {
     background: #A49E9E;
 }
-button#login_btn, button#registration_btn {
+button#login_btn {
     background: #278040;
 }
-button#cancel_btn:hover, button#login_btn:hover, button#registration_btn:hover {
-    background: rgba(0,0,0,0);
-    color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
-}
-
-
 
 /*======================== CHAT WINDOW ===========================*/

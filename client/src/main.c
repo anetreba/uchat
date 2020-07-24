@@ -140,24 +140,24 @@ void send_messages(GtkButton *button, t_event *event) {
 }
 
 
-void new_room(GtkButton *button, t_event *event) {
-
-    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-
-    GtkWidget *room1 = gtk_button_new_with_label("test_room1");
-    gtk_widget_set_hexpand(room1, TRUE);
-    gtk_widget_set_halign(room1, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign(room1, GTK_ALIGN_CENTER);
-    gtk_widget_set_size_request(room1, 60, 5);
-    gtk_container_add(GTK_CONTAINER(row), room1);
-
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
-
-    gtk_widget_show(row);
-    gtk_widget_show(room1);
-
-    (void)button;
-}
+//void new_room(GtkButton *button, t_event *event) {
+//
+//    GtkWidget *row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+//
+//    GtkWidget *room1 = gtk_button_new_with_label("test_room1");
+//    gtk_widget_set_hexpand(room1, TRUE);
+//    gtk_widget_set_halign(room1, GTK_ALIGN_CENTER);
+//    gtk_widget_set_valign(room1, GTK_ALIGN_CENTER);
+//    gtk_widget_set_size_request(room1, 60, 5);
+//    gtk_container_add(GTK_CONTAINER(row), room1);
+//
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), row, -1);
+//
+//    gtk_widget_show(row);
+//    gtk_widget_show(room1);
+//
+//    (void)button;
+//}
 
 void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
@@ -261,6 +261,7 @@ int main(int argc, char **argv) {
     int port = atoi(argv[2]);
 
     event.network_socket = socket(AF_INET, SOCK_STREAM, 0);
+    event.prev_room_id = 0;
 
     struct sockaddr_in server_adress;
 
