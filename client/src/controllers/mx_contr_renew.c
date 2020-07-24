@@ -1,18 +1,18 @@
 #include "header.h"
 
-void mx_print_list1(t_list *lst) {
-    while(lst) {
-        printf("********************************************************\n");
-        printf("MESSAGE = %s\n",((t_renew *)(lst->data))->message);
-        printf("ROOM ID = %d\n",((t_renew *)(lst->data))->room_id);
-        printf("ROOM NAME = %s\n",((t_renew *)(lst->data))->name_room);
-        printf("SENDER ID = %d\n",((t_renew *)(lst->data))->sender_id);
-        printf("DATA SEND = %d\n",((t_renew *)(lst->data))->date_send);
-        printf("REC STATUS = %d\n",((t_renew *)(lst->data))->recieve_status);
-        lst = lst->next;
-        printf("********************************************************\n");
-    }
-}
+//void mx_print_list1(t_list *lst) {
+//    while(lst) {
+//        printf("********************************************************\n");
+//        printf("MESSAGE = %s\n",((t_renew *)(lst->data))->message);
+//        printf("ROOM ID = %d\n",((t_renew *)(lst->data))->room_id);
+//        printf("ROOM NAME = %s\n",((t_renew *)(lst->data))->name_room);
+//        printf("SENDER ID = %d\n",((t_renew *)(lst->data))->sender_id);
+//        printf("DATA SEND = %d\n",((t_renew *)(lst->data))->date_send);
+//        printf("REC STATUS = %d\n",((t_renew *)(lst->data))->recieve_status);
+//        lst = lst->next;
+//        printf("********************************************************\n");
+//    }
+//}
 static int callback_check_msg(void *data, int argc, char **argv, char **ColName) {
     ColName = NULL;
 

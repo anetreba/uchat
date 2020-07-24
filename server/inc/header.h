@@ -80,6 +80,7 @@ typedef struct s_renew_rooms {
 typedef struct s_renew_contacts {
     int user_id;
     int contact_id;
+    char *nickname;
     const char *auth_token;
 }               t_renew_contacts;
 
@@ -135,5 +136,8 @@ void mx_verify_mail(char *login);
 void mx_renew_rooms(struct json_object *jobj, t_event *event);
 t_list *mx_contr_renew_rooms(t_renew_rooms *tok);
 t_list *mx_recieve_mess(t_send_message *mess);
+t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
+t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
+void mx_return_renew_contacts_json(t_list *resp, int sock);
 
 #endif

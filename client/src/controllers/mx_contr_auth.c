@@ -5,21 +5,17 @@ static void write_auth_data(t_event *event, json_object *obj) {
     struct json_object *auth_token;
     struct json_object *tokens;
     struct json_object *id;
+
     event->data = (t_data *)malloc(sizeof(t_data));
     memset(event->data, 0, sizeof(t_data));
-
     json_object_object_get_ex(obj, "status", &status);
     json_object_object_get_ex(obj, "auth_token", &auth_token);
     json_object_object_get_ex(obj, "tokens", &tokens);
     json_object_object_get_ex(obj, "id", &id);
-
     event->data->status = json_object_get_int(status);
     event->data->auth_token = json_object_get_string(auth_token);
     event->data->tokens = json_object_get_int(tokens);
     event->data->id = json_object_get_int(id);
-
-    printf("%d\n",event->data->status);
-
     if(event->data->status == 0) {
         mx_model_logined(event->data);
         mx_json(event, "renew_rooms");
