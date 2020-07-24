@@ -125,8 +125,8 @@ void send_messages(GtkButton *button, t_event *event) {
 
     gtk_entry_set_text(GTK_ENTRY(msg), "");
 //    create_row(event);
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
 
     gtk_widget_show(event->gtk->list_box);
 
@@ -163,9 +163,10 @@ void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
     event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
-    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
+//    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
     event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
     event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
+    event->gtk->viewport = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "viewport"));
 
     gtk_widget_show(event->gtk->chat_window);
     gtk_widget_hide(event->gtk->window);

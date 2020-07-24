@@ -47,6 +47,7 @@ typedef struct s_list_room {
 
     GtkWidget *row;
     GtkWidget *room_btn;
+    GtkWidget *list_box;
 }               t_list_room;
 
 
@@ -80,6 +81,7 @@ typedef struct s_gtk {
     GtkWidget *message_button;
     GtkWidget *user_button; ////
     GtkWidget *scrolled_window;
+    GtkWidget *viewport;
 }               t_gtk;
 
 typedef struct s_data {

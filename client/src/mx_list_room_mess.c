@@ -11,6 +11,9 @@ void mx_front_message(int room_id, t_event *event) {
         if (((t_list_room *)(lst->data))->room_id == room_id) {
             t_list *mess = ((t_list_room *)(lst->data))->mess;
 
+            ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
+            gtk_container_add(GTK_CONTAINER(event->gtk->viewport), ((t_list_room *)(lst->data))->list_box);
+
             while (mess) {
                 ((t_mess *)(mess->data))->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
                 ((t_mess *)(mess->data))->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
@@ -36,10 +39,10 @@ void mx_front_message(int room_id, t_event *event) {
                 gtk_widget_set_opacity(((t_mess *)(mess->data))->user_button, 1);
                 gtk_container_add(GTK_CONTAINER(((t_mess *)(mess->data))->row_msg), ((t_mess *)(mess->data))->user_button);
 
-                gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), ((t_mess *)(mess->data))->row_msg, -1);
-                gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), ((t_mess *)(mess->data))->row_user, -1);
+                gtk_list_box_insert(GTK_LIST_BOX(((t_list_room *)(lst->data))->list_box), ((t_mess *)(mess->data))->row_msg, -1);
+                gtk_list_box_insert(GTK_LIST_BOX(((t_list_room *)(lst->data))->list_box), ((t_mess *)(mess->data))->row_user, -1);
 
-                gtk_widget_show(event->gtk->list_box);
+                gtk_widget_show(((t_list_room *)(lst->data))->list_box);
 
                 gtk_widget_show(((t_mess *)(mess->data))->row_msg);
                 gtk_widget_show(((t_mess *)(mess->data))->user_button);
@@ -62,14 +65,15 @@ void mx_del_widget_mess(t_event *event) {
         while (lst) {
             if (((t_list_room * )(lst->data))->room_id == event->prev_room_id) {
                 t_list *mess = ((t_list_room *)(lst->data))->mess;
+                gtk_widget_hide(((t_list_room * )(lst->data))->list_box);
+                gtk_container_remove(GTK_CONTAINER(event->gtk->viewport), ((t_list_room * )(lst->data))->list_box);
                 while (mess) {
                     printf("CLEAR\n");
-                    gtk_container_remove(GTK_CONTAINER(((t_mess *)(mess->data))->row_user), ((t_mess *)(mess->data))->user_button);
-                    gtk_container_remove(GTK_CONTAINER(((t_mess *)(mess->data))->row_msg), ((t_mess *)(mess->data))->message_button);
-                    gtk_widget_destroy(((t_mess *)(mess->data))->message_button);
-                    gtk_widget_destroy(((t_mess *)(mess->data))->user_button);
-                    gtk_widget_destroy(((t_mess *)(mess->data))->row_user);
-                    gtk_widget_destroy(((t_mess *)(mess->data))->row_msg);
+//                    gtk_container_remove(GTK_CONTAINER(((t_mess *)(mess->data))->row_msg), ((t_mess *)(mess->data))->message_button);
+//                    gtk_widget_destroy(((t_mess *)(mess->data))->message_button);
+//                    gtk_widget_destroy(((t_mess *)(mess->data))->user_button);
+//                    gtk_widget_destroy(((t_mess *)(mess->data))->row_user);
+//                    gtk_widget_destroy(((t_mess *)(mess->data))->row_msg);
 
                     mess = mess->next;
                 }
