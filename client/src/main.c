@@ -43,22 +43,22 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "event", json_object_new_string("renew_contacts"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
-    if (strcmp(action, ev[7]) == 0) {
-        json_object_object_add(jobj, "event", json_object_new_string("add_room"));
-        json_object_object_add(jobj, "room_name", json_object_new_string(event->add_room->name));
-        t_list *members;
-        if (members) {
-            for (int i = 0; members; i++) {
-                jarray = json_object_new_array();
-                json_object *jstring0 = json_object_new_int(((t_renew_contacts *)(resp->data))->contact_id);
-                json_object_array_add(jarray,jstring0);
-                resp = resp->next;
-                iter = mx_itoa(i);
-                json_object_object_add(jobj, iter, jarray);
-            }
-        }
-        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
-    }
+//    if (strcmp(action, ev[7]) == 0) {
+//        json_object_object_add(jobj, "event", json_object_new_string("add_room"));
+//        json_object_object_add(jobj, "room_name", json_object_new_string(event->add_room->name));
+//        t_list *members;
+//        if (members) {
+//            for (int i = 0; members; i++) {
+//                jarray = json_object_new_array();
+//                json_object *jstring0 = json_object_new_int(((t_renew_contacts *)(resp->data))->contact_id);
+//                json_object_array_add(jarray,jstring0);
+//                resp = resp->next;
+//                iter = mx_itoa(i);
+//                json_object_object_add(jobj, iter, jarray);
+//            }
+//        }
+//        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+//    }
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
     send(event->network_socket, jstr, strlen(jstr), 0);

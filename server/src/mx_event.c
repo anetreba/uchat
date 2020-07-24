@@ -294,11 +294,10 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
 //    }
 //}
 
-void mx_return_del_room_json(t_response *resp, int sock) {
+void mx_return_del_room_json(t_list *resp, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object_object_add(jobj, "event", json_object_new_string("del_room_response"));
-    json_object_object_add(jobj, "status", json_object_new_int(resp->status));
-    json_object_object_add(jobj, "id_room", json_object_new_int(resp->status));
+    json_object_object_add(jobj, "room_id", json_object_new_int(((t_response *)resp->data)->room_id));
 
     char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
@@ -307,9 +306,9 @@ void mx_return_del_room_json(t_response *resp, int sock) {
     mx_strdel(&jstr);
 }
 
-void mx_del_room(struct json_object *jobj, const char *ev, char **events, t_event *event) {
+void mx_del_room(struct json_object *jobj, t_event *event) {
     t_data *data;
-    t_response *resp = NULL;
+    t_list *resp = NULL;
     struct json_object *room_id;
     struct json_object *auth_token;
 
@@ -319,11 +318,10 @@ void mx_del_room(struct json_object *jobj, const char *ev, char **events, t_even
     json_object_object_get_ex(jobj, "room_id", &room_id);
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
 
-    event->edit_room->room_id = json_object_get_string(room_id);
+    event->edit_room->room_id = json_object_get_int(room_id);
     event->edit_room->auth_token = json_object_get_string(auth_token);
     resp = mx_contr_del_room(event->edit_room);
     mx_return_del_room_json(resp, event->new_open_socket);
-    }
 }
 
 void mx_valid_event(struct json_object *jobj, t_event *event) {

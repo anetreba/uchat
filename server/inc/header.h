@@ -84,6 +84,13 @@ typedef struct s_renew_contacts {
     const char *auth_token;
 }               t_renew_contacts;
 
+typedef struct s_edit_room {
+    int room_id;
+    int room_name_id;
+    int sock;
+    const char *auth_token;
+}               t_edit_room;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -93,11 +100,13 @@ typedef struct s_event {
     t_renew *renew;
     t_renew_rooms *renew_rooms;
     t_renew_contacts *renew_contacts;
+    t_edit_room *edit_room;
 }              t_event;
 
 typedef struct s_response {
     int id;
     int status;
+    int room_id;
     char *auth_token;
     int tokens;
 }               t_response;
@@ -139,5 +148,6 @@ t_list *mx_recieve_mess(t_send_message *mess);
 t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 void mx_return_renew_contacts_json(t_list *resp, int sock);
+t_list *mx_contr_del_room(t_edit_room *room);
 
 #endif

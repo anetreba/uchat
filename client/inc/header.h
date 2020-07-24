@@ -91,6 +91,10 @@ typedef struct s_renew {
     int recieve_status;
 }               t_renew;
 
+typedef struct s_add_room {
+    char name;
+}               t_add_room;
+
 typedef struct s_room {
     int room_id;
     char *room_name;
