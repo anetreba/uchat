@@ -125,10 +125,10 @@ void send_messages(GtkButton *button, t_event *event) {
 
     gtk_entry_set_text(GTK_ENTRY(msg), "");
 //    create_row(event);
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
-    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
-
-    gtk_widget_show(event->gtk->list_box);
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_msg, -1);
+//    gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_box), event->gtk->row_user, -1);
+//
+//    gtk_widget_show(event->gtk->list_box);
 
     gtk_widget_show(event->gtk->row_msg);
     gtk_widget_show(event->gtk->user_button);
@@ -163,9 +163,11 @@ void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
     event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
-    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
+//    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
     event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
     event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
+    event->gtk->viewport = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "viewport"));
+
 
     gtk_widget_show(event->gtk->chat_window);
     gtk_widget_hide(event->gtk->window);
@@ -221,7 +223,7 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat4.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
