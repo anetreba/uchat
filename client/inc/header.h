@@ -57,6 +57,8 @@ typedef struct s_gtk {
     GtkBuilder *builder;
     GtkBuilder *builder2;
     GtkBuilder *builder3;
+    GtkBuilder *builder4;
+    GtkBuilder *builder5;
     GtkWidget *window;
     GtkWidget *fixed;
     GtkWidget *sign_in_btn;
@@ -82,6 +84,14 @@ typedef struct s_gtk {
     GtkWidget *user_button; ////
     GtkWidget *scrolled_window;
     GtkWidget *viewport;
+    GtkWidget *contacts;
+    GtkWidget *contacts_wdw;
+    GtkWidget *contacts_scrolled_wdw;
+    GtkWidget *contacts_listbox;
+    GtkWidget *new_contact_btn;
+    GtkWidget *contacts_back_btn;
+    GtkWidget *new_room_btn;
+    GtkWidget *groups_wdw;
 }               t_gtk;
 
 typedef struct s_data {

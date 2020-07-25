@@ -159,14 +159,61 @@ void send_messages(GtkButton *button, t_event *event) {
 //    (void)button;
 //}
 
+void hide_contacts(GtkButton *button, t_event *event) {
+    gtk_widget_hide(event->gtk->contacts_wdw);
+    (void)button;
+}
+
+void add_new_contact(GtkButton *button, t_event *event) {
+    //TODO: add new contact in box_list
+    printf("add new contacts\n");
+
+    (void)event;
+
+    (void)button;
+}
+
+void show_contacts_wdw(GtkButton *button, t_event *event) {
+    event->gtk->contacts_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_back_btn"));
+    event->gtk->new_contact_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "new_contact_btn"));
+
+    gtk_widget_show(event->gtk->contacts_wdw);
+
+    //TODO: show list of all contacts
+
+//    t_data *lst = event->data;
+//
+//    while (lst) {
+//        printf("login: %s\n", event->data->login);
+//        lst = lst->next;
+//    }
+
+    g_signal_connect(event->gtk->contacts_back_btn, "clicked", G_CALLBACK(hide_contacts), event);
+    g_signal_connect(event->gtk->new_contact_btn, "clicked", G_CALLBACK(add_new_contact), event);
+
+    (void)button;
+}
+
+void show_groups_wdw(GtkButton *button, t_event *event) {
+    gtk_widget_show(event->gtk->groups_wdw);
+
+    //TODO: show list of contacts and groups
+
+    (void)button;
+}
+
 void chat_window(GtkButton *button, t_event *event) {
     //rooms(event);
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
     event->gtk->chat_send_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_send_btn"));
 //    event->gtk->list_box = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_box"));
-    event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
     event->gtk->scrolled_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "scrolled_window"));
     event->gtk->viewport = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "viewport"));
+    event->gtk->contacts = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "contacts_btn"));
+    event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "new_room_btn"));
+
+    event->gtk->contacts_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_wdw"));
+    event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "groups_wdw"));
 
     gtk_widget_show(event->gtk->chat_window);
     gtk_widget_hide(event->gtk->window);
@@ -178,7 +225,8 @@ void chat_window(GtkButton *button, t_event *event) {
 
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
-    g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(new_room), event);
+    g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(show_groups_wdw), event);
+    g_signal_connect(event->gtk->contacts, "clicked", G_CALLBACK(show_contacts_wdw), event);
 
     (void)button;
 }
@@ -222,7 +270,9 @@ void mx_init_login(t_event *event) {
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
-    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat5.glade");
+    event->gtk->builder4 = gtk_builder_new_from_file ("src/view/contacts_window.glade");
+    event->gtk->builder5 = gtk_builder_new_from_file ("src/view/groups_window.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
