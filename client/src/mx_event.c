@@ -23,8 +23,7 @@ void mx_json_read(t_event *event) {
 void mx_valid_event(struct json_object *jobj, t_event *event) {
     struct json_object *obj;
     char *events[] = {"renew_rooms_response", "renew_resp", "new_message", "signup_response",
-                      "signin_response", "add_contact_resp", "renew_contacts_resp", "del_contact", "del_room",
-                      "update_room", "update_user"};
+                      "signin_response", "add_contact_response", "renew_contacts_resp", "del_contact", "del_room"};
     const char *ev;
 
     json_object_object_get_ex(jobj, "event", &obj);
@@ -56,7 +55,13 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
 //        //mx_contr_signup(event, jobj);
     if (strcmp(ev, events[4]) == 0)
         mx_contr_auth(event, jobj);
+    if (strcmp(ev, events[5]) == 0)
+        mx_contr_add_contact(event, jobj);
     if (strcmp(ev, events[6]) == 0)
         mx_model_renew_contacts(event, jobj);
+//    if (strcmp(ev, events[8]) == 0) {
+//        mx_model_del_room(event, jobj);
+//    }
+
 
 }

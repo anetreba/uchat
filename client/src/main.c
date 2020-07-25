@@ -1,7 +1,8 @@
 #include "header.h"
 
 void mx_json(t_event *event, char *action) {
-    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message", "add_contact", "renew_contacts", "add_room"};
+    char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message", "add_contact", "renew_contacts", "add_room",
+                  "edit_room", "del_room"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
     //Json
@@ -35,8 +36,8 @@ void mx_json(t_event *event, char *action) {
     }
     if (strcmp(action, ev[5]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("add_contact"));
-        json_object_object_add(jobj, "nick", json_object_new_string(event->send_message->message));
-        json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
+        json_object_object_add(jobj, "sender_id", json_object_new_int(event->add_contact->sender_id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
     if (strcmp(action, ev[6]) == 0) {
@@ -50,7 +51,7 @@ void mx_json(t_event *event, char *action) {
 //        if (members) {
 //            for (int i = 0; members; i++) {
 //                jarray = json_object_new_array();
-//                json_object *jstring0 = json_object_new_int(((t_renew_contacts *)(resp->data))->contact_id);
+//                json_object *jstring0 = json_object_new_int(((t_room_contacts *)(resp->data))->contact_id);
 //                json_object_array_add(jarray,jstring0);
 //                resp = resp->next;
 //                iter = mx_itoa(i);
@@ -59,6 +60,37 @@ void mx_json(t_event *event, char *action) {
 //        }
 //        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
 //    }
+//    if (strcmp(action, ev[8]) == 0) {
+//        json_object_object_add(jobj, "event", json_object_new_string("add_room"));
+//        json_object_object_add(jobj, "room_name", json_object_new_string(event->add_room->name));
+//        t_list *members;
+//        if (members) {
+//            for (int i = 0; members; i++) {
+//                jarray = json_object_new_array();
+//                json_object *jstring0 = json_object_new_int(((t_room_contacts *)(resp->data))->contact_id);
+//                json_object_array_add(jarray,jstring0);
+//                resp = resp->next;
+//                iter = mx_itoa(i);
+//                json_object_object_add(jobj, iter, jarray);
+//            }
+//        }
+//        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+//    }
+//    if (strcmp(action, ev[9]) == 0) {
+//        json_object_object_add(jobj, "event", json_object_new_string("del_room"));
+//        json_object_object_add(jobj, "room_id", json_object_new_int(event->del_room->room_id));
+//        json_object_object_add(jobj, "user_id", json_object_new_int(event->del_room->user_id));
+//        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+//    }
+
+    if (strcmp(action, ev[9]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("del_room"));
+        json_object_object_add(jobj, "room_id", json_object_new_int(event->del_room->room_id));
+        json_object_object_add(jobj, "user_id", json_object_new_int(event->del_room->user_id));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+    }
+
+
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
     send(event->network_socket, jstr, strlen(jstr), 0);
@@ -249,6 +281,8 @@ void chat_window(GtkButton *button, t_event *event) {
 //    mx_print_list(event);
     mx_listroom_and_mess(event);
 
+
+
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(new_room), event);
 
@@ -272,6 +306,22 @@ void fill_sign_in(GtkButton *button, t_event *event) {
         gtk_widget_hide(event->gtk->window);
         chat_window(button, event);
     }
+//***************
+//***************
+//***************
+//***************
+    //test delroom;
+//    event->del_room = (t_del_room *)malloc(sizeof(t_del_room));
+//    event->del_room->room_id = 2;
+//    event->del_room->user_id = 1;
+//
+//    mx_json(event, "del_room");
+//test add_contact;
+    event->add_contact = (t_add_contact *)malloc(sizeof(t_add_contact));
+    event->add_contact->nick = "ovoitenko";
+    event->add_contact->sender_id = 1;
+//
+    mx_json(event, "add_contact");
     //Wrong Password or login
 
 //***************
@@ -371,6 +421,7 @@ int main(int argc, char **argv) {
 //    mx_valid_event(jobj, event.network_socket);
 
     close(event.network_socket);
+
 
     return 0;
 }

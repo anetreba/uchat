@@ -172,7 +172,7 @@ void mx_renew(struct json_object *jobj, t_event *event) {
     mx_return_renew_json(resp, event->new_open_socket);
 }
 
-void mx_renew_contacts(struct json_object *jobj, t_event *event) {
+void mx_renew_contacts(json_object *jobj, t_event *event) {
     struct json_object *auth_token;
     t_list *resp;
     printf("=========================ERROR5=========================\n");
@@ -294,10 +294,10 @@ void mx_sign_in(struct json_object *jobj, const char *ev, char **events, t_event
 //    }
 //}
 
-void mx_return_del_room_json(t_list *resp, int sock) {
+void mx_return_del_room_json(t_event *ev, int sock) {
     struct json_object *jobj = json_object_new_object();
     json_object_object_add(jobj, "event", json_object_new_string("del_room_response"));
-    json_object_object_add(jobj, "room_id", json_object_new_int(((t_response *)resp->data)->room_id));
+    json_object_object_add(jobj, "room_id", json_object_new_int(ev->edit_room->room_id));
 
     char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);
@@ -307,27 +307,56 @@ void mx_return_del_room_json(t_list *resp, int sock) {
 }
 
 void mx_del_room(struct json_object *jobj, t_event *event) {
-    t_data *data;
-    t_list *resp = NULL;
     struct json_object *room_id;
+    struct json_object *user_id;
     struct json_object *auth_token;
-
-    data = (t_data *)malloc(sizeof(t_data));
 
     event->edit_room = (t_edit_room *)malloc(sizeof(t_edit_room));
     json_object_object_get_ex(jobj, "room_id", &room_id);
+    json_object_object_get_ex(jobj, "user_id", &user_id);
     json_object_object_get_ex(jobj, "auth_token", &auth_token);
 
     event->edit_room->room_id = json_object_get_int(room_id);
+    event->edit_room->user_id = json_object_get_int(user_id);
     event->edit_room->auth_token = json_object_get_string(auth_token);
-    resp = mx_contr_del_room(event->edit_room);
-    mx_return_del_room_json(resp, event->new_open_socket);
+    mx_contr_del_room(event->edit_room);
+    mx_return_del_room_json(event, event->new_open_socket);
+}
+
+void mx_return_add_contact_json(int resp, t_event *event) {
+    struct json_object *jobj = json_object_new_object();
+    json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
+    json_object_object_add(jobj, "contact_id", json_object_new_int(resp));
+    json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
+
+    char *jstr = (char *)json_object_to_json_string(jobj);
+    printf("JSON  == %s\n", jstr);
+
+    send(event->new_open_socket, jstr, strlen(jstr), 0);
+    mx_strdel(&jstr);
+}
+
+void mx_add_contact(struct json_object *jobj, t_event *event) {
+    int resp;
+    struct json_object *nick;
+    struct json_object *sender_id;
+    struct json_object *auth_token;
+
+    event->add_contact = (t_add_contact *)malloc(sizeof(t_add_contact));
+    json_object_object_get_ex(jobj, "nick", &nick);
+    json_object_object_get_ex(jobj, "sender_id", &sender_id);
+    json_object_object_get_ex(jobj, "auth_token", &auth_token);
+    event->add_contact->nick = json_object_get_string(nick);
+    event->add_contact->sender_id = json_object_get_int(sender_id);
+    event->add_contact->auth_token = json_object_get_string(auth_token);
+    resp = mx_contr_add_contact(event->add_contact);
+    mx_return_add_contact_json(resp, event);
 }
 
 void mx_valid_event(struct json_object *jobj, t_event *event) {
     struct json_object *action;
     char *events[] = {"sign_up", "sign_in", "renew_rooms", "renew","send_message",
-                      "renew_contacts", "add_room", "edit_room", "delete_room",
+                      "renew_contacts", "add_room", "edit_room", "del_room",
                       "add_contact", "del_contact"};
     const char *ev;
 
@@ -350,7 +379,9 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
 //    else if (strcmp(ev, events[7]) == 0)
 //        mx_edit_room(jobj, event);
     else if (strcmp(ev, events[8]) == 0)
-          mx_del_room(jobj, event);
+        mx_del_room(jobj, event);
+    else if (strcmp(ev, events[9]) == 0)
+        mx_add_contact(jobj, event);
 //    const char *jstr = json_object_to_json_string(jobj);
 //    printf("JSON  == %s\n", jstr);
 }

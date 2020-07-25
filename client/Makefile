@@ -23,12 +23,14 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		controllers/mx_contr_update_rooms.c \
       		controllers/mx_contr_new_message.c \
       		controllers/mx_contr_renew_contacts.c \
+      		controllers/mx_contr_add_contact.c \
       		crud/mx_model_del.c \
       		crud/mx_model_insert.c \
       		crud/mx_model_select.c \
       		crud/mx_model_update.c \
       		models/mx_model_logined.c \
       		models/mx_model_new_message.c \
+      		models/mx_model_add_contact.c \
       		controllers/mx_select_listroom_and_mess.c \
       		models/mx_model_update_contacts.c \
       		mx_event.c)
@@ -51,7 +53,9 @@ OBJ = main.o \
       mx_model_new_message.o \
       mx_select_listroom_and_mess.o \
       mx_contr_renew_contacts.o \
-      mx_model_update_contacts.o
+      mx_model_update_contacts.o \
+      mx_contr_add_contact.o \
+      mx_model_add_contact.o
 
 CC = clang
 

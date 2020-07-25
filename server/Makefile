@@ -37,6 +37,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		controllers/mx_sendmail.c \
 		controllers/mx_contr_renew_contacts.c \
 		controllers/mx_contr_del_room.c \
+		controllers/mx_contr_add_contact.c \
 		demonize.c)
 
 
@@ -63,7 +64,8 @@ OBJ = main.o \
 	  mx_recieve_mess.o \
 	  demonize.o \
 	  mx_contr_renew_contacts.o \
-	  mx_contr_del_room.o
+	  mx_contr_del_room.o \
+	  mx_contr_add_contact.o
 
 CC = clang
 

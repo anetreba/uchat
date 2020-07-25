@@ -47,6 +47,7 @@ typedef struct s_data {
     char **colname;
     int tokens;
     int verify_code;
+    int admin_id;
     char *auth_token;
     int sock;
 }               t_data;
@@ -86,10 +87,19 @@ typedef struct s_renew_contacts {
 
 typedef struct s_edit_room {
     int room_id;
-    int room_name_id;
+    int room_name;
     int sock;
+    int user_id;
     const char *auth_token;
 }               t_edit_room;
+
+typedef struct s_add_contact {
+    int id;
+    const char *nick;
+    int sender_id;
+    int status;
+    const char *auth_token;
+}               t_add_contact;
 
 typedef struct s_event {
     int server_sock;
@@ -101,12 +111,16 @@ typedef struct s_event {
     t_renew_rooms *renew_rooms;
     t_renew_contacts *renew_contacts;
     t_edit_room *edit_room;
-}              t_event;
+    t_add_contact *add_contact;
+}               t_event;
 
 typedef struct s_response {
     int id;
     int status;
     int room_id;
+    int sender_id;
+    int contact_id;
+    char *nick;
     char *auth_token;
     int tokens;
 }               t_response;
@@ -148,6 +162,7 @@ t_list *mx_recieve_mess(t_send_message *mess);
 t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 void mx_return_renew_contacts_json(t_list *resp, int sock);
-t_list *mx_contr_del_room(t_edit_room *room);
+void *mx_contr_del_room(t_edit_room *room);
+int mx_contr_add_contact(t_add_contact *tok);
 
 #endif

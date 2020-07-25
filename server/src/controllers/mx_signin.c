@@ -45,7 +45,6 @@ t_response *mx_contr_signin(t_event *event) {
         asprintf(&vals, "login = '%s'", event->log_in->login);
         asprintf(&str, "auth_token='%s', token_aval='%u', sock='%d'", auth_token, mx_date_aval(864000), event->new_open_socket);
         mx_model_update("Users", str, vals);
-
     }
     free(vals);
     return create_response(auth_token, data.tokens, data.id);

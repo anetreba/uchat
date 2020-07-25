@@ -39,7 +39,6 @@ typedef struct s_list_room {
     t_list *mess;
 }               t_list_room;
 
-
 ////////////////////////////////////////////////////////////////////
 
 typedef struct s_gtk {
@@ -129,6 +128,17 @@ typedef struct s_renew_contacts {
     char *nickname;
 }               t_renew_contacts;
 
+typedef struct s_del_room {
+    int user_id;
+    int room_id;
+}               t_del_room;
+
+typedef struct s_add_contact {
+    int sender_id;
+    int contact_id;
+    const char *nick;
+}               t_add_contact;
+
 typedef struct s_event {
     int network_socket;
     t_gtk *gtk;
@@ -140,6 +150,8 @@ typedef struct s_event {
     t_list *room;
     t_list *list_room;
     t_renew_contacts *renew_contacts;
+    t_del_room *del_room;
+    t_add_contact *add_contact;
 }              t_event;
 
 typedef struct s_response {
@@ -170,6 +182,7 @@ t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
 void *mx_model_new_message(t_send_message *data);
 void mx_model_renew_contacts(t_event *event, json_object *obj);
+void *mx_model_add_contact(t_add_contact *data);
 
 void mx_json_read(t_event *event);
 //controllers
@@ -179,6 +192,7 @@ void mx_contr_update_rooms(json_object *jobj, t_event *event);
 void mx_contr_new_message(t_event *event, json_object *jobj);
 void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
+void mx_contr_add_contact(t_event *event, json_object *jobj);
 
 
 #endif

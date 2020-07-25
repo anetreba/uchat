@@ -1,6 +1,6 @@
 #include "header.h"
 
-void *mx_model_new_message(t_send_message *data) {
+void *mx_model_del_room(t_send_message *data) {
     char *vals;
 
     if (data) {
@@ -8,6 +8,7 @@ void *mx_model_new_message(t_send_message *data) {
                  data->room_id, 0, data->date_send);
         mx_model_insert("Messages", "message, sender_id, room_id, "
                                     "resieve_status, date_send", vals);
+
     }
     return 0;
 }
