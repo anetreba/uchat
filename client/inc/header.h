@@ -83,6 +83,16 @@ typedef struct s_gtk {
     GtkWidget *scrolled_window;
     GtkWidget *viewport;
     GtkWidget *msg;
+    GtkWidget *contacts;
+    GtkWidget *contacts_wdw;
+    GtkWidget *contacts_scrolled_wdw;
+    GtkWidget *contacts_listbox;
+    GtkWidget *new_contact_btn;
+    GtkWidget *contacts_back_btn;
+    GtkWidget *new_room_btn;
+    GtkWidget *groups_wdw;
+    GtkBuilder *builder4;
+    GtkBuilder *builder5;
 }               t_gtk;
 
 typedef struct s_data {
@@ -135,6 +145,9 @@ typedef struct s_send_message {
 typedef struct s_renew_contacts {
     int contact_id;
     char *nickname;
+
+    GtkWidget *row;
+    GtkWidget *cont_btn;
 }               t_renew_contacts;
 
 typedef struct s_del_room {
@@ -173,6 +186,9 @@ typedef struct s_response {
 
 void *mx_client_recv(void *data);
 
+void mx_contr_select_contacts(t_event *event);
+void show_contacts_wdw(GtkButton *button, t_event *event);
+
 void mx_listroom_and_mess(t_event *event);
 gboolean mx_parse_room_front(void *data);
 void chat_window(t_event *event);
@@ -201,7 +217,7 @@ int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
 void *mx_model_new_message(t_send_message *data);
-void mx_model_renew_contacts(t_event *event, json_object *obj);
+void mx_model_renew_contacts(json_object *obj);
 void *mx_model_add_contact(t_add_contact *data);
 
 void mx_json_read(t_event *event);
@@ -213,5 +229,8 @@ void mx_contr_new_message(t_event *event, json_object *jobj);
 void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
 void mx_contr_add_contact(t_event *event, json_object *jobj);
+
+
+void json_parse_cont(json_object *jobj, t_list *lst);
 
 #endif

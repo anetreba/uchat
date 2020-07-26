@@ -4,7 +4,9 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="chat_window">
     <property name="can_focus">False</property>
-    <property name="default_width">1024</property>
+    <property name="title" translatable="yes">Chat</property>
+    <property name="window_position">center</property>
+    <property name="default_width">1366</property>
     <property name="default_height">768</property>
     <child type="titlebar">
       <placeholder/>
@@ -17,7 +19,7 @@
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window">
             <property name="name">scrolled_window</property>
-            <property name="width_request">650</property>
+            <property name="width_request">599</property>
             <property name="height_request">505</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -35,21 +37,21 @@
             </child>
           </object>
           <packing>
-            <property name="x">180</property>
-            <property name="y">53</property>
+            <property name="x">362</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="chat_entry_message">
             <property name="name">entry_msg_field</property>
-            <property name="width_request">185</property>
+            <property name="width_request">708</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your message</property>
           </object>
           <packing>
-            <property name="x">540</property>
+            <property name="x">148</property>
             <property name="y">580</property>
           </packing>
         </child>
@@ -64,32 +66,15 @@
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">732</property>
+            <property name="x">860</property>
             <property name="y">580</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSearchEntry" id="search_box">
-            <property name="name">search_box</property>
-            <property name="width_request">130</property>
-            <property name="height_request">34</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="primary_icon_name">edit-find-symbolic</property>
-            <property name="primary_icon_activatable">False</property>
-            <property name="primary_icon_sensitive">False</property>
-            <property name="placeholder_text" translatable="yes">Search users</property>
-          </object>
-          <packing>
-            <property name="x">6</property>
-            <property name="y">5</property>
           </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_rooms">
             <property name="name">scrolled_rooms</property>
-            <property name="width_request">160</property>
-            <property name="height_request">504</property>
+            <property name="width_request">205</property>
+            <property name="height_request">505</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="shadow_type">in</property>
@@ -108,23 +93,23 @@
             </child>
           </object>
           <packing>
-            <property name="x">10</property>
-            <property name="y">54</property>
+            <property name="x">150</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="new_room_btn">
-            <property name="label" translatable="yes">New room</property>
-            <property name="name">new_rim_btn</property>
-            <property name="width_request">80</property>
+            <property name="label" translatable="yes">Add Room</property>
+            <property name="name">new_room_btn</property>
+            <property name="width_request">130</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">15</property>
-            <property name="y">580</property>
+            <property name="x">5</property>
+            <property name="y">100</property>
           </packing>
         </child>
         <child>
@@ -135,9 +120,10 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Room name</property>
+            <property name="xalign">0.05000000074505806</property>
           </object>
           <packing>
-            <property name="x">180</property>
+            <property name="x">375</property>
             <property name="y">7</property>
           </packing>
         </child>
@@ -151,79 +137,38 @@
             <property name="label" translatable="yes">Token: 10</property>
           </object>
           <packing>
-            <property name="x">430</property>
+            <property name="x">625</property>
             <property name="y">7</property>
           </packing>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="contacts">
-            <property name="name">contacts</property>
-            <property name="width_request">100</property>
+          <object class="GtkButton" id="contacts_btn">
+            <property name="label" translatable="yes">Contacts</property>
+            <property name="name">contacts_btn</property>
+            <property name="width_request">130</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="has_entry">True</property>
-            <items>
-              <item translatable="yes">New contact</item>
-            </items>
-            <child internal-child="entry">
-              <object class="GtkEntry">
-                <property name="can_focus">False</property>
-                <property name="text" translatable="yes">Contacts</property>
-              </object>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">327</property>
-            <property name="y">580</property>
+            <property name="x">5</property>
+            <property name="y">50</property>
           </packing>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="settings">
-            <property name="name">settings</property>
-            <property name="width_request">80</property>
-            <property name="height_request">20</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="add_tearoffs">True</property>
-            <property name="tearoff_title" translatable="yes">Settings</property>
-            <property name="has_entry">True</property>
-            <items>
-              <item translatable="yes">Change NickName</item>
-              <item translatable="yes">Logout</item>
-            </items>
-            <child internal-child="entry">
-              <object class="GtkEntry">
-                <property name="can_focus">False</property>
-                <property name="text" translatable="yes">Settings</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">621</property>
-            <property name="y">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkComboBoxText" id="groups">
-            <property name="width_request">100</property>
+          <object class="GtkButton" id="settings_btn">
+            <property name="label" translatable="yes">Settings</property>
+            <property name="name">settings_btn</property>
+            <property name="width_request">130</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="has_entry">True</property>
-            <items>
-              <item translatable="yes">Add contacs to the group</item>
-            </items>
-            <child internal-child="entry">
-              <object class="GtkEntry">
-                <property name="can_focus">False</property>
-                <property name="text" translatable="yes">Groups</property>
-              </object>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">114</property>
-            <property name="y">580</property>
+            <property name="x">5</property>
+            <property name="y">150</property>
           </packing>
         </child>
       </object>

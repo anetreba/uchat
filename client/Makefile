@@ -25,6 +25,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		controllers/mx_contr_renew_contacts.c \
             controllers/mx_contr_add_contact.c \
       		controllers/mx_select_listroom_and_mess.c \
+      		controllers/mx_contr_select_contacts.c \
       		crud/mx_model_del.c \
       		crud/mx_model_insert.c \
       		crud/mx_model_select.c \
@@ -38,6 +39,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		mx_add_new_room.c \
       		mx_client_recv.c \
       		mx_init_chat_window.c \
+      		mx_renew_contact.c \
+      		mx_parse_cont.c \
       		mx_event.c)
 
 
@@ -65,7 +68,10 @@ OBJ = main.o \
       mx_contr_renew_contacts.o \
       mx_model_update_contacts.o \
       mx_contr_add_contact.o \
-      mx_model_add_contact.o
+      mx_model_add_contact.o \
+      mx_contr_select_contacts.o \
+      mx_renew_contact.o \
+      mx_parse_cont.o
 
 CC = clang
 

@@ -69,5 +69,5 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     else if (strcmp(ev, events[5]) == 0)
         mx_contr_add_contact(event, jobj);
     else if (strcmp(ev, events[6]) == 0)
-        mx_model_renew_contacts(event, jobj);
+        mx_model_renew_contacts(jobj);
 }

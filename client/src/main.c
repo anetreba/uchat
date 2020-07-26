@@ -58,10 +58,7 @@ void sign_up(GtkButton *button, t_event *event) {
     event->sign_up->password = gtk_entry_get_text(GTK_ENTRY(event->gtk->new_password));
     event->sign_up->email = gtk_entry_get_text(GTK_ENTRY(event->gtk->new_email));
     event->sign_up->nick = gtk_entry_get_text(GTK_ENTRY(event->gtk->new_nickname));
-    printf("NICK = %s\n", event->sign_up->nick);
-    printf("PASSWORD = %s\n", event->sign_up->password);
-    printf("EMAIL = %s\n", event->sign_up->email);
-    printf("LOGIN = %s\n", event->sign_up->login);
+
     mx_json(event, "sign_up");
 //    gtk_widget_hide(event->gtk->window);
 }
@@ -149,6 +146,8 @@ void mx_init_login(t_event *event) {
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
     event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
+    event->gtk->builder4 = gtk_builder_new_from_file ("src/view/contacts_window.glade");
+    event->gtk->builder5 = gtk_builder_new_from_file ("src/view/groups_window.glade");
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);
