@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="groups_wdw">
+    <property name="name">contacts_wdw</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Groups</property>
+    <property name="window_position">center</property>
+    <property name="default_width">640</property>
+    <property name="default_height">675</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="groups_fixed">
+        <property name="name">contacts_fixed</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkScrolledWindow" id="g_contacts_scrolled_wdw">
+            <property name="name">contacts_scrolled_wdw</property>
+            <property name="width_request">210</property>
+            <property name="height_request">650</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="g_contacts_viewport">
+                <property name="name">contacts_viewport</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="g_contacts_listbox">
+                    <property name="name">contacts_listbox</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">20</property>
+            <property name="y">10</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_contact_to_group_btn">
+            <property name="label" translatable="yes">Add selected Contact 
+to the Group</property>
+            <property name="name">add_contact_to_group_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">240</property>
+            <property name="y">304</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="g_groups_scrolled_wdw">
+            <property name="name">g_groups_scrolled_wdw</property>
+            <property name="width_request">210</property>
+            <property name="height_request">650</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="g_groups_viewport">
+                <property name="name">g_groups_viewport</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="g_groups_listbox">
+                    <property name="name">g_groups_listbox</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">410</property>
+            <property name="y">10</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
