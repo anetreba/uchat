@@ -1,7 +1,6 @@
 #include "header.h"
 
 static int callback_signup(void *data, int argc, char **argv, char **ColName) {
-    //t_data *udata = (t_data *)data;
     int udata = (int)data;
     ColName = NULL;
 

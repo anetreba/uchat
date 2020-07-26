@@ -6,8 +6,8 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 	int port = atoi(argv[1]);
-
+    //mx_demonize(); //в продакшен раскоментировать
     mx_server_socket(port);
-	system("leaks -q chat_server");
+//	system("leaks -q chat_server");
 	return 0;
 }

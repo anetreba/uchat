@@ -2,6 +2,88 @@
 
 void mx_print(t_list *list);
 
+gboolean mx_add_mess_to_list(void *data) {
+    t_event *event = (t_event *)data;
+    t_list *lst = event->list_room;
+
+    while (lst) {
+        if (((t_list_room *)(lst->data))->room_id == event->send_message->room_id) {
+            t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
+
+            mess->sender_id = event->send_message->sender_id;
+            mess->date_send = event->send_message->date_send;
+            mess->type = event->send_message->type;
+            mess->message = strdup(event->send_message->message);
+            mess->sender_nick = strdup(event->send_message->nick);
+
+
+            mess->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+            mess->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
+
+            mess->message_button = gtk_button_new_with_label(mess->message);
+
+            gtk_widget_set_hexpand(mess->message_button, TRUE);
+            if (mess->sender_id == event->data->id) {
+                gtk_widget_set_halign(mess->message_button, GTK_ALIGN_END);
+            } // <---- END - твои сообщения, START пришедшие
+            else {
+                gtk_widget_set_halign(mess->message_button, GTK_ALIGN_START);
+            }
+            gtk_widget_set_valign(mess->message_button, GTK_ALIGN_CENTER);
+            gtk_widget_set_size_request(mess->message_button, 300, 5);
+            gtk_container_add(GTK_CONTAINER(mess->row_user),mess->message_button);
+
+            mess->user_button = gtk_button_new_with_label(mess->sender_nick); //who send a message
+            gtk_widget_set_hexpand(mess->user_button, TRUE);
+            if (mess->sender_id == event->data->id) {
+                gtk_widget_set_halign(mess->user_button, GTK_ALIGN_END);
+            } // <---- END - твой ник, START кто прислал
+            else {
+                gtk_widget_set_halign(mess->user_button, GTK_ALIGN_START);
+            }
+            gtk_widget_set_valign(mess->user_button, GTK_ALIGN_CENTER);
+            gtk_widget_set_size_request(mess->user_button, 20, 5);
+            gtk_widget_set_opacity(mess->user_button, 1);
+            gtk_container_add(GTK_CONTAINER(mess->row_msg), mess->user_button);
+
+            gtk_list_box_insert(GTK_LIST_BOX(((t_list_room *)(lst->data))->list_box), mess->row_msg, -1);
+            gtk_list_box_insert(GTK_LIST_BOX(((t_list_room *)(lst->data))->list_box), mess->row_user, -1);
+
+            //gtk_widget_show(((t_list_room *)(lst->data))->list_box);
+
+            printf("error\n");
+            gtk_widget_show(mess->row_msg);
+            gtk_widget_show(mess->user_button);
+
+            gtk_widget_show(mess->row_user);
+            gtk_widget_show(mess->message_button);
+
+
+            mx_push_back(&(((t_list_room *)(lst->data))->mess), mess);
+        }
+        lst = lst->next;
+    }
+    return 0;
+}
+
+static int callback_sender(void *data, int argc, char **argv, char **ColName) {
+    t_send_message *udata = (t_send_message *)data;
+    ColName = NULL;
+
+    if (argc > 0 && argv) {
+        udata->nick = strdup(argv[0]);
+    }
+    return 0;
+}
+
+
+void mx_select_new_message(t_event *event) {
+    char *vals;
+
+    asprintf(&vals, "Contacts WHERE user_id = '%d'", event->send_message->sender_id);
+    mx_model_select("nick", vals, callback_sender, event->send_message);
+}
+
 static void write_auth_data(t_event *event, json_object *obj) {
     struct json_object *room_id;
     struct json_object *message;
@@ -22,9 +104,10 @@ static void write_auth_data(t_event *event, json_object *obj) {
     event->send_message->date_send = json_object_get_int(date_send);
 
     mx_model_new_message(event->send_message);
-    mx_add_mess_to_list(event);
-    mx_print(event->list_room);
-
+    mx_select_new_message(event);
+ //   mx_add_mess_to_list(event);
+//    mx_print(event->list_room);
+    gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_add_mess_to_list, event, 0);
     // mx_json(event, "renew_rooms");
 
 }

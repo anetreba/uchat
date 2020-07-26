@@ -14,6 +14,8 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <sqlite3.h>
 #include "../json-c/inc/json.h"
@@ -45,6 +47,7 @@ typedef struct s_data {
     char **colname;
     int tokens;
     int verify_code;
+    int admin_id;
     char *auth_token;
     int sock;
 }               t_data;
@@ -75,6 +78,29 @@ typedef struct s_renew_rooms {
     const char *auth_token;
 }               t_renew_rooms;
 
+typedef struct s_renew_contacts {
+    int user_id;
+    int contact_id;
+    char *nickname;
+    const char *auth_token;
+}               t_renew_contacts;
+
+typedef struct s_edit_room {
+    int room_id;
+    int room_name;
+    int sock;
+    int user_id;
+    const char *auth_token;
+}               t_edit_room;
+
+typedef struct s_add_contact {
+    int id;
+    const char *nick;
+    int sender_id;
+    int status;
+    const char *auth_token;
+}               t_add_contact;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -83,11 +109,18 @@ typedef struct s_event {
     t_send_message *send_message;
     t_renew *renew;
     t_renew_rooms *renew_rooms;
-}              t_event;
+    t_renew_contacts *renew_contacts;
+    t_edit_room *edit_room;
+    t_add_contact *add_contact;
+}               t_event;
 
 typedef struct s_response {
     int id;
     int status;
+    int room_id;
+    int sender_id;
+    int contact_id;
+    char *nick;
     char *auth_token;
     int tokens;
 }               t_response;
@@ -108,6 +141,7 @@ int mx_model_select(const char *search, char *tables,
                     void *data);
 void mx_model_update(char *table, char *str, char *condition);
 void mx_model_del(char *table, char *condition);
+void mx_demonize();
 
 
 //controllers
@@ -125,5 +159,10 @@ void mx_verify_mail(char *login);
 void mx_renew_rooms(struct json_object *jobj, t_event *event);
 t_list *mx_contr_renew_rooms(t_renew_rooms *tok);
 t_list *mx_recieve_mess(t_send_message *mess);
+t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
+t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
+void mx_return_renew_contacts_json(t_list *resp, int sock);
+void *mx_contr_del_room(t_edit_room *room);
+int mx_contr_add_contact(t_add_contact *tok);
 
 #endif
