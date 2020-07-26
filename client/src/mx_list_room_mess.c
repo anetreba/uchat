@@ -90,12 +90,11 @@ void mx_del_widget_mess(t_event *event) {
 }
 
 void send_messages(GtkButton *button, t_event *event) {
+//    mx_strdel(&(event->send_message->message));
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
-
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
-
-    mx_json(event, "send_message");
-
+    if (strcmp(event->send_message->message, "") != 0)
+        mx_json(event, "send_message");
     (void) button;
 
     printf("error\n");
@@ -134,7 +133,7 @@ void mx_select_room(GtkButton *button, t_event *event) {
     gtk_widget_show(event->gtk->chat_send_btn);
 
 
-    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
+//    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
 
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);

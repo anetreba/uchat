@@ -47,7 +47,6 @@ void mx_json(t_event *event, char *action) {
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
     send(event->network_socket, jstr, strlen(jstr), 0);
-//    mx_json_read(event);
 }
 //====================================================================================
 

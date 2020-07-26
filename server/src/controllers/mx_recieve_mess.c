@@ -51,17 +51,17 @@ void mx_create_response(t_send_message *mess, t_list *list) {
     t_list *lst = list;
     while (lst) {
 
-        json_object_object_add(jobj, "event", json_object_new_string("new_message"));
-        json_object_object_add(jobj, "status", json_object_new_string("0"));
-        json_object_object_add(jobj, "room_id", json_object_new_int(mess->room_id));
-        json_object_object_add(jobj, "message", json_object_new_string(mess->message));
-        json_object_object_add(jobj, "sender_id", json_object_new_int(mess->sender_id));
-        json_object_object_add(jobj, "date_send", json_object_new_int(mess->date_send));
-        json_object_object_add(jobj, "tokens", json_object_new_int(mess->tokens));
-        char *jstr = (char *)json_object_to_json_string(jobj);
-        send(((t_data *)(lst->data))->id, jstr, strlen(jstr), 0);
-        mx_strdel(&jstr);
-        lst = lst->next;
+            json_object_object_add(jobj, "event", json_object_new_string("new_message"));
+            json_object_object_add(jobj, "status", json_object_new_string("0"));
+            json_object_object_add(jobj, "room_id", json_object_new_int(mess->room_id));
+            json_object_object_add(jobj, "message", json_object_new_string(mess->message));
+            json_object_object_add(jobj, "sender_id", json_object_new_int(mess->sender_id));
+            json_object_object_add(jobj, "date_send", json_object_new_int(mess->date_send));
+            json_object_object_add(jobj, "tokens", json_object_new_int(mess->tokens));
+            char *jstr = (char *) json_object_to_json_string(jobj);
+            send(((t_data * )(lst->data))->id, jstr, strlen(jstr), 0);
+            mx_strdel(&jstr);
+            lst = lst->next;
     }
 }
 

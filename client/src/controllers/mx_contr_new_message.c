@@ -99,7 +99,7 @@ static void write_auth_data(t_event *event, json_object *obj) {
     json_object_object_get_ex(obj, "date_send", &date_send);
 
     event->send_message->room_id = json_object_get_int(room_id);
-    event->send_message->message = json_object_get_string(message);
+    event->send_message->message = (char *)json_object_get_string(message);
     event->send_message->sender_id = json_object_get_int(sender_id);
     event->send_message->date_send = json_object_get_int(date_send);
 
