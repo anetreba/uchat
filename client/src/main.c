@@ -181,12 +181,12 @@ void show_contacts_wdw(GtkButton *button, t_event *event) {
 
     //TODO: show list of all contacts
 
-//    t_data *lst = event->data;
-//
-//    while (lst) {
-//        printf("login: %s\n", event->data->login);
-//        lst = lst->next;
-//    }
+    t_list *lst = (t_list *)event->data;
+
+    while (lst) {
+        printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!login: %s\n", ((t_event *)event)->data->login);
+        lst = lst->next;
+    }
 
     g_signal_connect(event->gtk->contacts_back_btn, "clicked", G_CALLBACK(hide_contacts), event);
     g_signal_connect(event->gtk->new_contact_btn, "clicked", G_CALLBACK(add_new_contact), event);
