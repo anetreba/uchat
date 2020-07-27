@@ -1,5 +1,5 @@
 .background {
-    background-color: #1f2f3f;
+    background-color: #131a21;
 }
 
 
@@ -16,7 +16,7 @@
 }
 
 button#sign_up_btn, button#sign_in_btn {
-    background: #1f2f3f;
+    background: #131a21;
     border: 0px;
     box-shadow: none;
     text-shadow: none;
@@ -49,3 +49,38 @@ button#login_btn {
 }
 
 /*======================== CHAT WINDOW ===========================*/
+
+#scrolled_window {
+    background-color: #131a21;
+    border: 0;
+}
+
+#viewport {
+    background-color: #131a21;
+    border: 0;
+}
+
+#entry_msg_field {
+    background-color: #131a21;
+    color: #8a97aa;
+    border-top: 1px solid #151e28;
+    border: 0;
+    border-radius: 0px;
+    border-radius: 5px;
+}
+
+#send_btn {
+    background-color: #131a21;
+    border-radius: 0px;
+}
+
+
+#scrolled_rooms, #list_rooms {
+    background-color: #131a21;
+    color: #8a97aa;
+}
+
+
+
+
+
