@@ -325,9 +325,16 @@ void mx_del_room(struct json_object *jobj, t_event *event) {
 
 void mx_return_add_contact_json(int resp, t_event *event) {
     struct json_object *jobj = json_object_new_object();
-    json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
-    json_object_object_add(jobj, "contact_id", json_object_new_int(resp));
-    json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
+        json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
+    if(event->add_contact->sender_id != resp) {
+        json_object_object_add(jobj, "status", json_object_new_string("0"));
+        json_object_object_add(jobj, "contact_id", json_object_new_int(resp));
+        json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
+    }
+    else
+        json_object_object_add(jobj, "status", json_object_new_string("1"));
+
+
 
     char *jstr = (char *)json_object_to_json_string(jobj);
     printf("JSON  == %s\n", jstr);

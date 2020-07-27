@@ -16,10 +16,6 @@ int mx_contr_add_contact(t_add_contact *tok) {
     asprintf(&vals, "Users WHERE nick = '%s'", tok->nick);
     mx_model_select("id", vals, callback_renew, &data);
 
-    printf("==============================================\n");
-    printf("ID: %d\n", data.id);
-    printf("==============================================\n");
-
     asprintf(&vals, "'%d', '%d', '%s'", tok->sender_id, data.id, tok->nick);
     mx_model_insert("UsersMeta", "user_id, contact_id, nick", vals);
     free(vals);
