@@ -110,6 +110,7 @@ typedef struct s_data {
     char *email;
     char **colname;
     int tokens;
+    int res;
     int verify_code;
     const char *auth_token;
 }               t_data;

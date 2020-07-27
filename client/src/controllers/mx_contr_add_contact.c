@@ -9,10 +9,6 @@ static void write_contact_data(t_event *event, json_object *obj) {
     json_object_object_get_ex(obj, "nick", &nick);
     event->add_contact->contact_id = json_object_get_int(contact_id);
     event->add_contact->nick = json_object_get_string(nick);
-
-
-    if (contact_id == event-)
-    mx_model_add_contact(event->add_contact);
 }
 
 void mx_contr_add_contact(t_event *event, json_object *jobj) {
