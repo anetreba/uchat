@@ -5,10 +5,35 @@ void hide_contacts(GtkButton *button, t_event *event) {
     (void)button;
 }
 
+void back_btn(GtkButton *button, t_event *event) {
+    gtk_widget_hide(event->gtk->add_contact_wdw);
+    (void)button;
+}
+
+void add_cont(GtkButton *button, t_event *event) {
+    event->add_contact->nick = gtk_entry_get_text(GTK_ENTRY(event->gtk->add_contact_entry_field));
+    event->add_contact->sender_id = event->data->id;
+    mx_json(event, "add_contact");
+    gtk_entry_set_text(GTK_ENTRY(event->gtk->add_contact_entry_field), "");
+    (void)button;
+}
+
 void add_new_contact(GtkButton *button, t_event *event) {
-    //TODO: add new contact in box_list
     printf("add new contacts\n");
 
+    event->gtk->add_cont_builder = gtk_builder_new_from_file ("src/view/add_contact_pop_up.glade");
+    event->gtk->add_contact_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_wdw"));
+    event->gtk->add_contact_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_confirm_btn"));
+    event->gtk->add_contact_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_entry_field"));
+    event->gtk->add_contact_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_back_btn"));
+
+    event->add_contact = (t_add_contact *)malloc(sizeof(t_add_contact));
+
+    memset(event->add_contact, 0, sizeof(t_add_contact));
+
+    g_signal_connect(event->gtk->add_contact_confirm_btn, "clicked", G_CALLBACK(add_cont), event);
+    g_signal_connect(event->gtk->add_contact_back_btn, "clicked", G_CALLBACK(back_btn), event);
+    gtk_widget_show(event->gtk->add_contact_wdw);
     (void)event;
 
     (void)button;

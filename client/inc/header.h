@@ -93,6 +93,11 @@ typedef struct s_gtk {
     GtkWidget *groups_wdw;
     GtkBuilder *builder4;
     GtkBuilder *builder5;
+    GtkBuilder *add_cont_builder;
+    GtkWidget *add_contact_wdw;
+    GtkWidget *add_contact_confirm_btn;
+    GtkWidget *add_contact_entry_field;
+    GtkWidget *add_contact_back_btn;
 }               t_gtk;
 
 typedef struct s_data {

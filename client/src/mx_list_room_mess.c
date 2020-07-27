@@ -91,6 +91,8 @@ void mx_del_widget_mess(t_event *event) {
 
 void send_messages(GtkButton *button, t_event *event) {
 //    mx_strdel(&(event->send_message->message));
+//const char *test = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
+//sleep(1);
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
     printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
     if (strcmp(event->send_message->message, "") != 0)

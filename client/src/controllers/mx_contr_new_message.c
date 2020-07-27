@@ -7,6 +7,7 @@ gboolean mx_add_mess_to_list(void *data) {
     t_list *lst = event->list_room;
 
     while (lst) {
+
         if (((t_list_room *)(lst->data))->room_id == event->send_message->room_id) {
             t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
 

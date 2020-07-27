@@ -4,7 +4,8 @@ static void write_auth_data(t_event *event, json_object *obj) {
     struct json_object *contact_id;
     struct json_object *nick;
 
-    event->add_contact = (t_add_contact *)malloc(sizeof(t_add_contact));
+//    event->add_contact = (t_add_contact *)malloc(sizeof(t_add_contact));
+
     memset(event->add_contact, 0, sizeof(t_add_contact));
 
     json_object_object_get_ex(obj, "contact_id", &contact_id);
