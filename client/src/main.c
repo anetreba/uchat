@@ -190,6 +190,9 @@ int main(int argc, char **argv) {
     event.network_socket = socket(AF_INET, SOCK_STREAM, 0);
     event.prev_room_id = 0;
 
+    ///////////////////
+    mx_db_creation();
+    ///////////////////
     struct sockaddr_in server_adress;
 
     server_adress.sin_family = AF_INET;

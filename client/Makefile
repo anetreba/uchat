@@ -30,6 +30,12 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		crud/mx_model_insert.c \
       		crud/mx_model_select.c \
       		crud/mx_model_update.c \
+      		db/mx_create_table.c \
+      		db/mx_db_creation.c \
+      		db/mx_table_contacts.c \
+      		db/mx_table_messages.c \
+      		db/mx_table_rooms.c \
+      		db/mx_table_settings.c \
       		models/mx_model_logined.c \
       		models/mx_model_new_message.c \
       		models/mx_model_add_contact.c \
@@ -71,7 +77,13 @@ OBJ = main.o \
       mx_model_add_contact.o \
       mx_contr_select_contacts.o \
       mx_renew_contact.o \
-      mx_parse_cont.o
+      mx_parse_cont.o \
+      mx_create_table.o \
+      mx_db_creation.o \
+      mx_table_contacts.o \
+      mx_table_messages.o \
+      mx_table_rooms.o \
+      mx_table_settings.o
 
 CC = clang
 
