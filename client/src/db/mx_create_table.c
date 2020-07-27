@@ -1,6 +1,6 @@
 #include "header.h"
 
-void mx_create_table(sqlite3 *db, char *sql,
+void mx_create_table(sqlite3 db, char *sql,
                      int (*callback)(void*, int, char**, char**)) {
     int connection_point;
 

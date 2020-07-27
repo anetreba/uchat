@@ -242,6 +242,6 @@ void mx_table_contacts(sqlite3 *db, char *sql);
 void mx_table_messages(sqlite3 *db, char *sql);
 void mx_table_rooms(sqlite3 *db, char *sql);
 void mx_table_settings(sqlite3 *db, char *sql);
-
+int mx_callback(void *data, int argc, char **argv, char **ColName);
 
 #endif
