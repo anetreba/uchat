@@ -8,6 +8,7 @@
     <property name="window_position">center</property>
     <property name="default_width">1366</property>
     <property name="default_height">768</property>
+    <property name="destroy_with_parent">True</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -98,9 +99,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="new_room_btn">
+          <object class="GtkButton" id="add_room_chat_btn">
             <property name="label" translatable="yes">Add Room</property>
-            <property name="name">new_room_btn</property>
+            <property name="name">add_room_chat_btn</property>
             <property name="width_request">130</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
@@ -157,9 +158,9 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="settings_btn">
-            <property name="label" translatable="yes">Settings</property>
-            <property name="name">settings_btn</property>
+          <object class="GtkButton" id="room_chat_btn">
+            <property name="label" translatable="yes">Room settings</property>
+            <property name="name">room_chat_btn</property>
             <property name="width_request">130</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
@@ -169,6 +170,36 @@
           <packing>
             <property name="x">5</property>
             <property name="y">150</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="edit_profile_chat_btn">
+            <property name="label" translatable="yes">Edit profile</property>
+            <property name="name">edit_profile_chat_btn</property>
+            <property name="width_request">130</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">5</property>
+            <property name="y">200</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="logout_btn">
+            <property name="label" translatable="yes">Logout</property>
+            <property name="name">logout_btn</property>
+            <property name="width_request">130</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">5</property>
+            <property name="y">250</property>
           </packing>
         </child>
       </object>

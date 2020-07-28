@@ -5,7 +5,7 @@ void *mx_model_add_contact(t_add_contact *data) {
 
     if (data) {
         asprintf(&vals, "'%d','%s'", data->contact_id, data->nick);
-        mx_model_insert("Contacts", "contact_id, nick", vals);
+        mx_model_insert("Contacts", "user_id, nick", vals);
     }
     return 0;
 }

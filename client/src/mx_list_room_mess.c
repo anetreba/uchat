@@ -73,6 +73,7 @@ void mx_del_widget_mess(t_event *event) {
             if (((t_list_room * )(lst->data))->room_id == event->prev_room_id) {
                 t_list *mess = ((t_list_room *)(lst->data))->mess;
                 gtk_widget_hide(((t_list_room * )(lst->data))->list_box);
+                g_object_ref(((t_list_room * )(lst->data))->list_box);
                 gtk_container_remove(GTK_CONTAINER(event->gtk->viewport), ((t_list_room * )(lst->data))->list_box);
                 while (mess) {
                     printf("CLEAR\n");
@@ -128,15 +129,12 @@ void mx_select_room(GtkButton *button, t_event *event) {
 
     event->prev_room_id = room->room_id;
     printf("id = %d\n", room->room_id);
+    event->send_message->room_id = room->room_id;
 
     mx_front_message(room->room_id, event);
 
     gtk_widget_show(event->gtk->msg);
     gtk_widget_show(event->gtk->chat_send_btn);
-
-
-//    event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
-
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
 }

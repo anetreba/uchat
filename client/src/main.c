@@ -31,7 +31,7 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "event", json_object_new_string("send_message"));
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
         json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
-        json_object_object_add(jobj, "room_id", json_object_new_int(1));
+        json_object_object_add(jobj, "room_id", json_object_new_int(event->send_message->room_id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
     if (strcmp(action, ev[5]) == 0) {
@@ -146,7 +146,8 @@ void mx_init_login(t_event *event) {
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
     event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
     event->gtk->builder4 = gtk_builder_new_from_file ("src/view/contacts_window.glade");
-    event->gtk->builder5 = gtk_builder_new_from_file ("src/view/groups_window.glade");
+    event->gtk->builder5 = gtk_builder_new_from_file ("src/view/add_room_pop_up.glade");
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
     gtk_css_provider_load_from_path(cssProvider, "src/view/style.css", NULL);

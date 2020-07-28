@@ -98,6 +98,9 @@ typedef struct s_gtk {
     GtkWidget *add_contact_confirm_btn;
     GtkWidget *add_contact_entry_field;
     GtkWidget *add_contact_back_btn;
+    GtkWidget *add_room_confirm_btn;
+    GtkWidget *add_room_entry_field;
+    GtkWidget *add_room_back_btn;
 }               t_gtk;
 
 typedef struct s_data {
@@ -166,6 +169,16 @@ typedef struct s_add_contact {
     const char *nick;
 }               t_add_contact;
 
+typedef struct s_cont {
+    char *nick;
+    int id;
+}               t_cont;
+
+typedef struct s_info_room {
+    char *room_name;
+    t_list *cont;
+}               t_info_room;
+
 typedef struct s_event {
     int network_socket;
     int prev_room_id;
@@ -180,6 +193,7 @@ typedef struct s_event {
     t_del_room *del_room;
     t_add_contact *add_contact;
     t_list *list_contact;
+    t_info_room *info_room;
 }              t_event;
 
 typedef struct s_response {
@@ -190,6 +204,8 @@ typedef struct s_response {
 }               t_response;
 
 void *mx_client_recv(void *data);
+gboolean mx_show_new_contact(void *data);
+void mx_show_groups_wdw(GtkButton *button, t_event *event);
 
 void mx_contr_select_contacts(t_event *event);
 void show_contacts_wdw(GtkButton *button, t_event *event);
@@ -199,7 +215,7 @@ gboolean mx_parse_room_front(void *data);
 void chat_window(t_event *event);
 gboolean mx_show_chat_window(void *data);
 gboolean show_error_label(void *data);
-//void mx_add_mess_to_list(t_event *event);
+
 void create_row(t_event *event);
 void mx_add_new_message(t_event *event, GtkWidget *msg);
 void new_room(GtkButton *button, t_event *event);

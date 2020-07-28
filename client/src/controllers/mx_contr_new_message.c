@@ -9,6 +9,7 @@ gboolean mx_add_mess_to_list(void *data) {
     while (lst) {
 
         if (((t_list_room *)(lst->data))->room_id == event->send_message->room_id) {
+            printf("ROOM = %d\n", event->send_message->room_id);
             t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
 
             mess->sender_id = event->send_message->sender_id;

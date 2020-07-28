@@ -41,6 +41,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		mx_init_chat_window.c \
       		mx_renew_contact.c \
       		mx_parse_cont.c \
+      		mx_add_cont_show.c \
       		mx_event.c)
 
 
@@ -71,7 +72,8 @@ OBJ = main.o \
       mx_model_add_contact.o \
       mx_contr_select_contacts.o \
       mx_renew_contact.o \
-      mx_parse_cont.o
+      mx_parse_cont.o \
+      mx_add_cont_show.o
 
 CC = clang
 
