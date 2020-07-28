@@ -12,7 +12,8 @@ static int callback_check_user(void *data, int argc, char **argv, char **ColName
         udata->res = 0;
 
     printf("=======================================s==========\n");
-    printf("udata1->id: %s\n", argv[0]);
+    printf("ARGV-0: %s\n", argv[0]);
+    printf("ARGV-0: %s\n", argv[1]);
     printf("=======================================s==========\n");
     return 0;
 }
@@ -37,9 +38,6 @@ static int callback_nick(void *data, int argc, char **argv, char **ColName) {
         udata->id = atoi(argv[0]);
     else
         udata->id = 0;
-    printf("=======================================s==========\n");
-    printf("udata->id: %d\n", udata->id);
-    printf("=======================================s==========\n");
     return 0;
 }
 
@@ -51,15 +49,23 @@ t_data *mx_contr_add_contact(t_add_contact *tok) {
     asprintf(&vals, "Users WHERE nick = '%s'", tok->nick);
     mx_model_select("id", vals, callback_nick, data);
 
-    mx_check_user(data, tok);
+    printf("=======================================s==========\n");
+    printf("udata->id: %d\n", data->id);
+    printf("=======================================s==========\n");
+
+    if (data->id)
+        mx_check_user(data, tok);
+    else
+        data->res = 1;
 
 
 
     printf("=======================================s==========\n");
     printf("RES: %d\n", data->res);
+    printf("DATA ID: %d\n", data->id);
     printf("=======================================w==========\n");
 
-    if (data->res == 0) {
+    if (data->id != 0 && data->res == 0) {
         asprintf(&vals, "'%d', '%d', '%s'", tok->sender_id, data->id, tok->nick);
         mx_model_insert("UsersMeta", "user_id, contact_id, nick", vals);
     }

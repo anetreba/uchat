@@ -332,9 +332,9 @@ void mx_return_add_contact_json(t_data *resp, t_event *event) {
     printf("=================================================\n");
 
     json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
-    if (event->add_contact->sender_id != resp->id) {
+    if (event->add_contact->sender_id != resp->id && resp->id != 0 && resp->res == 0) {
         json_object_object_add(jobj, "status", json_object_new_int(resp->res));
-        json_object_object_add(jobj, "contact_id", json_object_new_int(resp->id));.0
+        json_object_object_add(jobj, "contact_id", json_object_new_int(resp->id));
         json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
     }
     else if (resp->res == 1)
