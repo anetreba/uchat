@@ -1,5 +1,13 @@
 #include "header.h"
 
+//gboolean mx_show_in_cont(void *data) {
+//
+//}
+//
+//gboolean mx_show_label_no_user(void *data) {
+//
+//}
+
 gboolean mx_show_new_contact(void *data) {
     t_event *event = (t_event *)data;
 

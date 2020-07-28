@@ -15,15 +15,12 @@ void room_confirm_btn(GtkButton *button, t_event *event) {
 void mx_show_groups_wdw(GtkButton *button, t_event *event) {
 
     gtk_widget_show(event->gtk->groups_wdw);
-    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_entry_field"));
-    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_back_btn"));
-    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_confirm_btn"));
+    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "entry_settings_field"));
+    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "back_settings_btn"));
+    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "confirm_settings_btn"));
 
     event->info_room = (t_info_room *)malloc(sizeof(t_info_room));
     memset(event->info_room, 0, sizeof(t_info_room));
-
-//    event->info_room->room_name = (char *)(gtk_entry_get_text(GTK_ENTRY(event->gtk->add_room_entry_field)));
-//    printf("ROOM_NAME = %s\n", event->info_room->room_name);
 
     g_signal_connect(event->gtk->add_room_confirm_btn, "clicked", G_CALLBACK(room_confirm_btn), event);
     g_signal_connect(event->gtk->add_room_back_btn, "clicked", G_CALLBACK(back_to_chat), event);

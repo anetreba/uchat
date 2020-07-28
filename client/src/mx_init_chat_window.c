@@ -43,7 +43,7 @@ void chat_window(t_event *event) {
     event->gtk->contacts = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "contacts_btn"));
     event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "add_room_chat_btn"));
     event->gtk->contacts_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_wdw"));
-    event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_wdw"));
+    event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_pop_up"));
 
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 

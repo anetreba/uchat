@@ -182,6 +182,7 @@ typedef struct s_info_room {
 typedef struct s_event {
     int network_socket;
     int prev_room_id;
+    int status;
     t_gtk *gtk;
     t_send_message *send_message;
     t_log_in *log_in;
@@ -206,6 +207,8 @@ typedef struct s_response {
 void *mx_client_recv(void *data);
 gboolean mx_show_new_contact(void *data);
 void mx_show_groups_wdw(GtkButton *button, t_event *event);
+gboolean mx_show_in_cont(void *data);
+gboolean mx_show_label_no_user(void *data);
 
 void mx_contr_select_contacts(t_event *event);
 void show_contacts_wdw(GtkButton *button, t_event *event);

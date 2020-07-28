@@ -66,7 +66,12 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     }
     else if (strcmp(ev, events[5]) == 0) {
         mx_contr_add_contact(event, jobj);
-        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_new_contact, event, 0);
+        if (event->status == 0)
+            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_new_contact, event, 0);
+//        else if (event->status == 1)
+//            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_label_no_user, event, 0);
+//        else if (event->status == 2)
+//            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_in_cont, event, 0);
     }
     else if (strcmp(ev, events[6]) == 0)
         mx_model_renew_contacts(jobj);
