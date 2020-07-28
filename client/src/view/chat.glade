@@ -181,7 +181,7 @@
         <child>
           <object class="GtkLayout" id="top_middle_lyr">
             <property name="name">top_middle_lyr</property>
-            <property name="width_request">219</property>
+            <property name="width_request">50</property>
             <property name="height_request">50</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -193,7 +193,7 @@
         <child>
           <object class="GtkLayout" id="top_lef_lyr">
             <property name="name">top_lef_lyr</property>
-            <property name="width_request">520</property>
+            <property name="width_request">50</property>
             <property name="height_request">52</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -205,7 +205,7 @@
         <child>
           <object class="GtkLayout" id="logo_lyr">
             <property name="name">logo_lyr</property>
-            <property name="width_request">78</property>
+            <property name="width_request">50</property>
             <property name="height_request">53</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -217,7 +217,7 @@
         <child>
           <object class="GtkLayout" id="left_buttom_lyr">
             <property name="name">left_buttom_lyr</property>
-            <property name="width_request">135</property>
+            <property name="width_request">50</property>
             <property name="height_request">351</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>

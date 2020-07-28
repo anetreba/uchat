@@ -323,19 +323,21 @@ void mx_del_room(struct json_object *jobj, t_event *event) {
     mx_return_del_room_json(event, event->new_open_socket);
 }
 
-void mx_return_add_contact_json(t_data resp, t_event *event) {
+void mx_return_add_contact_json(t_data *resp, t_event *event) {
     struct json_object *jobj = json_object_new_object();
     printf("=================================================\n");
-    printf("RESP: %d\n", resp.res);
+    printf("RESP.RES: %d\n", resp->res);
+    printf("RESP.ID: %d\n", resp->id);
+    printf("event->add_contact->sender_id: %d\n", event->add_contact->sender_id);
     printf("=================================================\n");
 
     json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
-    if (event->add_contact->sender_id != resp.id) {
-        json_object_object_add(jobj, "status", json_object_new_string("0"));
-        json_object_object_add(jobj, "contact_id", json_object_new_int(resp.id));
+    if (event->add_contact->sender_id != resp->id) {
+        json_object_object_add(jobj, "status", json_object_new_int(resp->res));
+        json_object_object_add(jobj, "contact_id", json_object_new_int(resp->id));.0
         json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
     }
-    else if (resp.res == 1)
+    else if (resp->res == 1)
         json_object_object_add(jobj, "status", json_object_new_string("1"));
     else
         json_object_object_add(jobj, "status", json_object_new_string("2"));
@@ -350,7 +352,7 @@ void mx_return_add_contact_json(t_data resp, t_event *event) {
 }
 
 void mx_add_contact(struct json_object *jobj, t_event *event) {
-    t_data resp;
+    t_data *resp;
     struct json_object *nick;
     struct json_object *sender_id;
     struct json_object *auth_token;

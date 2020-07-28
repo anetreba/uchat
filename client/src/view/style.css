@@ -1,5 +1,5 @@
 .background {
-    background-color: #1f2f3f;
+    background-color: #131a21;
 }
 
 
@@ -16,7 +16,7 @@
 }
 
 button#sign_up_btn, button#sign_in_btn {
-    background: #1f2f3f;
+    background: #131a21;
     border: 0px;
     box-shadow: none;
     text-shadow: none;
@@ -49,3 +49,69 @@ button#login_btn {
 }
 
 /*======================== CHAT WINDOW ===========================*/
+
+#scrolled_window, #viewport, #entry_msg_field,
+#send_btn, #scrolled_rooms, #list_rooms,
+scrolled_window, #list_rooms {
+    background-color: #131a21;
+    border: 0;
+}
+#list_rooms {
+    border: 1px solid #8a97aa;
+}
+
+#viewport {
+    border: 0;
+}
+
+#entry_msg_field {
+    color: #8a97aa;
+    border-top: 1px solid #151e28;
+    border: 0;
+    border-radius: 0px;
+    border-radius: 5px;
+}
+
+#send_btn, #scrolled_rooms, #list_rooms {
+    border-radius: 0px;
+}
+
+
+#scrolled_rooms, #list_rooms {
+    color: #8a97aa;
+}
+
+room_name {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/*================buttons=============*/
+#add_room_chat_btn, #contacts_btn, #room_chat_btn,
+#edit_profile_chat_btn, #logout_btn{
+    background: #000000;
+    color: #ffffff;
+    text-shadow: none;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+}
+
+#add_room_chat_btn {
+    background-image: url("images/add_room_btn.png");
+    background-size: cover;
+}
+
+#contacts_btn {
+    background-image: url("images/contacts_btn.png");
+    background-size: cover;
+}
+
+#room_chat_btn{} /*рум сеттингс*/
+#edit_profile_chat_btn {} /* эдит профайл */
+#logout_btn {} /*логаут баттон*/
+
+#left_buttom_lyr {
+    background: black;
+}

@@ -195,6 +195,7 @@ void *mx_client_recv(void *data);
 void mx_contr_select_contacts(t_event *event);
 void show_contacts_wdw(GtkButton *button, t_event *event);
 
+
 void mx_listroom_and_mess(t_event *event);
 gboolean mx_parse_room_front(void *data);
 void chat_window(t_event *event);

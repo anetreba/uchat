@@ -164,6 +164,6 @@ t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 t_list *mx_contr_renew_contacts(t_renew_contacts *tok);
 void mx_return_renew_contacts_json(t_list *resp, int sock);
 void *mx_contr_del_room(t_edit_room *room);
-t_data mx_contr_add_contact(t_add_contact *tok);
+t_data *mx_contr_add_contact(t_add_contact *tok);
 
 #endif
