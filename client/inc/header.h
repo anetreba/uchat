@@ -101,6 +101,7 @@ typedef struct s_gtk {
     GtkWidget *add_room_confirm_btn;
     GtkWidget *add_room_entry_field;
     GtkWidget *add_room_back_btn;
+    GtkWidget *users_listbox;
 }               t_gtk;
 
 typedef struct s_data {
@@ -179,6 +180,14 @@ typedef struct s_info_room {
     t_list *cont;
 }               t_info_room;
 
+typedef struct s_cont_for_add_room {
+    int id;
+    char *nick;
+
+    GtkWidget *row;
+    GtkWidget *cont_btn;
+}               t_cont_for_add_room;
+
 typedef struct s_event {
     int network_socket;
     int prev_room_id;
@@ -195,6 +204,7 @@ typedef struct s_event {
     t_add_contact *add_contact;
     t_list *list_contact;
     t_info_room *info_room;
+    t_list *for_new_room;
 }              t_event;
 
 typedef struct s_response {

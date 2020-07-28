@@ -102,6 +102,12 @@ typedef struct s_add_contact {
     const char *auth_token;
 }               t_add_contact;
 
+
+typedef struct s_info_room {
+    char *room_name;
+    int *cont_id;
+}               t_info_room;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -113,6 +119,7 @@ typedef struct s_event {
     t_renew_contacts *renew_contacts;
     t_edit_room *edit_room;
     t_add_contact *add_contact;
+    t_info_room *add_room;
 }               t_event;
 
 typedef struct s_response {
@@ -134,6 +141,7 @@ char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 void mx_renew(struct json_object *jobj, t_event *event);
 void mx_shuffle(void *array, size_t n, size_t size);
+void mx_add_room(struct json_object *jobj, t_event *event);
 
 //models
 void mx_model_insert (char *table, char *rows, char *vals);

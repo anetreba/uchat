@@ -5,11 +5,13 @@
   <object class="GtkWindow" id="add_contact_wdw">
     <property name="name">add_contact_wdw</property>
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Add contact</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">440</property>
-    <property name="default_height">250</property>
+    <property name="default_width">300</property>
+    <property name="default_height">170</property>
+    <property name="destroy_with_parent">True</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="deletable">False</property>
     <child type="titlebar">
@@ -62,6 +64,21 @@
           <packing>
             <property name="x">225</property>
             <property name="y">134</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="add_contact_error_lbl">
+            <property name="name">add_contact_error_lbl</property>
+            <property name="width_request">250</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes"></property>
+            <property name="xalign">0.019999999552965164</property>
+          </object>
+          <packing>
+            <property name="x">100</property>
+            <property name="y">18</property>
           </packing>
         </child>
       </object>

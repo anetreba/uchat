@@ -12,37 +12,50 @@ void mx_json(t_event *event, char *action) {
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
         json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
     }
-    if (strcmp(action, ev[1]) == 0) {
+    else if (strcmp(action, ev[1]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
         json_object_object_add(jobj, "login", json_object_new_string(event->sign_up->login));
         json_object_object_add(jobj, "nick", json_object_new_string(event->sign_up->nick));
         json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
     }
-    if (strcmp(action, ev[2]) == 0) {
+    else if (strcmp(action, ev[2]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("renew_rooms"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
-    if (strcmp(action, ev[3]) == 0) {
+    else if (strcmp(action, ev[3]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("renew"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
-    if (strcmp(action, ev[4]) == 0) {
+    else if (strcmp(action, ev[4]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("send_message"));
         json_object_object_add(jobj, "message", json_object_new_string(event->send_message->message));
         json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
         json_object_object_add(jobj, "room_id", json_object_new_int(event->send_message->room_id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
-    if (strcmp(action, ev[5]) == 0) {
+    else if (strcmp(action, ev[5]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("add_contact"));
         json_object_object_add(jobj, "nick", json_object_new_string(event->add_contact->nick));
         json_object_object_add(jobj, "sender_id", json_object_new_int(event->add_contact->sender_id));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
-    if (strcmp(action, ev[6]) == 0) {
+    else if (strcmp(action, ev[6]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("renew_contacts"));
         json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
+    }
+    else if (strcmp(action, ev[7]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("add_room"));
+        json_object_object_add(jobj, "room_name", json_object_new_string(event->info_room->room_name));
+        json_object *jarray = json_object_new_array();
+        t_list *lst = event->info_room->cont;
+
+        while (lst) {
+            json_object *jstring = json_object_new_int(((t_cont *)(lst->data))->id);
+            json_object_array_add(jarray,jstring);
+            lst = lst->next;
+        }
+        json_object_object_add(jobj, "users", jarray);
     }
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
@@ -84,35 +97,6 @@ void sign_up_window(GtkButton *button, t_event *event) {
     gtk_widget_hide(event->gtk->window);
 
     g_signal_connect(event->gtk->reg_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
-}
-
-void scroll_adjustment(t_event *event) {
-    GtkAdjustment *adjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(event->gtk->scrolled_window));
-    double value = gtk_adjustment_get_upper(adjustment);
-    printf("adjustment %f\n", value);
-
-    gtk_adjustment_set_value(adjustment, value);
-}
-////////////////////////////////////
-void create_row(t_event *event) {
-    event->gtk->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    event->gtk->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
-
-    // message buttons
-    event->gtk->message_button = gtk_button_new_with_label(event->send_message->message);
-    gtk_widget_set_hexpand(event->gtk->message_button, TRUE);
-    gtk_widget_set_halign(event->gtk->message_button, GTK_ALIGN_END);
-    gtk_widget_set_valign(event->gtk->message_button, GTK_ALIGN_CENTER);
-    gtk_widget_set_size_request(event->gtk->message_button, 300, 5);
-    gtk_container_add(GTK_CONTAINER(event->gtk->row_user), event->gtk->message_button);
-
-    event->gtk->user_button = gtk_button_new_with_label(event->log_in->login);
-    gtk_widget_set_hexpand(event->gtk->user_button, TRUE);
-    gtk_widget_set_halign(event->gtk->user_button, GTK_ALIGN_END);
-    gtk_widget_set_valign(event->gtk->user_button, GTK_ALIGN_CENTER);
-    gtk_widget_set_size_request(event->gtk->user_button, 20, 5);
-    gtk_widget_set_opacity(event->gtk->user_button, 1);
-    gtk_container_add(GTK_CONTAINER(event->gtk->row_msg), event->gtk->user_button);
 }
 
 

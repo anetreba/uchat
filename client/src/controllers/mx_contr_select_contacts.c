@@ -26,6 +26,7 @@ static int callback_contacts(void *data, int argc, char **argv, char **ColName) 
 }
 
 void mx_contr_select_contacts(t_event *event) {
+    printf("bla\n");
     char *vals;
     t_renew_contacts *contact = (t_renew_contacts *)malloc(sizeof(t_renew_contacts));
     memset(contact, 0, sizeof(t_renew_contacts));

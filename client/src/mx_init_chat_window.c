@@ -10,25 +10,6 @@ gboolean show_error_label(void *data) {
     return 0;
 }
 
-//void show_groups_wdw(GtkButton *button, t_event *event) {
-//
-//    gtk_widget_show(event->gtk->groups_wdw);
-//    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_entry_field"));
-//    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_back_btn"));
-//    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_confirm_btn"));
-//
-//    event->info_room = (t_info_room *)malloc(sizeof(t_info_room));
-//    memset(event->info_room, 0, sizeof(t_info_room));
-//
-//    event->info_room->room_name = gtk_entry_get_text(GTK_ENTRY(event->gtk->add_room_entry_field));
-//
-//    g_signal_connect(event->gtk->add_room_confirm_btn, "clicked", G_CALLBACK(send_messages), event);
-//    g_signal_connect(add_room_back_btn, "clicked", G_CALLBACK(show_groups_wdw), event);
-//    //TODO: show list of contacts and groups
-//
-//    (void)button;
-//}
-
 void chat_window(t_event *event) {
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
@@ -46,6 +27,13 @@ void chat_window(t_event *event) {
     event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_pop_up"));
 
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
+
+    event->gtk->contacts_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_back_btn"));
+    event->gtk->new_contact_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "new_contact_btn"));
+    event->gtk->contacts_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_listbox"));
+
+    //gtk_widget_show(event->gtk->contacts_wdw);
+    mx_contr_select_contacts(event);
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(mx_show_groups_wdw), event);

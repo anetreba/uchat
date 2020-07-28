@@ -45,7 +45,7 @@ void mx_render_cont_list(t_event *event) {
     while (lst) {
         ((t_renew_contacts *)(lst->data))->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         ((t_renew_contacts *)(lst->data))->cont_btn = gtk_button_new_with_label(((t_renew_contacts *)(lst->data))->nickname);
-        g_object_set_data(G_OBJECT(((t_renew_contacts *)(lst->data))->cont_btn), "cont", ((t_renew_contacts *)(lst->data))); //создание указателя на комнату
+//        g_object_set_data(G_OBJECT(((t_renew_contacts *)(lst->data))->cont_btn), "cont", ((t_renew_contacts *)(lst->data))); //создание указателя на комнату
 
         gtk_widget_set_hexpand(((t_renew_contacts *)(lst->data))->cont_btn, TRUE);
         gtk_widget_set_halign(((t_renew_contacts *)(lst->data))->cont_btn, GTK_ALIGN_CENTER);
@@ -64,13 +64,13 @@ void mx_render_cont_list(t_event *event) {
 }
 
 void show_contacts_wdw(GtkButton *button, t_event *event) {
-    event->gtk->contacts_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_back_btn"));
-    event->gtk->new_contact_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "new_contact_btn"));
-    event->gtk->contacts_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_listbox"));
-
+//    event->gtk->contacts_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_back_btn"));
+//    event->gtk->new_contact_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "new_contact_btn"));
+//    event->gtk->contacts_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_listbox"));
+//
     gtk_widget_show(event->gtk->contacts_wdw);
-
-    mx_contr_select_contacts(event);
+//
+//    mx_contr_select_contacts(event);
     mx_render_cont_list(event);
 
 

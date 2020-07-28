@@ -389,8 +389,8 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         mx_send_message(jobj, event);
     else if (strcmp(ev, events[5]) == 0)
         mx_renew_contacts(jobj, event);
-//    else if (strcmp(ev, events[6]) == 0)
-//        mx_add_room(jobj, event);
+    else if (strcmp(ev, events[6]) == 0)
+        mx_add_room(jobj, event);
 //    else if (strcmp(ev, events[7]) == 0)
 //        mx_edit_room(jobj, event);
     else if (strcmp(ev, events[8]) == 0)

@@ -1,12 +1,24 @@
 #include "header.h"
 
-//gboolean mx_show_in_cont(void *data) {
-//
-//}
-//
-//gboolean mx_show_label_no_user(void *data) {
-//
-//}
+gboolean mx_show_in_cont(void *data) {
+    t_event *event = (t_event *)data;
+
+    GtkWidget *error_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_error_lbl"));
+    gtk_label_set_text(GTK_LABEL(error_label), "User in contact");
+    printf("User in contact\"\n");
+    gtk_widget_show(error_label);
+    return 0;
+}
+
+gboolean mx_show_label_no_user(void *data) {
+    t_event *event = (t_event *)data;
+
+    GtkWidget *error_label = GTK_WIDGET(gtk_builder_get_object(event->gtk->add_cont_builder, "add_contact_error_lbl"));
+    gtk_label_set_text(GTK_LABEL(error_label), "User not found");
+    printf("User not found\n");
+    gtk_widget_show(error_label);
+    return 0;
+}
 
 gboolean mx_show_new_contact(void *data) {
     t_event *event = (t_event *)data;

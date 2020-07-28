@@ -4,15 +4,14 @@
 void json_parse_array_cont( json_object *jobj, char *key, t_list *list) {
     enum json_type type;
     json_object *jarray = jobj;
-//    t_list *lst = list;
     t_renew_contacts *udata = (t_renew_contacts *)malloc(sizeof(t_renew_contacts));
+
     memset(udata, 0, sizeof(t_renew_contacts));
     if (key) {
         jarray = json_object_object_get(jobj, key);
     }
 
     int arraylen = json_object_array_length(jarray);
-    printf("Array Length: %d\n",arraylen);
     json_object * jvalue;
 
     for (int i = 0; i < arraylen; i++){
