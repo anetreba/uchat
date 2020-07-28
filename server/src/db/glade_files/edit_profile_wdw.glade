@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="edit_profile_wdw">
+    <property name="name">edit_profile_wdw</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Edit profile</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center</property>
+    <property name="default_width">440</property>
+    <property name="default_height">250</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="deletable">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="edit_profile_fxd">
+        <property name="name">edit_profile_fxd</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel" id="edit_profile_lbl">
+            <property name="name">edit_profile_lbl</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Edit profile</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">21</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_profile_login_entry_wdw">
+            <property name="name">edit_profile_login_entry_wdw</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Edit your login</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">75</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_profile_pwd_entry_wdw">
+            <property name="name">edit_profile_pwd_entry_wdw</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Edit your password</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">125</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_profile_pwd_reentry_wdw">
+            <property name="name">edit_profile_pwd_reentry_wdw</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Reenter your password</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">175</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_profile_nick_entry_wdw">
+            <property name="name">edit_profile_nick_entry_wdw</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Edit your nickname</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">225</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="edit_profile_email_entry_wdw">
+            <property name="name">edit_profile_email_entry_wdw</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Edit your email</property>
+          </object>
+          <packing>
+            <property name="x">200</property>
+            <property name="y">275</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="edit_profile_back_btn">
+            <property name="label" translatable="yes">Back</property>
+            <property name="name">edit_profile_back_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">284</property>
+            <property name="y">325</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="edit_profile_confirm_btn">
+            <property name="label" translatable="yes">Confirm</property>
+            <property name="name">edit_profile_confirm_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">179</property>
+            <property name="y">325</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

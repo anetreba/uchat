@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="room_settings_wdw">
+    <property name="name">room_settings_wdw</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Rooms settings</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="deletable">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="room_settings_fxd">
+        <property name="name">room_settings_fxd</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkButton" id="add_user_room_settings_btn">
+            <property name="label" translatable="yes">Add user</property>
+            <property name="name">add_user_room_settings_btn</property>
+            <property name="width_request">120</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">15</property>
+            <property name="y">75</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="remove_user_room_settings_btn">
+            <property name="label" translatable="yes">Remove user</property>
+            <property name="name">remove_user_room_settings_btn</property>
+            <property name="width_request">120</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">14</property>
+            <property name="y">124</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="back_settings_btn">
+            <property name="label" translatable="yes">Back</property>
+            <property name="name">back_settings_btn</property>
+            <property name="width_request">120</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">14</property>
+            <property name="y">174</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="users_setting_scrld_wdw">
+            <property name="name">users_setting_scrld_wdw</property>
+            <property name="width_request">400</property>
+            <property name="height_request">400</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="users_setting_scrld_wdw_fxd">
+                <property name="name">users_setting_scrld_wdw_fxd</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="users_listbox_settings">
+                    <property name="name">users_listbox_settings</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">155</property>
+            <property name="y">77</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="room_name_setting_lbl">
+            <property name="name">room_name_setting_lbl</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Room name: </property>
+          </object>
+          <packing>
+            <property name="x">16</property>
+            <property name="y">21</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="settings_hint_lbl">
+            <property name="name">settings_hint_lbl</property>
+            <property name="width_request">250</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Add or remove user from the room</property>
+          </object>
+          <packing>
+            <property name="x">159</property>
+            <property name="y">21</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
