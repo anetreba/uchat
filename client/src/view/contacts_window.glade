@@ -5,13 +5,17 @@
   <object class="GtkWindow" id="contacts_wdw">
     <property name="name">contacts_wdw</property>
     <property name="can_focus">False</property>
+    <property name="type">popup</property>
     <property name="title" translatable="yes">Contacts</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="default_width">250</property>
-    <property name="default_height">750</property>
+    <property name="default_height">725</property>
     <property name="destroy_with_parent">True</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="deletable">False</property>
+    <property name="gravity">static</property>
     <child type="titlebar">
       <placeholder/>
     </child>

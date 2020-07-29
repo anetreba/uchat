@@ -20,6 +20,8 @@ void mx_front_message(int room_id, t_event *event) {
 
             ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
             gtk_container_add(GTK_CONTAINER(event->gtk->viewport), ((t_list_room *)(lst->data))->list_box);
+            gtk_widget_set_name(((t_list_room *)(lst->data))->list_box, "chat_room");
+
 
             while (mess) {
                 ((t_mess *)(mess->data))->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -27,6 +29,8 @@ void mx_front_message(int room_id, t_event *event) {
 
                 ((t_mess *)(mess->data))->message_button = gtk_button_new_with_label(((t_mess *)(mess->data))->message);
                 gtk_widget_set_hexpand(((t_mess *)(mess->data))->message_button, TRUE);
+                gtk_widget_set_name(((t_mess *)(mess->data))->message_button, "message_button");
+
                 if (((t_mess *)(mess->data))->sender_id == event->data->id)
                     gtk_widget_set_halign(((t_mess *)(mess->data))->message_button, GTK_ALIGN_END); // <---- END - твои сообщения, START пришедшие
                 else
@@ -37,6 +41,8 @@ void mx_front_message(int room_id, t_event *event) {
 
                 ((t_mess *)(mess->data))->user_button = gtk_button_new_with_label(((t_mess *)(mess->data))->sender_nick); //who send a message
                 gtk_widget_set_hexpand(((t_mess *)(mess->data))->user_button, TRUE);
+                gtk_widget_set_name(((t_mess *)(mess->data))->user_button, "sender");
+
                 if (((t_mess *)(mess->data))->sender_id == event->data->id)
                     gtk_widget_set_halign(((t_mess *)(mess->data))->user_button, GTK_ALIGN_END); // <---- END - твой ник, START кто прислал
                 else
@@ -152,6 +158,7 @@ gboolean mx_parse_room_front(void *data) {
         gtk_widget_set_halign(((t_list_room *)(lst->data))->room_btn, GTK_ALIGN_CENTER);
         gtk_widget_set_valign(((t_list_room *)(lst->data))->room_btn, GTK_ALIGN_CENTER);
         gtk_widget_set_size_request(((t_list_room *)(lst->data))->room_btn, 60, 5);
+        gtk_widget_set_name(((t_list_room *)(lst->data))->room_btn, "room_button");
         gtk_container_add(GTK_CONTAINER(((t_list_room *)(lst->data))->row), ((t_list_room *)(lst->data))->room_btn);
 
         gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), ((t_list_room *)(lst->data))->row, 1);

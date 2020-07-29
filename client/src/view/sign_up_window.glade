@@ -4,9 +4,12 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="sign_up_window">
     <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">820</property>
-    <property name="default_height">720</property>
+    <property name="default_width">800</property>
+    <property name="default_height">800</property>
+    <property name="deletable">False</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -22,6 +25,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your e-mail address</property>
+            <property name="input_purpose">email</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -36,6 +40,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your Nickname</property>
+            <property name="input_purpose">name</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -49,7 +54,10 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
             <property name="placeholder_text" translatable="yes">Enter your password</property>
+            <property name="input_purpose">password</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -64,6 +72,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your login</property>
+            <property name="input_purpose">name</property>
           </object>
           <packing>
             <property name="x">230</property>
@@ -132,14 +141,15 @@
           <object class="GtkLabel" id="wrong_login_lbl">
             <property name="name">wrong_login_lbl</property>
             <property name="width_request">220</property>
-            <property name="height_request">40</property>
+            <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">some_label</property>
+            <property name="label" translatable="yes">Error message:</property>
+            <property name="xalign">0.019999999552965164</property>
           </object>
           <packing>
-            <property name="x">304</property>
-            <property name="y">345</property>
+            <property name="x">305</property>
+            <property name="y">350</property>
           </packing>
         </child>
       </object>
