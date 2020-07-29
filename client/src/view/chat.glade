@@ -5,9 +5,10 @@
   <object class="GtkWindow" id="chat_window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Chat</property>
+    <property name="resizable">False</property>
     <property name="window_position">center</property>
-    <property name="default_width">1366</property>
-    <property name="default_height">768</property>
+    <property name="default_width">950</property>
+    <property name="default_height">590</property>
     <property name="destroy_with_parent">True</property>
     <child type="titlebar">
       <placeholder/>
@@ -20,8 +21,8 @@
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window">
             <property name="name">scrolled_window</property>
-            <property name="width_request">599</property>
-            <property name="height_request">505</property>
+            <property name="width_request">665</property>
+            <property name="height_request">596</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="vscrollbar_policy">external</property>
@@ -38,44 +39,43 @@
             </child>
           </object>
           <packing>
-            <property name="x">362</property>
-            <property name="y">50</property>
+            <property name="x">280</property>
+            <property name="y">60</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="chat_entry_message">
             <property name="name">entry_msg_field</property>
-            <property name="width_request">708</property>
+            <property name="width_request">585</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="placeholder_text" translatable="yes">Enter your message</property>
           </object>
           <packing>
-            <property name="x">148</property>
-            <property name="y">580</property>
+            <property name="x">285</property>
+            <property name="y">659</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="chat_send_btn">
-            <property name="label" translatable="yes">Send</property>
             <property name="name">send_btn</property>
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
+            <property name="width_request">65</property>
+            <property name="height_request">10</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">860</property>
-            <property name="y">580</property>
+            <property name="x">875</property>
+            <property name="y">659</property>
           </packing>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_rooms">
             <property name="name">scrolled_rooms</property>
-            <property name="width_request">205</property>
-            <property name="height_request">505</property>
+            <property name="width_request">221</property>
+            <property name="height_request">650</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="shadow_type">in</property>
@@ -94,112 +94,152 @@
             </child>
           </object>
           <packing>
-            <property name="x">150</property>
-            <property name="y">50</property>
+            <property name="x">59</property>
+            <property name="y">59</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="add_room_chat_btn">
-            <property name="label" translatable="yes">Add Room</property>
             <property name="name">add_room_chat_btn</property>
-            <property name="width_request">130</property>
-            <property name="height_request">40</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">100</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="room_name">
-            <property name="name">room_name</property>
-            <property name="width_request">250</property>
-            <property name="height_request">32</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Room name</property>
-            <property name="xalign">0.05000000074505806</property>
-          </object>
-          <packing>
-            <property name="x">375</property>
-            <property name="y">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="token">
-            <property name="name">token</property>
-            <property name="width_request">82</property>
-            <property name="height_request">32</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Token: 10</property>
-          </object>
-          <packing>
-            <property name="x">625</property>
-            <property name="y">7</property>
+            <property name="y">119</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="contacts_btn">
-            <property name="label" translatable="yes">Contacts</property>
             <property name="name">contacts_btn</property>
-            <property name="width_request">130</property>
-            <property name="height_request">40</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">50</property>
+            <property name="y">60</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="room_chat_btn">
-            <property name="label" translatable="yes">Room settings</property>
             <property name="name">room_chat_btn</property>
-            <property name="width_request">130</property>
-            <property name="height_request">40</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">150</property>
+            <property name="y">178</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="edit_profile_chat_btn">
-            <property name="label" translatable="yes">Edit profile</property>
             <property name="name">edit_profile_chat_btn</property>
-            <property name="width_request">130</property>
-            <property name="height_request">40</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">200</property>
+            <property name="y">237</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="logout_btn">
-            <property name="label" translatable="yes">Logout</property>
             <property name="name">logout_btn</property>
-            <property name="width_request">130</property>
-            <property name="height_request">40</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">5</property>
-            <property name="y">250</property>
+            <property name="y">296</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_1">
+            <property name="name">elm_1</property>
+            <property name="width_request">60</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_6">
+            <property name="label" translatable="yes">
+</property>
+            <property name="name">elm_6</property>
+            <property name="width_request">58</property>
+            <property name="height_request">355</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">355</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_2">
+            <property name="name">elm_2</property>
+            <property name="width_request">220</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_3">
+            <property name="name">elm_3</property>
+            <property name="width_request">100</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">280</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_5">
+            <property name="name">elm_5</property>
+            <property name="width_request">51</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">898</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_4">
+            <property name="label" translatable="yes">
+</property>
+            <property name="name">elm_4</property>
+            <property name="width_request">534</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">370</property>
           </packing>
         </child>
       </object>
