@@ -29,7 +29,8 @@ void mx_select_cont(GtkButton *button, t_event *event) {
     (void)button;
 }
 
-void mx_render_cont(t_event *event) {
+gboolean mx_render_cont(void *data) {
+    t_event *event = (t_event *)data;
     t_list *lst = event->list_contact;
 
     while (lst) {
@@ -55,17 +56,18 @@ void mx_render_cont(t_event *event) {
         mx_push_back(&(event->for_new_room), cont);
         lst = lst->next;
     }
+    return 0;
 }
 
 void mx_show_groups_wdw(GtkButton *button, t_event *event) {
 
     gtk_widget_show(event->gtk->groups_wdw);
-    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "entry_settings_field"));
-    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "back_settings_btn"));
-    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "confirm_settings_btn"));
-    event->gtk->users_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "users_listbox_settings"));
+//    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "entry_settings_field"));
+//    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "back_settings_btn"));
+//    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "confirm_settings_btn"));
+//    event->gtk->users_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "users_listbox_settings"));
 
-    mx_render_cont(event);
+//    mx_render_cont(event);
 
     event->info_room = (t_info_room *)malloc(sizeof(t_info_room));
     memset(event->info_room, 0, sizeof(t_info_room));

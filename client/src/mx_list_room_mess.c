@@ -62,7 +62,7 @@ void mx_front_message(int room_id, t_event *event) {
         }
         lst = lst->next;
     }
-    g_timeout_add(200, scroll, event);
+    g_timeout_add(10, scroll, event);
 }
 
 void mx_del_widget_mess(t_event *event) {

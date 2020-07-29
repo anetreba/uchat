@@ -219,6 +219,8 @@ gboolean mx_show_new_contact(void *data);
 void mx_show_groups_wdw(GtkButton *button, t_event *event);
 gboolean mx_show_in_cont(void *data);
 gboolean mx_show_label_no_user(void *data);
+gboolean mx_render_cont(void *data);
+gboolean mx_render_cont_list(void *data);
 
 void mx_contr_select_contacts(t_event *event);
 void show_contacts_wdw(GtkButton *button, t_event *event);

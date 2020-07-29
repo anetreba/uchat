@@ -32,8 +32,15 @@ void chat_window(t_event *event) {
     event->gtk->new_contact_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "new_contact_btn"));
     event->gtk->contacts_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_listbox"));
 
+    event->gtk->add_room_entry_field = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "entry_settings_field"));
+    event->gtk->add_room_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "back_settings_btn"));
+    event->gtk->add_room_confirm_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "confirm_settings_btn"));
+    event->gtk->users_listbox = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "users_listbox_settings"));
+
+//    mx_render_cont_list(event);
+
     //gtk_widget_show(event->gtk->contacts_wdw);
-    mx_contr_select_contacts(event);
+//    mx_contr_select_contacts(event);
 
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(mx_show_groups_wdw), event);
@@ -43,6 +50,7 @@ void chat_window(t_event *event) {
 gboolean mx_show_chat_window(void *data) {
     t_event *event = (t_event *)data;
 
+//    mx_contr_select_contacts(event);
     gtk_widget_hide(event->gtk->window);
     gtk_widget_show(event->gtk->chat_window);
     return 0;

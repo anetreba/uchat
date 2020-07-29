@@ -7,7 +7,7 @@ void mx_add_room(struct json_object *jobj, t_event *event) {
 
     json_object_object_get_ex(jobj, "room_name", &room_name);
     event->add_room->room_name = (char *)json_object_get_string(room_name);
-    printf("error\n");
+
     json_object *jarray = json_object_object_get(jobj, "users");
 
     int arraylen = json_object_array_length(jarray);

@@ -48,7 +48,6 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         mx_contr_renew(event, jobj);
         mx_listroom_and_mess(event);
 
-        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_parse_room_front, event, 0);
         mx_contr_renew_contacts(event);
     }
     else if (strcmp(ev, events[2]) == 0) {
@@ -59,20 +58,29 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     }
     else if (strcmp(ev, events[4]) == 0){
         mx_contr_auth(event, jobj);
+    }
+    else if (strcmp(ev, events[5]) == 0) {
+        mx_contr_add_contact(event, jobj);
+        if (event->status == 0) {
+            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_new_contact, event, 0);
+        }
+        else if (event->status == 1) {
+            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_label_no_user, event, 0);
+        }
+        else if (event->status == 2) {
+            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_in_cont, event, 0);
+        }
+    }
+    else if (strcmp(ev, events[6]) == 0) {
+        mx_model_renew_contacts(jobj);
+        mx_contr_select_contacts(event);
+
         if (event->data->status == 0)
             gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_chat_window, event, 0);
         else
             gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, show_error_label, event, 0);
+        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_parse_room_front, event, 0);
+        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_render_cont_list, event, 0);
+        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_render_cont, event, 0);
     }
-    else if (strcmp(ev, events[5]) == 0) {
-        mx_contr_add_contact(event, jobj);
-        if (event->status == 0)
-            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_new_contact, event, 0);
-        else if (event->status == 1)
-            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_label_no_user, event, 0);
-        else if (event->status == 2)
-            gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_show_in_cont, event, 0);
-    }
-    else if (strcmp(ev, events[6]) == 0)
-        mx_model_renew_contacts(jobj);
 }
