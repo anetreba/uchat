@@ -2,7 +2,7 @@
 
 void mx_json(t_event *event, char *action) {
     char *ev[] = {"sign_in", "sign_up", "renew_rooms", "renew", "send_message", "add_contact", "renew_contacts", "add_room",
-                  "edit_room", "del_room"};
+                  "edit_room", "del_room", "logout"};
     struct json_object *jobj = json_object_new_object();
     const char *jstr;
     //Json
@@ -10,13 +10,13 @@ void mx_json(t_event *event, char *action) {
     if (strcmp(action, ev[0]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_in"));
         json_object_object_add(jobj, "login", json_object_new_string(event->log_in->login));
-        json_object_object_add(jobj, "password", json_object_new_string(event->log_in->password));
+        json_object_object_add(jobj, "password", json_object_new_string(md5_string(event->log_in->password)));
     }
     else if (strcmp(action, ev[1]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("sign_up"));
         json_object_object_add(jobj, "login", json_object_new_string(event->sign_up->login));
         json_object_object_add(jobj, "nick", json_object_new_string(event->sign_up->nick));
-        json_object_object_add(jobj, "password", json_object_new_string(event->sign_up->password));
+        json_object_object_add(jobj, "password", json_object_new_string(md5_string(event->sign_up->password)));
         json_object_object_add(jobj, "email", json_object_new_string(event->sign_up->email));
     }
     else if (strcmp(action, ev[2]) == 0) {
@@ -63,6 +63,10 @@ void mx_json(t_event *event, char *action) {
         json_object *jstring = json_object_new_int(((t_cont * )(lst->data))->id);
         json_object_array_add(jarray, jstring);
         json_object_object_add(jobj, "users", jarray);
+    }
+    else if (strcmp(action, ev[8]) == 0) {
+        json_object_object_add(jobj, "event", json_object_new_string("logout"));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
     }
     jstr = json_object_to_json_string(jobj);
     printf("JSTR = %s\n", jstr);
@@ -124,6 +128,10 @@ void fill_sign_in(GtkButton *button, t_event *event) {
 
 //    g_signal_connect(event->gtk->chat_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
 //     g_object_unref(G_OBJECT(event->gtk->builder));
+}
+
+void mx_init_logout() {
+    mx_contr_logout();
 }
 
 void mx_init_login(t_event *event) {

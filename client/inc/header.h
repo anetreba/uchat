@@ -23,7 +23,11 @@
 #include <gtk/gtk.h>
 #include <ctype.h>
 #include <sqlite3.h>
+#include <openssl/md5.h>
+#include <openssl/ssl.h>
+#include <openssl/evp.h>
 
+#define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 ////////////////////FOR RENDER MESSAGE AND ROOMS/////////////////////
 
 typedef struct s_mess {
@@ -262,6 +266,7 @@ void mx_model_renew_contacts(json_object *obj);
 void *mx_model_add_contact(t_add_contact *data);
 void mx_model_new_room(t_info_room *info_room);
 void mx_contr_add_room(t_event *event, json_object *jobj);
+void mx_init_logout();
 
 void mx_json_read(t_event *event);
 //controllers
@@ -272,8 +277,10 @@ void mx_contr_new_message(t_event *event, json_object *jobj);
 void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
 void mx_contr_add_contact(t_event *event, json_object *jobj);
+void mx_contr_logout ();
 
 
 void json_parse_cont(json_object *jobj, t_list *lst);
+char *md5_string(const char *str);
 
 #endif

@@ -27,6 +27,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		controllers/mx_select_listroom_and_mess.c \
       		controllers/mx_contr_select_contacts.c \
       		controllers/mx_contr_add_room.c \
+      		controllers/mx_contr_logout.c \
+      		controllers/encrypt.c \
       		crud/mx_model_del.c \
       		crud/mx_model_insert.c \
       		crud/mx_model_select.c \
@@ -77,7 +79,9 @@ OBJ = main.o \
       mx_parse_cont.o \
       mx_add_cont_show.o \
       mx_contr_add_room.o \
-      mx_model_new_room.o
+      mx_model_new_room.o \
+      mx_contr_logout.o \
+      encrypt.o
 
 
 CC = clang
@@ -95,8 +99,8 @@ json:
 	@make -C $(JSONF)
 
 uchat : $(SRC) inc/header.h libmx/libmx.a json-c/libjson-c.a
-	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d) $(CL_GTK_SORT_FLAGS)
-	@$(CC) $(CFLAGS) $(OBJ) $(CL_GTK_FLAGS) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
+	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d) $(CL_GTK_SORT_FLAGS) -I/usr/local/opt/openssl/include
+	@$(CC) $(CFLAGS) $(OBJ) $(CL_GTK_FLAGS) $(JSONF)/$(JSON_NAME) $(LIBMXF) -L/usr/local/opt/openssl/lib -lssl -lcrypto -l sqlite3 -o $(APP_NAME)
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
 	@mkdir -p $(OBJ_DIR)
 	@mv $(OBJ) $(OBJ_DIR)
