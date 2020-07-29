@@ -22,7 +22,7 @@ t_list *mx_contr_renew_contacts(t_renew_contacts *tok) {
 
     asprintf(&vals, "UsersMeta WHERE user_id = ("
                     "SELECT DISTINCT id FROM Users WHERE auth_token = '%s')", tok->auth_token);
-    rs = mx_model_select("DISTINCT id, nick",
+    rs = mx_model_select("DISTINCT contact_id, nick",
                          vals, callback_renew_cont, data);
     mx_pop_front(&data);
     free(vals);

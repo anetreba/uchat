@@ -115,6 +115,10 @@ typedef struct s_data {
     char **colname;
     int tokens;
     int verify_code;
+    int room_id;
+    char *room_name;
+    int *users;
+
     const char *auth_token;
 }               t_data;
 
@@ -176,7 +180,8 @@ typedef struct s_cont {
 }               t_cont;
 
 typedef struct s_info_room {
-    char *room_name;
+    int room_id;
+    const char *room_name;
     t_list *cont;
 }               t_info_room;
 
@@ -255,6 +260,8 @@ void json_parse(json_object *jobj, t_list *lst);
 void *mx_model_new_message(t_send_message *data);
 void mx_model_renew_contacts(json_object *obj);
 void *mx_model_add_contact(t_add_contact *data);
+void mx_model_new_room(t_info_room *info_room);
+void mx_contr_add_room(t_event *event, json_object *jobj);
 
 void mx_json_read(t_event *event);
 //controllers

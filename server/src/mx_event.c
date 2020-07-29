@@ -325,11 +325,6 @@ void mx_del_room(struct json_object *jobj, t_event *event) {
 
 void mx_return_add_contact_json(t_data *resp, t_event *event) {
     struct json_object *jobj = json_object_new_object();
-    printf("=================================================\n");
-    printf("RESP.RES: %d\n", resp->res);
-    printf("RESP.ID: %d\n", resp->id);
-    printf("event->add_contact->sender_id: %d\n", event->add_contact->sender_id);
-    printf("=================================================\n");
 
     json_object_object_add(jobj, "event", json_object_new_string("add_contact_response"));
     if (event->add_contact->sender_id != resp->id && resp->id != 0 && resp->res == 0) {
@@ -341,12 +336,7 @@ void mx_return_add_contact_json(t_data *resp, t_event *event) {
         json_object_object_add(jobj, "status", json_object_new_string("1"));
     else
         json_object_object_add(jobj, "status", json_object_new_string("2"));
-
-
-
     char *jstr = (char *)json_object_to_json_string(jobj);
-    printf("JSON  == %s\n", jstr);
-
     send(event->new_open_socket, jstr, strlen(jstr), 0);
     mx_strdel(&jstr);
 }

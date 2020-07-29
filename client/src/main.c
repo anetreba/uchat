@@ -46,15 +46,22 @@ void mx_json(t_event *event, char *action) {
     }
     else if (strcmp(action, ev[7]) == 0) {
         json_object_object_add(jobj, "event", json_object_new_string("add_room"));
+        json_object_object_add(jobj, "sender_id", json_object_new_int(event->data->id));
+        json_object_object_add(jobj, "auth_token", json_object_new_string(event->data->auth_token));
         json_object_object_add(jobj, "room_name", json_object_new_string(event->info_room->room_name));
+
         json_object *jarray = json_object_new_array();
         t_list *lst = event->info_room->cont;
 
-        while (lst) {
-            json_object *jstring = json_object_new_int(((t_cont *)(lst->data))->id);
-            json_object_array_add(jarray,jstring);
+        while (lst->next) {
+            if(((t_cont *)(lst->data))->id != ((t_cont *)(lst->next->data))->id) {
+                json_object *jstring = json_object_new_int(((t_cont * )(lst->data))->id);
+                json_object_array_add(jarray, jstring);
+            }
             lst = lst->next;
         }
+        json_object *jstring = json_object_new_int(((t_cont * )(lst->data))->id);
+        json_object_array_add(jarray, jstring);
         json_object_object_add(jobj, "users", jarray);
     }
     jstr = json_object_to_json_string(jobj);

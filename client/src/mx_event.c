@@ -23,7 +23,8 @@ void mx_json_read(t_event *event) {
 void mx_valid_event(struct json_object *jobj, t_event *event) {
     struct json_object *obj;
     char *events[] = {"renew_rooms_response", "renew_resp", "new_message", "signup_response",
-                      "signin_response", "add_contact_response", "renew_contacts_resp", "del_contact", "del_room"};
+                      "signin_response", "add_contact_response", "renew_contacts_resp",
+                      "add_room_response"};
     const char *ev;
 
     json_object_object_get_ex(jobj, "event", &obj);
@@ -82,5 +83,8 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_parse_room_front, event, 0);
         gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_render_cont_list, event, 0);
         gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_render_cont, event, 0);
+    }
+    else if (strcmp(ev, events[7]) == 0){
+        mx_contr_add_room(event, jobj);
     }
 }
