@@ -17,6 +17,7 @@ void mx_add_room_resp(t_event *event, int sock) {
         json_object *jstring = json_object_new_int(event->add_room->cont_id[i]);
         json_object_array_add(jarray,jstring);
     }
+
     json_object_object_add(jobj, "users", jarray);
 
 

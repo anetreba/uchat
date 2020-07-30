@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 	//create_tables
-    mx_db_creation();
+    //mx_db_creation();
 	//
     int port = atoi(argv[1]);
     //mx_demonize(); //в продакшен раскоментировать

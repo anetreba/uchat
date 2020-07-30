@@ -19,7 +19,7 @@ t_list *mx_contr_renew_rooms(t_renew_rooms *tok) {
     t_list *data =  mx_create_node(udata);
     memset(udata, 0, sizeof(t_renew_rooms));
 
-    asprintf(&vals, "Rooms WHERE user_id = (SELECT id FROM Users "
+    asprintf(&vals, "RoomsMeta WHERE user_id = (SELECT id FROM Users "
                     " WHERE auth_token = '%s')"
                     " GROUP BY room_id", tok->auth_token);
     mx_model_select("DISTINCT room_id, room_name", vals, callback_renew_rooms, data);

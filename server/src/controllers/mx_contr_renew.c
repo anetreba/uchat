@@ -25,14 +25,14 @@ t_list *mx_contr_renew(t_renew *tok) {
     t_list *data =  mx_create_node(udata);
     int rs;
 
-    asprintf(&vals, "Messages, Rooms "
-                    "WHERE Rooms.room_id = (SELECT DISTINCT "
+    asprintf(&vals, "Messages, RoomsMeta "
+                    "WHERE RoomsMeta.room_id = (SELECT DISTINCT "
                     "room_id FROM Messages WHERE sender_id = ("
                     "SELECT id FROM Users WHERE auth_token = '%s') "
                     "GROUP BY Messages.room_id)", tok->auth_token);
     rs = mx_model_select("DISTINCT Messages.message,"
                          "    Messages.room_id,"
-                         "    Rooms.room_name,"
+                         "    RoomsMeta.room_name,"
                          "    Messages.sender_id,"
                          "    Messages.date_send,"
                          "    Messages.recieve_status",
