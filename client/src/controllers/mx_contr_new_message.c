@@ -21,7 +21,10 @@ gboolean mx_add_mess_to_list(void *data) {
             mess->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
             mess->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
+
+
             mess->message_button = gtk_button_new_with_label(mess->message);
+            gtk_widget_set_name(mess->message_button, "message_button");
 
             gtk_widget_set_hexpand(mess->message_button, TRUE);
             if (mess->sender_id == event->data->id) {
@@ -36,6 +39,8 @@ gboolean mx_add_mess_to_list(void *data) {
 
             mess->user_button = gtk_button_new_with_label(mess->sender_nick); //who send a message
             gtk_widget_set_hexpand(mess->user_button, TRUE);
+            gtk_widget_set_name(mess->user_button, "sender");
+
             if (mess->sender_id == event->data->id) {
                 gtk_widget_set_halign(mess->user_button, GTK_ALIGN_END);
             } // <---- END - твой ник, START кто прислал
