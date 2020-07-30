@@ -1,122 +1,87 @@
-APP_NAME = chat_server
+NAME = uchat_server
+NAME_ROOT = ../$(NAME)
 
-LIBMXF = libmx/libmx.a
+CCFLG = clang -std=c11 $(addprefix -W, all extra error pedantic) -g
 
-JSONF = json-c
-
-JSON_NAME = libjson-c.a
-
-INC = inc/ \
-	  json-c/inc/
+SRC_DIRS = src \
+			src/controllers \
+			src/db \
+			src/models
 
 SRC_DIR = src
 
+INC_DIR = inc
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR)/,\
-		main.c \
-		mx_sqlite.c \
-		mx_socket.c \
-		mx_printerr.c \
-		mx_event.c  \
-		mx_parse_json.c \
-		models/mx_model_insert.c \
-		models/mx_model_select.c \
-		models/mx_model_update.c \
-		models/mx_model_del.c \
-		controllers/mx_signup.c \
-		controllers/mx_signin.c \
-		controllers/mx_gen_auth_token.c \
-		controllers/mx_date_now.c \
-		controllers/mx_date_aval.c \
-		controllers/mx_contr_renew.c \
-		controllers/mx_gen_verify_code.c \
-		controllers/mx_verify_mail.c \
-		controllers/mx_contr_renew_rooms.c \
-		controllers/mx_recieve_mess.c \
-		controllers/mx_sendmail.c \
-		controllers/mx_contr_renew_contacts.c \
-		controllers/mx_contr_del_room.c \
-		controllers/mx_contr_add_contact.c \
-		controllers/mx_contr_add_new_room.c \
-		db/mx_create_table.c \
-        db/mx_db_creation.c \
-        db/mx_table_messages.c \
-        db/mx_table_rooms.c \
-        db/mx_table_roomsmeta.c \
-        db/mx_table_users.c \
-        db/mx_table_users_meta.c \
-    	mx_add_room_resp.c \
-		mx_add_room.c \
-		demonize.c)
+SRCS := $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+INC = $(INC_DIR)/header.h
+OBJS := $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:%.c=%.o)))
 
+LIBS_DIR = libs
 
-OBJ = main.o \
-	  mx_sqlite.o \
-	  mx_socket.o \
-	  mx_printerr.o \
-	  mx_event.o  \
-	  mx_parse_json.o \
-	  mx_model_insert.o \
-	  mx_model_select.o \
-	  mx_model_update.o \
-	  mx_model_del.o \
-	  mx_signup.o \
-	  mx_signin.o \
-	  mx_gen_auth_token.o \
-	  mx_date_now.o \
-	  mx_date_aval.o \
-	  mx_contr_renew.o \
-	  mx_gen_verify_code.o \
-	  mx_verify_mail.o \
-	  mx_contr_renew_rooms.o \
-	  mx_sendmail.o \
-	  mx_recieve_mess.o \
-	  demonize.o \
-	  mx_contr_renew_contacts.o \
-	  mx_contr_del_room.o \
-	  mx_contr_add_contact.o \
-	  mx_add_room.o \
-	  mx_contr_add_new_room.o \
-	  mx_add_room_resp.o \
-	  mx_create_table.o \
-      mx_db_creation.o \
-      mx_table_messages.o \
-      mx_table_rooms.o \
-      mx_table_roomsmeta.o \
-      mx_table_users.o \
-      mx_table_users_meta.o
+LIBMX_DIR = $(LIBS_DIR)/libmx
+LIBMX = $(LIBMX_DIR)/libmx.a
 
-CC = clang
+JSONC_DIR = $(LIBS_DIR)/json-c
+JSONC = $(JSONC_DIR)/libjson-c.a
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
+SSL_DIR = /usr/local/opt/openssl/lib/
+SSL_INC = /usr/local/opt/openssl/include/
+ 
 
-all : install
+GTK_LINK_FLAGS = `pkg-config --cflags  --libs gtk+-3.0`
+GTK_INC_FLAGS = `pkg-config --cflags gtk+-3.0`
 
-install : json uchat
+LIBS_FLAGS := $(addprefix -L, $(SSL_DIR) \
+	$(addprefix $(LIBS_DIR)/, json-c libmx)) \
+	$(addprefix -l, ssl crypto sqlite3 json-c mx) $(GTK_LINK_FLAGS)
+LIBS_INCS := $(addprefix -I, $(addprefix $(LIBS_DIR)/, json-c libmx/inc) \
+	$(INC_DIR) $(SSL_INC)) $(GTK_INC_FLAGS)
 
-json:
-	@make -C $(JSONF)
+LIBS = $(LIBMX) $(JSONC)
 
-uchat : $(SRC) inc/header.h libmx/libmx.a json-c/libjson-c.a
-	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d)
-	@$(CC) $(CFLAGS) $(OBJ) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
+EMPTY =
+SPACE = $(EMPTY) $(EMPTY)
+VPATH := $(subst $(SPACE), :, $(SRC_DIRS))
+
+all: install
+
+install: $(NAME)
+
+$(NAME): $(OBJS) $(LIBS)
+	@$(CCFLG) $(LIBS_FLAGS) $(OBJS) -o $@ --debug
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
-	@mkdir -p $(OBJ_DIR)
-	@mv $(OBJ) $(OBJ_DIR)
-	@rm -rf ./*.c ./*.h
-	@rm -rf $(OBJ_DIR)
-	@printf "$(APP_NAME) \033[31;1minstalled\033[0m\n"
 
-uninstall : clean
-	@make uninstall -C $(JSONF)
-	@rm -rf $(APP_NAME)
+$(OBJS): obj/%.o: %.c $(INC) Makefile | $(OBJ_DIR)
+	@$(CCFLG) $(LIBS_INCS) -c -o $@ $< --debug
+	@printf "\r\33[2K$(NAME) \033[33;1mcompile \033[0m$(<:$(SRC_DIR)/%.c=%) "
+
+$(OBJ_DIR):
+	@mkdir -p $@
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
+
+$(LIBMX):
+	@make -sC $(LIBMX_DIR)
+
+$(JSONC):
+	@make -sC $(JSONC_DIR)
+
+out: $(NAME_ROOT)
+
+$(NAME_ROOT): $(NAME)
+	@cp $(NAME) ..
+	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
+
+clean:
+	@make -sC $(LIBMX_DIR) $@
+	@make -sC $(JSONC_DIR) $@
+	@rm -rf $(OBJ_DIR)
+	@printf "$(OBJ_DIR)\t   \033[31;1mdeleted\033[0m\n"
+
+uninstall: clean
+	@make -sC $(LIBMX_DIR) $@
+	@make -sC $(JSONC_DIR) $@
+	@rm -rf $(NAME)
 	@printf "$(NAME) \033[31;1muninstalled\033[0m\n"
 
-clean :
-
-	@make clean -C $(JSONF)
-	@rm -rf $(OBJ_DIR)
-	@printf "$(OBJD)\t   \033[31;1mdeleted\033[0m\n"
-
-reinstall : uninstall install
+reinstall: uninstall install

@@ -13,14 +13,12 @@ static int callback_rooms(void *data, int argc, char **argv, char **ColName) {
 
 int mx_select_rooms(t_list *lst) {
     char *vals;
-    char *str;
-    char *auth_token = NULL;
     t_data data;
     int rs;
+    lst = NULL;
 
     asprintf(&vals, "Rooms GROUP BY id");
 
     rs = mx_model_select("DISTINCT id, name", vals, callback_rooms, &data);
     return rs;
 }
-

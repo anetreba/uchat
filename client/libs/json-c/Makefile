@@ -1,6 +1,5 @@
 NAME	=	libjson-c.a
 
-#CFLG	=	-std=c11 $(addprefix -W, all extra error pedantic)
 CFLG	=	-std=c11 $(addprefix -W, all)
 
 SRCD	=	src
