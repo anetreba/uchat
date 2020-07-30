@@ -180,5 +180,14 @@ t_data *mx_contr_add_contact(t_add_contact *tok);
 t_event *mx_contr_add_new_room(t_event *event);
 void mx_add_room_resp(t_event *event, int sock);
 
-
+//create_db
+void mx_db_creation();
+int mx_callback(void *data, int argc, char **argv, char **ColName);
+void mx_create_table(sqlite3 *db, char *sql,
+                     int (*callback)(void*, int, char**, char**));
+void mx_table_messages(sqlite3 *db, char *sql);
+void mx_table_rooms(sqlite3 *db, char *sql);
+void mx_table_roomsmeta(sqlite3 *db, char *sql);
+void mx_table_users(sqlite3 *db, char *sql);
+void mx_table_usersmeta(sqlite3 *db, char *sql);
 #endif

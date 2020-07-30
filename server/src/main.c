@@ -5,7 +5,10 @@ int main(int argc, char **argv) {
 		printf("Usage: %s <port>\n", argv[0]);
 		return EXIT_FAILURE;
 	}
-	int port = atoi(argv[1]);
+	//create_tables
+    mx_db_creation();
+	//
+    int port = atoi(argv[1]);
     //mx_demonize(); //в продакшен раскоментировать
     mx_server_socket(port);
 //	system("leaks -q chat_server");

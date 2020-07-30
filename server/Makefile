@@ -39,7 +39,14 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		controllers/mx_contr_del_room.c \
 		controllers/mx_contr_add_contact.c \
 		controllers/mx_contr_add_new_room.c \
-		mx_add_room_resp.c \
+		db/mx_create_table.c \
+        db/mx_db_creation.c \
+        db/mx_table_messages.c \
+        db/mx_table_rooms.c \
+        db/mx_table_roomsmeta.c \
+        db/mx_table_users.c \
+        db/mx_table_users_meta.c \
+    	mx_add_room_resp.c \
 		mx_add_room.c \
 		demonize.c)
 
@@ -71,7 +78,14 @@ OBJ = main.o \
 	  mx_contr_add_contact.o \
 	  mx_add_room.o \
 	  mx_contr_add_new_room.o \
-	  mx_add_room_resp.o
+	  mx_add_room_resp.o \
+	  mx_create_table.o \
+      mx_db_creation.o \
+      mx_table_messages.o \
+      mx_table_rooms.o \
+      mx_table_roomsmeta.o \
+      mx_table_users.o \
+      mx_table_users_meta.o
 
 CC = clang
 
