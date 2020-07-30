@@ -10,6 +10,37 @@ gboolean show_error_label(void *data) {
     return 0;
 }
 
+void hide_quit_wdw(GtkButton *button, t_event *event) {
+    (void)button;
+
+    gtk_widget_hide(event->gtk->quit_wdw);
+}
+
+void logout(GtkButton *button, t_event *event) {
+    (void)button;
+
+    gtk_entry_set_text(GTK_ENTRY(event->gtk->login), "");
+    gtk_entry_set_text(GTK_ENTRY(event->gtk->pass), "");
+
+    gtk_widget_hide(event->gtk->quit_wdw);
+    gtk_widget_hide(event->gtk->chat_window);
+    gtk_widget_show(event->gtk->window);
+}
+
+void show_logout_wdw(GtkButton *button, t_event *event) {
+    (void)button;
+    event->gtk->quit_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder6, "quit_wdw"));
+    event->gtk->yes_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder6, "yes_btn"));
+    event->gtk->no_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder6, "no_btn"));
+
+    gtk_widget_show(event->gtk->quit_wdw);
+    gtk_widget_show(event->gtk->yes_btn);
+    gtk_widget_show(event->gtk->no_btn);
+
+    g_signal_connect(event->gtk->yes_btn, "clicked", G_CALLBACK(logout), event);
+    g_signal_connect(event->gtk->no_btn, "clicked", G_CALLBACK(hide_quit_wdw), event);
+}
+
 void chat_window(t_event *event) {
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
 
@@ -25,6 +56,7 @@ void chat_window(t_event *event) {
     event->gtk->new_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "add_room_chat_btn"));
     event->gtk->contacts_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_wdw"));
     event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_pop_up"));
+    event->gtk->logout_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "logout_btn"));
 
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 
@@ -45,6 +77,7 @@ void chat_window(t_event *event) {
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(mx_show_groups_wdw), event);
     g_signal_connect(event->gtk->contacts, "clicked", G_CALLBACK(show_contacts_wdw), event);
+    g_signal_connect(event->gtk->logout_btn, "clicked", G_CALLBACK(show_logout_wdw), event);
 }
 
 gboolean mx_show_chat_window(void *data) {

@@ -57,6 +57,8 @@ typedef struct s_gtk {
     GtkBuilder *builder;
     GtkBuilder *builder2;
     GtkBuilder *builder3;
+    GtkWidget *login;
+    GtkWidget *pass;
     GtkWidget *window;
     GtkWidget *fixed;
     GtkWidget *sign_in_btn;
@@ -93,6 +95,7 @@ typedef struct s_gtk {
     GtkWidget *groups_wdw;
     GtkBuilder *builder4;
     GtkBuilder *builder5;
+    GtkBuilder *builder6;
     GtkBuilder *add_cont_builder;
     GtkWidget *add_contact_wdw;
     GtkWidget *add_contact_confirm_btn;
@@ -102,6 +105,12 @@ typedef struct s_gtk {
     GtkWidget *add_room_entry_field;
     GtkWidget *add_room_back_btn;
     GtkWidget *users_listbox;
+    GtkWidget *cancel_btn_sign_in;
+    GtkWidget *cancel_btn_sign_up;
+    GtkWidget *logout_btn;
+    GtkWidget *quit_wdw;
+    GtkWidget *yes_btn;
+    GtkWidget *no_btn;
 }               t_gtk;
 
 typedef struct s_data {

@@ -81,16 +81,16 @@
         </child>
         <child>
           <object class="GtkButton" id="registration_btn">
-            <property name="label" translatable="yes">registration</property>
+            <property name="label" translatable="yes">Registration</property>
             <property name="name">registration_btn</property>
-            <property name="width_request">174</property>
+            <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">320</property>
+            <property name="x">230</property>
             <property name="y">580</property>
           </packing>
         </child>
@@ -150,6 +150,21 @@
           <packing>
             <property name="x">305</property>
             <property name="y">350</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="cancel_btn">
+            <property name="label" translatable="yes">Cancel</property>
+            <property name="name">cancel_btn</property>
+            <property name="width_request">173</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">407</property>
+            <property name="y">580</property>
           </packing>
         </child>
       </object>
