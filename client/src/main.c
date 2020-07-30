@@ -82,13 +82,6 @@ void back(GtkButton *button, t_event *event) {
 }
 
 void sign_up_window(GtkButton *button, t_event *event) {
-//    event->gtk->new_nickname = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_nick_name"));
-//    event->gtk->new_login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_login"));
-//    event->gtk->reg_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "sign_up_window"));
-//    event->gtk->new_password = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_password"));
-//    event->gtk->new_email = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_email"));
-//    event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "registration_btn"));
-//    event->gtk->back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
 
     (void)button;
     g_signal_connect(event->gtk->reg_btn, "clicked", G_CALLBACK(sign_up), event);
@@ -100,8 +93,6 @@ void sign_up_window(GtkButton *button, t_event *event) {
 }
 
 void fill_sign_in(GtkButton *button, t_event *event) {
-//    event->gtk->pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
-//    event->gtk->login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_login"));
 
     event->log_in->login = gtk_entry_get_text(GTK_ENTRY(event->gtk->login));
     event->log_in->password = gtk_entry_get_text(GTK_ENTRY(event->gtk->pass));
@@ -109,51 +100,7 @@ void fill_sign_in(GtkButton *button, t_event *event) {
     (void)button;
     printf("login: %s\npassword: %s\n", event->log_in->login, event->log_in->password);
     mx_json(event, "sign_in");
-
-    //chat
     chat_window(event);
-
-
-//    g_signal_connect(event->gtk->chat_window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
-//     g_object_unref(G_OBJECT(event->gtk->builder));
-}
-
-
-void cancel_sign_in(GtkButton *button, t_event *event) {
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->login), "");
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->pass), "");
-    (void)button;
-}
-
-void cancel_sign_up(GtkButton *button, t_event *event) {
-
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->new_nickname), "");
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->new_login), "");
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->new_password), "");
-    gtk_entry_set_text(GTK_ENTRY(event->gtk->new_email), "");
-    (void)button;
-}
-
-void build_sign_in(t_event *event) {
-    event->gtk->cancel_btn_sign_in = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "cancel_btn"));
-    event->gtk->pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
-    event->gtk->login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_login"));
-    event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
-    event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
-    event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
-    event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
-
-}
-
-void build_sign_up(t_event *event) {
-    event->gtk->cancel_btn_sign_up = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "cancel_btn"));
-    event->gtk->new_nickname = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_nick_name"));
-    event->gtk->new_login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_login"));
-    event->gtk->reg_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "sign_up_window"));
-    event->gtk->new_password = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_password"));
-    event->gtk->new_email = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_email"));
-    event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "registration_btn"));
-    event->gtk->back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
 }
 
 void mx_init_login(t_event *event) {
@@ -172,6 +119,7 @@ void mx_init_login(t_event *event) {
     event->gtk->builder5 = gtk_builder_new_from_file ("src/view/add_room_pop_up.glade");
     event->gtk->builder6 = gtk_builder_new_from_file ("src/view/logout_confirm_wdw.glade");
     event->gtk->builder7 = gtk_builder_new_from_file ("src/view/edit_profile_wdw.glade");
+    event->gtk->builder8 = gtk_builder_new_from_file ("src/view/settings_wdw.glade");
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
@@ -182,24 +130,9 @@ void mx_init_login(t_event *event) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
     build_sign_in(event);
-//    event->gtk->window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_window"));
-//    event->gtk->fixed = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "fixed"));
-//    event->gtk->sign_in_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "login_btn"));
-//    event->gtk->sign_up_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "sign_up_btn"));
+
     event->gtk->chat_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "chat_window"));
-    //////sign-in Entry😘____________________________________________________________________________________///
-//    event->gtk->cancel_btn_sign_in = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "cancel_btn"));
-//    event->gtk->pass = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_password"));
-//    event->gtk->login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder, "entry_login"));
-    //////sign-up Entry🤪___________________________________________________________________________________///
-//    event->gtk->cancel_btn_sign_up = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "cancel_btn"));
-//    event->gtk->new_nickname = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_nick_name"));
-//    event->gtk->new_login = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_login"));
-//    event->gtk->reg_window = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "sign_up_window"));
-//    event->gtk->new_password = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_password"));
-//    event->gtk->new_email = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "entry_email"));
-//    event->gtk->reg_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "registration_btn"));
-//    event->gtk->back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder2, "back_btn"));
+
     build_sign_up(event);
 
     g_signal_connect(event->gtk->sign_in_btn, "clicked", G_CALLBACK(fill_sign_in), event);

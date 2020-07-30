@@ -42,7 +42,12 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		mx_renew_contact.c \
       		mx_parse_cont.c \
       		mx_add_cont_show.c \
-      		mx_event.c)
+      		mx_event.c \
+      		mx_build_auth.c \
+      		mx_cancel_btn.c \
+      		mx_logout.c \
+      		mx_edit_profile.c \
+      		mx_settings.c)
 
 
 OBJ = main.o \
@@ -73,7 +78,12 @@ OBJ = main.o \
       mx_contr_select_contacts.o \
       mx_renew_contact.o \
       mx_parse_cont.o \
-      mx_add_cont_show.o
+      mx_add_cont_show.o \
+      mx_build_auth.o \
+      mx_cancel_btn.o \
+      mx_logout.o \
+      mx_edit_profile.o \
+      mx_settings.o
 
 CC = clang
 

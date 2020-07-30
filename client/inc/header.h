@@ -97,6 +97,7 @@ typedef struct s_gtk {
     GtkBuilder *builder5;
     GtkBuilder *builder6;
     GtkBuilder *builder7;
+    GtkBuilder *builder8;
     GtkBuilder *add_cont_builder;
     GtkWidget *add_contact_wdw;
     GtkWidget *add_contact_confirm_btn;
@@ -120,6 +121,11 @@ typedef struct s_gtk {
     GtkWidget *edit_profile_wdw;
     GtkWidget *edit_confirm;
     GtkWidget *edit_back;
+    GtkWidget *settings_btn;
+    GtkWidget *settings_window;
+    GtkWidget *light;
+    GtkWidget *dark;
+    GtkWidget *settings_back;
 
 }               t_gtk;
 
@@ -258,11 +264,21 @@ gboolean mx_parse_room_front(void *data);
 void chat_window(t_event *event);
 gboolean mx_show_chat_window(void *data);
 gboolean show_error_label(void *data);
+void build_sign_up(t_event *event);
+void build_sign_in(t_event *event);
+
+void hide_quit_wdw(GtkButton *button, t_event *event);
+void logout(GtkButton *button, t_event *event);
+void show_logout_wdw(GtkButton *button, t_event *event);
+void show_edit_profile_wdw(GtkButton *button, t_event *event);
+void show_settings(GtkButton *button, t_event *event);
 
 void create_row(t_event *event);
 void mx_add_new_message(t_event *event, GtkWidget *msg);
 void new_room(GtkButton *button, t_event *event);
 void send_messages(GtkButton *button, t_event *event);
+void cancel_sign_in(GtkButton *button, t_event *event);
+void cancel_sign_up(GtkButton *button, t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud
