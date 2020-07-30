@@ -160,8 +160,10 @@ void mx_init_login(t_event *event) {
     event->log_in = (t_log_in *)malloc(sizeof(t_log_in));
     event->gtk = (t_gtk *)malloc(sizeof(t_gtk));
     event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
+    event->edit_prof = (t_edit_prof *)malloc(sizeof(t_edit_prof));
     memset(event->log_in, 0, sizeof(t_log_in));
     memset(event->send_message, 0, sizeof(t_send_message));
+
 
     event->gtk->builder = gtk_builder_new_from_file ("src/view/login_window.glade");
     event->gtk->builder2 = gtk_builder_new_from_file ("src/view/sign_up_window.glade");
@@ -169,6 +171,7 @@ void mx_init_login(t_event *event) {
     event->gtk->builder4 = gtk_builder_new_from_file ("src/view/contacts_window.glade");
     event->gtk->builder5 = gtk_builder_new_from_file ("src/view/add_room_pop_up.glade");
     event->gtk->builder6 = gtk_builder_new_from_file ("src/view/logout_confirm_wdw.glade");
+    event->gtk->builder7 = gtk_builder_new_from_file ("src/view/edit_profile_wdw.glade");
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
@@ -207,6 +210,7 @@ void mx_init_login(t_event *event) {
 
 
     g_signal_connect(event->gtk->window , "destroy", G_CALLBACK(gtk_main_quit), NULL);
+    g_signal_connect(event->gtk->chat_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show(event->gtk->window);
 }
 

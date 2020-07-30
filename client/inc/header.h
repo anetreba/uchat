@@ -96,6 +96,7 @@ typedef struct s_gtk {
     GtkBuilder *builder4;
     GtkBuilder *builder5;
     GtkBuilder *builder6;
+    GtkBuilder *builder7;
     GtkBuilder *add_cont_builder;
     GtkWidget *add_contact_wdw;
     GtkWidget *add_contact_confirm_btn;
@@ -108,9 +109,18 @@ typedef struct s_gtk {
     GtkWidget *cancel_btn_sign_in;
     GtkWidget *cancel_btn_sign_up;
     GtkWidget *logout_btn;
+    GtkWidget *edit_profile_btn;
     GtkWidget *quit_wdw;
     GtkWidget *yes_btn;
     GtkWidget *no_btn;
+    GtkWidget *edit_login;
+    GtkWidget *edit_nick;
+    GtkWidget *edit_pass;
+    GtkWidget *edit_email;
+    GtkWidget *edit_profile_wdw;
+    GtkWidget *edit_confirm;
+    GtkWidget *edit_back;
+
 }               t_gtk;
 
 typedef struct s_data {
@@ -197,6 +207,14 @@ typedef struct s_cont_for_add_room {
     GtkWidget *cont_btn;
 }               t_cont_for_add_room;
 
+typedef struct s_edit_prof {
+    int id;
+    const char *edit_login;
+    const char *edit_pass;
+    const char *edit_nick;
+    const char *edit_email;
+}               t_edit_prof;
+
 typedef struct s_event {
     int network_socket;
     int prev_room_id;
@@ -214,6 +232,7 @@ typedef struct s_event {
     t_list *list_contact;
     t_info_room *info_room;
     t_list *for_new_room;
+    t_edit_prof *edit_prof;
 }              t_event;
 
 typedef struct s_response {
