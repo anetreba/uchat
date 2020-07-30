@@ -13,7 +13,6 @@ void mx_print(t_list *list);
 
 void mx_front_message(int room_id, t_event *event) {
     t_list *lst = event->list_room;
-
     while (lst) {
         if (((t_list_room *)(lst->data))->room_id == room_id) {
             t_list *mess = ((t_list_room *)(lst->data))->mess;
@@ -24,6 +23,7 @@ void mx_front_message(int room_id, t_event *event) {
 
 
             while (mess) {
+                printf("******************MESSAGE************\n");
                 ((t_mess *)(mess->data))->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
                 ((t_mess *)(mess->data))->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 

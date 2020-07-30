@@ -119,21 +119,31 @@ void mx_show_groups_wdw(GtkButton *button, t_event *event) {
     (void)button;
 }
 
+void pr(t_list *lst) {
+    t_list *list = lst;
 
-void mx_create_new_mess(t_list *lst, t_event *event) {
+    while (list) {
+        printf("NICK %sn", ((t_mess *)(list->data))->sender_nick);
+        printf("MESSAGE %s\n", ((t_mess *)(list->data))->message);
+        printf("ID %d\n", ((t_mess *)(list->data))->sender_id);
+        list = list->next;
+    }
+}
+
+
+void mx_create_new_mess(t_list **lst, t_event *event) {
     t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
 
     memset(mess, 0, sizeof(t_mess));
-    mess->sender_nick = event->data->login;
-    mess->message = "CREATE A NEW ROOM!";
+    mess->sender_nick = strdup(event->log_in->login);
+    mess->message = strdup("CREATE A NEW ROOM!");
     mess->sender_id = event->data->id;
-    mx_push_back(&lst, mess);
+    mx_push_back(lst, mess);
 }
 
 gboolean mx_new_room(void *data) {
     t_event *event = (t_event *)data;
     t_list_room *room = (t_list_room *)malloc(sizeof(t_list_room));
-    printf("ERROR\n");
 
     memset(room, 0, sizeof(t_list_room));
 
@@ -147,7 +157,9 @@ gboolean mx_new_room(void *data) {
     room->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     room->room_btn = gtk_button_new_with_label(room->room_name);
 
-    mx_create_new_mess(room->mess, event);
+    mx_create_new_mess(&(room->mess), event);
+//    printf("ERROR\n");
+    pr(room->mess);
 
     mx_push_back(&(event->list_room), room);
 
@@ -173,7 +185,6 @@ gboolean mx_new_room(void *data) {
 
     gtk_list_box_insert(GTK_LIST_BOX(event->gtk->list_rooms), room->row, -1);
 
-    gtk_container_add(GTK_CONTAINER(event->gtk->viewport), room->list_box);
     g_signal_connect(room->room_btn, "clicked", G_CALLBACK(mx_select_room), event);
 
     gtk_widget_show(room->row);
