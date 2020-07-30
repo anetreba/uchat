@@ -282,7 +282,7 @@ void mx_contr_logout();
 //*create db
 void mx_db_creation();
 int mx_callback(void *data, int argc, char **argv, char **ColName);
-void mx_create_table(sqlite3 db, char *sql,
+void mx_create_table(sqlite3 *db, char *sql,
                      int (*callback)(void*, int, char**, char**));
 void mx_table_contacts(sqlite3 *db, char *sql);
 void mx_table_messages(sqlite3 *db, char *sql);

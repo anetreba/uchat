@@ -20,6 +20,6 @@ void mx_contr_add_room(t_event *event, json_object *jobj) {
     const char *jstr = json_object_to_json_string(jobj);
 
     send(event->network_socket, jstr, strlen(jstr), 0);
-    parse_json((const char *)jstr, &obj);
+    parse_json((const char *)jstr, &obj); //сигфолтит(((
     write_room_data(event, obj);
 }
