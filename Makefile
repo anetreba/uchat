@@ -9,6 +9,8 @@ all: install
 install: dep
 
 dep:
+	@mkdir ./src
+	@cp -r client/src/view ./src/
 	@make out -C $(CL_DIR)
 	@make out -C $(SV_DIR)
 
@@ -21,6 +23,7 @@ uninstall: clean
 	@make uninstall -C $(SV_DIR)
 	@rm -rf $(CL_NAME)
 	@rm -rf $(SV_NAME)
+	@rm -rf ./src
 	@printf "$(CL_NAME) \033[31;1muninstalled\033[0m\n"
 	@printf "$(SV_NAME) \033[31;1muninstalled\033[0m\n"
 

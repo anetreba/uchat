@@ -15,11 +15,20 @@
     padding-top: 6px;
 }
 
+#login_logo_img_btn, #sign_up_logo_img_btn {
+    background-image: url("images/main_logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
 
 
 /*==============SIGN IN     SIGN UP  WINDOW=========================*/
 
-#entry_login, #entry_password {
+#entry_login, #entry_password, #entry_email,
+#entry_nick_name {
     background-color: #1f2831;
     color: #fff;
     border-color: #F1F0E2;
@@ -29,7 +38,7 @@
     font-size: 14px;
 }
 
-button#sign_up_btn, button#sign_in_btn {
+button#sign_up_btn, button#sign_in_btn, #back_btn, #s_btn {
     background: #131a21;
     border: 0px;
     box-shadow: none;
@@ -38,15 +47,15 @@ button#sign_up_btn, button#sign_in_btn {
     color: #fff;
 }
 
-button#sign_up_btn {
+button#sign_up_btn, #back_btn {
     border-bottom: 3px solid #6A1A4C;
 }
 
-button#sign_in_btn {
+button#sign_in_btn, #s_btn  {
     border-bottom: 3px solid #278040;
 }
 
-button#cancel_btn, button#login_btn {
+button#cancel_btn, button#login_btn, #cancel_btn, #registration_btn {
     border: 0px;
     box-shadow: none;
     text-shadow: none;
@@ -57,9 +66,11 @@ button#cancel_btn, button#login_btn {
 button#cancel_btn {
     background: #A49E9E;
 }
-button#login_btn {
+button#login_btn, #registration_btn {
     background: #278040;
 }
+
+
 
 
 /*======================== CHAT WINDOW ===========================*/
@@ -205,6 +216,11 @@ button#elm_1 {
     background-size: cover;
     border-right: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
+}
+
+button#elm_5 {
+    background-image: url("images/mini_logo_dark_theme.png");
+    background-size: cover;
 }
 
 #message_button {
