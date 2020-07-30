@@ -187,6 +187,10 @@ int main(int argc, char **argv) {
     t_event event;
     int port = atoi(argv[2]);
 
+    ///////////////////
+    mx_db_creation();
+    ///////////////////
+
     event.network_socket = socket(AF_INET, SOCK_STREAM, 0);
     event.prev_room_id = 0;
 

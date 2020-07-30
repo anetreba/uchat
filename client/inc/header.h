@@ -277,7 +277,18 @@ void mx_contr_new_message(t_event *event, json_object *jobj);
 void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
 void mx_contr_add_contact(t_event *event, json_object *jobj);
-void mx_contr_logout ();
+void mx_contr_logout();
+
+//*create db
+void mx_db_creation();
+int mx_callback(void *data, int argc, char **argv, char **ColName);
+void mx_create_table(sqlite3 db, char *sql,
+                     int (*callback)(void*, int, char**, char**));
+void mx_table_contacts(sqlite3 *db, char *sql);
+void mx_table_messages(sqlite3 *db, char *sql);
+void mx_table_rooms(sqlite3 *db, char *sql);
+void mx_table_settings(sqlite3 *db, char *sql);
+
 
 
 void json_parse_cont(json_object *jobj, t_list *lst);

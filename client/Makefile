@@ -46,7 +46,13 @@ SRC = $(addprefix $(SRC_DIR)/,\
       		mx_renew_contact.c \
       		mx_parse_cont.c \
       		mx_add_cont_show.c \
-      		mx_event.c)
+      		mx_event.c \
+      		db/mx_db_creation.c \
+      		db/mx_create_table.c \
+      		db/mx_table_contacts.c \
+      		db/mx_table_messages.c \
+      		db/mx_table_rooms.c \
+      		db/mx_table_settings.c)
 
 
 OBJ = main.o \
@@ -81,7 +87,13 @@ OBJ = main.o \
       mx_contr_add_room.o \
       mx_model_new_room.o \
       mx_contr_logout.o \
-      encrypt.o
+      encrypt.o \
+      mx_db_creation.o \
+      mx_create_table.o \
+      mx_table_contacts.o \
+      mx_table_messages.o \
+      mx_table_rooms.o \
+      mx_table_settings.o
 
 
 CC = clang
