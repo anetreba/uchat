@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="chat_window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Chat</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <property name="default_width">950</property>
+    <property name="default_height">590</property>
+    <property name="destroy_with_parent">True</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="fixed">
+        <property name="name">fixed</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_window">
+            <property name="name">scrolled_window</property>
+            <property name="width_request">665</property>
+            <property name="height_request">596</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="vscrollbar_policy">external</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="viewport">
+                <property name="name">viewport</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">280</property>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="chat_entry_message">
+            <property name="name">entry_msg_field</property>
+            <property name="width_request">585</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your message</property>
+          </object>
+          <packing>
+            <property name="x">285</property>
+            <property name="y">659</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="chat_send_btn">
+            <property name="name">send_btn</property>
+            <property name="width_request">65</property>
+            <property name="height_request">10</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">875</property>
+            <property name="y">659</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_rooms">
+            <property name="name">scrolled_rooms</property>
+            <property name="width_request">221</property>
+            <property name="height_request">650</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="list_rooms">
+                    <property name="name">list_rooms</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">59</property>
+            <property name="y">59</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="add_room_chat_btn">
+            <property name="name">add_room_chat_btn</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">119</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="contacts_btn">
+            <property name="name">contacts_btn</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="room_chat_btn">
+            <property name="name">room_chat_btn</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">178</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="edit_profile_chat_btn">
+            <property name="name">edit_profile_chat_btn</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">237</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="logout_btn">
+            <property name="name">logout_btn</property>
+            <property name="width_request">59</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">296</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_1">
+            <property name="name">elm_1</property>
+            <property name="width_request">60</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_6">
+            <property name="label" translatable="yes">
+</property>
+            <property name="name">elm_6</property>
+            <property name="width_request">58</property>
+            <property name="height_request">355</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="y">355</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_2">
+            <property name="name">elm_2</property>
+            <property name="width_request">220</property>
+            <property name="height_request">59</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">60</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_3">
+            <property name="name">elm_3</property>
+            <property name="width_request">100</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">280</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_5">
+            <property name="name">elm_5</property>
+            <property name="width_request">51</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">898</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="elm_4">
+            <property name="label" translatable="yes">
+</property>
+            <property name="name">elm_4</property>
+            <property name="width_request">534</property>
+            <property name="height_request">60</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">370</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
