@@ -179,7 +179,7 @@ typedef struct s_add_contact {
 }               t_add_contact;
 
 typedef struct s_cont {
-    char *nick;
+//    char *nick;
     int id;
 }               t_cont;
 
@@ -239,10 +239,12 @@ gboolean mx_parse_room_front(void *data);
 void chat_window(t_event *event);
 gboolean mx_show_chat_window(void *data);
 gboolean show_error_label(void *data);
+void mx_select_room(GtkButton *button, t_event *event);
 
-void create_row(t_event *event);
+//void create_row(t_event *event);
 void mx_add_new_message(t_event *event, GtkWidget *msg);
-void new_room(GtkButton *button, t_event *event);
+gboolean mx_new_room(void *data);
+//void new_room(GtkButton *button, t_event *event);
 void send_messages(GtkButton *button, t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);

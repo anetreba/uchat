@@ -13,17 +13,17 @@ void mx_print(t_list *list);
 
 void mx_front_message(int room_id, t_event *event) {
     t_list *lst = event->list_room;
-
     while (lst) {
         if (((t_list_room *)(lst->data))->room_id == room_id) {
             t_list *mess = ((t_list_room *)(lst->data))->mess;
 
-            ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
+//            ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
             gtk_container_add(GTK_CONTAINER(event->gtk->viewport), ((t_list_room *)(lst->data))->list_box);
-            gtk_widget_set_name(((t_list_room *)(lst->data))->list_box, "chat_room");
+//            gtk_widget_set_name(((t_list_room *)(lst->data))->list_box, "chat_room");
 
 
             while (mess) {
+                printf("******************MESSAGE************\n");
                 ((t_mess *)(mess->data))->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
                 ((t_mess *)(mess->data))->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -153,6 +153,8 @@ gboolean mx_parse_room_front(void *data) {
         ((t_list_room *)(lst->data))->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         ((t_list_room *)(lst->data))->room_btn = gtk_button_new_with_label(((t_list_room *)(lst->data))->room_name);
         g_object_set_data(G_OBJECT(((t_list_room *)(lst->data))->room_btn), "room", ((t_list_room *)(lst->data))); //создание указателя на комнату
+        ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
+        gtk_widget_set_name(((t_list_room *)(lst->data))->list_box, "chat_room");
 
         gtk_widget_set_hexpand(((t_list_room *)(lst->data))->room_btn, TRUE);
         gtk_widget_set_halign(((t_list_room *)(lst->data))->room_btn, GTK_ALIGN_CENTER);

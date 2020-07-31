@@ -30,7 +30,7 @@ static int callback_select_users(void *data, int argc, char **argv, char **ColNa
     t_data *data1 = (t_data *)malloc(sizeof(t_data));
     memset(data1, 0, sizeof(t_data));
 
-    if (argc > 0 && argv) {
+    if (argc > 0 && argv[1]) {
         data1->id = atoi(argv[1]);
         mx_push_back(&udata, data1);
     }
@@ -40,7 +40,7 @@ static int callback_select_users(void *data, int argc, char **argv, char **ColNa
 static void mx_select_users(t_send_message *mess, t_list *data) {
     char *vals;
 
-    asprintf(&vals, "RoomsMeta, Users WHERE Users.id = ("
+    asprintf(&vals, "RoomsMeta, Users WHERE RoomsMeta.room_id = ("
              "SELECT id FROM RoomsMeta WHERE RoomsMeta.room_id = '%d') Group BY Users.sock", mess->room_id);
     mx_model_select("RoomsMeta.user_id, Users.sock", vals, callback_select_users, data);
     free(vals);
@@ -50,7 +50,6 @@ void mx_create_response(t_send_message *mess, t_list *list) {
     struct json_object *jobj = json_object_new_object();
     t_list *lst = list;
     while (lst) {
-
             json_object_object_add(jobj, "event", json_object_new_string("new_message"));
             json_object_object_add(jobj, "status", json_object_new_string("0"));
             json_object_object_add(jobj, "room_id", json_object_new_int(mess->room_id));
@@ -60,6 +59,8 @@ void mx_create_response(t_send_message *mess, t_list *list) {
             json_object_object_add(jobj, "tokens", json_object_new_int(mess->tokens));
             char *jstr = (char *) json_object_to_json_string(jobj);
             send(((t_data * )(lst->data))->id, jstr, strlen(jstr), 0);
+            printf("*****************MESS = %s*****************\n", jstr);
+            printf("%d\n", ((t_data * )(lst->data))->id);
             mx_strdel(&jstr);
             lst = lst->next;
     }
@@ -105,6 +106,7 @@ t_list *mx_recieve_mess(t_send_message *mess) {
         mx_model_update("Users", str, vals);
     }
     mx_pop_front(&data);
+    printf("==========================================345343453=============");
     mx_create_response(mess, data);
     free(vals);
     return 0;

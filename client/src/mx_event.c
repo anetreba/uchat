@@ -86,5 +86,6 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
     }
     else if (strcmp(ev, events[7]) == 0){
         mx_contr_add_room(event, jobj);
+        gdk_threads_add_idle_full(G_PRIORITY_HIGH_IDLE, mx_new_room, event, 0);
     }
 }

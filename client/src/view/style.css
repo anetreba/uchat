@@ -1,9 +1,22 @@
-.background {
+.background, #contacts_scrolled_wdw,
+#users_listbox_settings {
     background: #131a21;
 }
 
-#chat_room,  .chat_room {
+#chat_room,  .chat_room, #users_setting_scrld_wdw {
     background: #131a21;
+}
+users_setting_scrld_wdw,
+users_setting_scrld_wdw:focus,
+users_setting_scrld_wdw:active,
+#cont_btn, cont_btn:active, #cont_btn:focus,
+#contacts_listbox {
+    color: #fff;
+    background: #131a21;
+    border: 0;
+    box-shadow: none;
+    text-shadow: none;
+    border-bottom: 1px solid #1a2735;
 }
 
 #sender, #sender:hover, #sender:active {
@@ -22,6 +35,7 @@
     border: 0;
     box-shadow: none;
     text-shadow: none;
+
 }
 
 
@@ -47,15 +61,18 @@ button#sign_up_btn, button#sign_in_btn, #back_btn, #s_btn {
     color: #fff;
 }
 
-button#sign_up_btn, #back_btn {
-    border-bottom: 3px solid #6A1A4C;
+
+
+button#sign_up_btn, #back_btn, #add_contact_to_group_btn {
+    border-bottom: 3px solid #f88aff;
 }
 
 button#sign_in_btn, #s_btn  {
-    border-bottom: 3px solid #278040;
+    border-bottom: 3px solid #19ffea;
 }
 
-button#cancel_btn, button#login_btn, #cancel_btn, #registration_btn {
+button#cancel_btn, button#login_btn, #cancel_btn, #registration_btn,
+#confirm_settings_btn, #back_settings_btn, #new_contact_btn, #contacts_back_btn {
     border: 0px;
     box-shadow: none;
     text-shadow: none;
@@ -63,19 +80,33 @@ button#cancel_btn, button#login_btn, #cancel_btn, #registration_btn {
     color: #fff;
 }
 
-button#cancel_btn {
+button#cancel_btn, #back_settings_btn, #contacts_back_btn {
     background: #A49E9E;
 }
-button#login_btn, #registration_btn {
-    background: #278040;
+button#login_btn, #registration_btn, #confirm_settings_btn, #new_contact_btn {
+    background: #45bb6a;
 }
 
+#add_user_room_settings_btn {
+    color: #fff;
+    background: #131a21;
+    border: 0px;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0px;
+}
+
+
+#settings_room_name_lbl {
+    color: #ffffff;
+    font-size: 14px;
+}
 
 
 
 /*======================== CHAT WINDOW ===========================*/
 
-#chat_room {
+#chat_room, #contacts_scrolled_wdw {
     background-color: #131a21;
     border: 0;
     border-radius: 50px;
@@ -84,7 +115,7 @@ button#login_btn, #registration_btn {
 
 #scrolled_window, #viewport, #entry_msg_field,
 #send_btn, #scrolled_rooms, #list_rooms,
-scrolled_window, #list_rooms {
+#scrolled_window, #list_rooms {
     background-color: #131a21;
     border: 0;
 }
@@ -247,4 +278,10 @@ button#elm_5 {
 
 #room_button:hover, #room_button:active {
     background: #3e6a97;
+}
+
+#entry_msg_field, #entry_msg_field:active,
+#entry_msg_field:focus{
+    color: #e7e9ee;
+    font-size: 14px;
 }

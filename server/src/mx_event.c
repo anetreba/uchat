@@ -190,7 +190,6 @@ void mx_send_message(struct json_object *jobj, t_event *event) {
     struct json_object *room_id;
     struct json_object *sender_id;
 
-    t_list *resp;
     printf("=========================ERROR2=========================\n");
 
     event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
@@ -203,7 +202,7 @@ void mx_send_message(struct json_object *jobj, t_event *event) {
     event->send_message->room_id = json_object_get_int(room_id);
     event->send_message->sender_id =json_object_get_int(sender_id);
 
-    resp = mx_recieve_mess(event->send_message);
+    mx_recieve_mess(event->send_message);
     //mx_return_sendmessage_json(resp, event->new_open_socket);
 }
 

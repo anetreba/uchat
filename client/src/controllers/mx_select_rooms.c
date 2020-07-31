@@ -22,3 +22,4 @@ int mx_select_rooms(t_list *lst) {
     rs = mx_model_select("DISTINCT id, name", vals, callback_rooms, &data);
     return rs;
 }
+

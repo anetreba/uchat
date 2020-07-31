@@ -29,6 +29,7 @@ gboolean mx_show_new_contact(void *data) {
     cont->contact_id = event->add_contact->contact_id;
     cont->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     cont->cont_btn = gtk_button_new_with_label(cont->nickname);
+    gtk_widget_set_name(cont->cont_btn, "cont_btn");
 
     gtk_widget_set_hexpand(cont->cont_btn, TRUE);
     gtk_widget_set_halign(cont->cont_btn, GTK_ALIGN_CENTER);
