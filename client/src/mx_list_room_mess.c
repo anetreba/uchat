@@ -13,17 +13,13 @@ void mx_print(t_list *list);
 
 void mx_front_message(int room_id, t_event *event) {
     t_list *lst = event->list_room;
+
     while (lst) {
         if (((t_list_room *)(lst->data))->room_id == room_id) {
             t_list *mess = ((t_list_room *)(lst->data))->mess;
 
-//            ((t_list_room *)(lst->data))->list_box = gtk_list_box_new();
             gtk_container_add(GTK_CONTAINER(event->gtk->viewport), ((t_list_room *)(lst->data))->list_box);
-//            gtk_widget_set_name(((t_list_room *)(lst->data))->list_box, "chat_room");
-
-
             while (mess) {
-                printf("******************MESSAGE************\n");
                 ((t_mess *)(mess->data))->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
                 ((t_mess *)(mess->data))->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
@@ -101,7 +97,7 @@ void send_messages(GtkButton *button, t_event *event) {
 //const char *test = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
 //sleep(1);
     event->send_message->message = gtk_entry_get_text(GTK_ENTRY(event->gtk->msg));
-    printf("login: %s message: %s\n", event->log_in->login, event->send_message->message);
+
     if (strcmp(event->send_message->message, "") != 0)
         mx_json(event, "send_message");
     (void) button;
@@ -127,12 +123,19 @@ void send_messages(GtkButton *button, t_event *event) {
     g_timeout_add(200, scroll, event);
 }
 
+void mx_charge_name_room(t_list_room *room, t_event *event) {
+    event->gtk->name_room = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "user_name_lbl"));
+
+    gtk_label_set_text(GTK_LABEL(event->gtk->name_room), room->room_name);
+}
+
 void mx_select_room(GtkButton *button, t_event *event) {
     t_list_room *room = g_object_get_data(G_OBJECT(button), "room"); // берем указатель на комнату
 
     printf("prev = %d\n", event->prev_room_id);
     mx_del_widget_mess(event);
 
+    mx_charge_name_room(room, event);
     event->prev_room_id = room->room_id;
     printf("id = %d\n", room->room_id);
     event->send_message->room_id = room->room_id;

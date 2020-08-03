@@ -49,7 +49,6 @@ gboolean mx_render_cont_list(void *data) {
         g_object_set_data(G_OBJECT(((t_renew_contacts *)(lst->data))->cont_btn), "cont", ((t_renew_contacts *)(lst->data))); //создание указателя на комнату
 
         gtk_widget_set_name(((t_renew_contacts *)(lst->data))->cont_btn, "cont_btn");
-
         gtk_widget_set_hexpand(((t_renew_contacts *)(lst->data))->cont_btn, TRUE);
         gtk_widget_set_halign(((t_renew_contacts *)(lst->data))->cont_btn, GTK_ALIGN_CENTER);
         gtk_widget_set_valign(((t_renew_contacts *)(lst->data))->cont_btn, GTK_ALIGN_CENTER);

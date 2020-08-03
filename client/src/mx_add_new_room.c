@@ -81,7 +81,6 @@ gboolean mx_render_cont(void *data) {
         cont->row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
         cont->cont_btn = gtk_button_new_with_label(cont->nick);
         gtk_widget_set_name(cont->cont_btn, "cont_btn");
-
         g_object_set_data(G_OBJECT(cont->cont_btn), "cont", cont); //создание указателя на комнату
 
         gtk_widget_set_hexpand(cont->cont_btn, TRUE);
@@ -165,15 +164,6 @@ gboolean mx_new_room(void *data) {
 
     mx_push_back(&(event->list_room), room);
 
-    //room->mess = (t_list *)malloc(sizeof(t_list));
-
-//    t_mess *mess = (t_mess *)malloc(sizeof(t_mess));
-
-//    mess->message = "new room create";
-//    mess->sender_id = event->data->id;
-//    mess->sender_nick = event->data->login;
-//
-//    room->mess = mx_create_node(mess);
     g_object_set_data(G_OBJECT(room->room_btn), "room", room);
 
     gtk_widget_set_hexpand(room->room_btn, TRUE);

@@ -10,11 +10,6 @@ static int callback_check_user(void *data, int argc, char **argv, char **ColName
         udata->res = 2;
     else
         udata->res = 0;
-
-    printf("=======================================s==========\n");
-    printf("ARGV-0: %s\n", argv[0]);
-    printf("ARGV-0: %s\n", argv[1]);
-    printf("=======================================s==========\n");
     return 0;
 }
 

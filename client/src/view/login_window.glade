@@ -109,32 +109,32 @@
           </packing>
         </child>
         <child>
+          <object class="GtkImage" id="logo_img">
+            <property name="name">logo_img</property>
+            <property name="width_request">200</property>
+            <property name="height_request">200</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="x">310</property>
+            <property name="y">65</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="wrong_pass_lbl">
             <property name="name">wrong_pass_lbl</property>
             <property name="width_request">220</property>
             <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes"></property>
+            <property name="label" translatable="yes">Error message:</property>
             <property name="xalign">0.019999999552965164</property>
           </object>
           <packing>
             <property name="x">303</property>
             <property name="y">351</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="login_logo_img_btn">
-            <property name="name">login_logo_img_btn</property>
-            <property name="width_request">550</property>
-            <property name="height_request">200</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-          </object>
-          <packing>
-            <property name="x">80</property>
-            <property name="y">130</property>
           </packing>
         </child>
       </object>

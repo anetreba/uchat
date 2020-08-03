@@ -19,6 +19,11 @@
 #endif
 
 #include "../inc/json_object.h"
+#include <stdlib.h>
+#include <unistd.h>
+void print (void) {
+    write(1, "\a", 1);
+}
 
 __warn_references(json_object_get, "Warning: please link against libjson-c instead of libjson");
 

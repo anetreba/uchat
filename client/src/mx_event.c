@@ -11,9 +11,6 @@ void mx_json_read(t_event *event) {
         if (str[strlen(str) - 1] == '}') {
             parse_json((const char *)str, &obj);
 
-            printf("#############################################################\n");
-            printf("STR = %s\n", str);
-            printf("#############################################################\n");
             mx_valid_event(obj, event);
             str = mx_strnew(0);
         }
@@ -41,7 +38,6 @@ void mx_valid_event(struct json_object *jobj, t_event *event) {
         json_object_object_add(obj, "last_renew", json_object_new_int(0));
         jstr = (char *) json_object_to_json_string(obj);
         send(event->network_socket, jstr, strlen(jstr), 0);
-        printf("RENEW_REQ: %s\n", jstr);
         mx_strdel(&jstr);
         return;
     }

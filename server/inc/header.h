@@ -112,6 +112,10 @@ typedef struct s_info_room {
     char *auth_token;
 }               t_info_room;
 
+typedef struct s_sock {
+    int sock;
+}               t_sock;
+
 typedef struct s_event {
     int server_sock;
     int *client_socks;
@@ -124,6 +128,7 @@ typedef struct s_event {
     t_edit_room *edit_room;
     t_add_contact *add_contact;
     t_info_room *add_room;
+    t_list *sock;
 }               t_event;
 
 typedef struct s_response {
@@ -178,7 +183,7 @@ void mx_return_renew_contacts_json(t_list *resp, int sock);
 void *mx_contr_del_room(t_edit_room *room);
 t_data *mx_contr_add_contact(t_add_contact *tok);
 t_event *mx_contr_add_new_room(t_event *event);
-void mx_add_room_resp(t_event *event, int sock);
+void mx_add_room_resp(t_event *event);
 
 //create_db
 void mx_db_creation();

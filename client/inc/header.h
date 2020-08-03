@@ -97,6 +97,9 @@ typedef struct s_gtk {
     GtkWidget *groups_wdw;
     GtkBuilder *builder4;
     GtkBuilder *builder5;
+    GtkBuilder *builder6;
+    GtkBuilder *builder7;
+    GtkBuilder *builder8;
     GtkBuilder *add_cont_builder;
     GtkWidget *add_contact_wdw;
     GtkWidget *add_contact_confirm_btn;
@@ -106,7 +109,39 @@ typedef struct s_gtk {
     GtkWidget *add_room_entry_field;
     GtkWidget *add_room_back_btn;
     GtkWidget *users_listbox;
+    GtkWidget *tokens;
+    GtkWidget *name_room;
+    GtkWidget *login;
+    GtkWidget *pass;
+    GtkWidget *cancel_btn_sign_in;
+    GtkWidget *cancel_btn_sign_up;
+    GtkWidget *logout_btn;
+    GtkWidget *edit_profile_btn;
+    GtkWidget *quit_wdw;
+    GtkWidget *yes_btn;
+    GtkWidget *no_btn;
+    GtkWidget *edit_login;
+    GtkWidget *edit_nick;
+    GtkWidget *edit_pass;
+    GtkWidget *edit_email;
+    GtkWidget *edit_profile_wdw;
+    GtkWidget *edit_confirm;
+    GtkWidget *edit_back;
+    GtkWidget *settings_btn;
+    GtkWidget *settings_window;
+    GtkWidget *light;
+    GtkWidget *dark;
+    GtkWidget *settings_back;
 }               t_gtk;
+
+typedef struct s_edit_prof {
+    int id;
+    const char *edit_login;
+    const char *edit_pass;
+    const char *edit_nick;
+    const char *edit_email;
+}               t_edit_prof;
+
 
 typedef struct s_data {
     int id;
@@ -198,6 +233,7 @@ typedef struct s_cont_for_add_room {
 }               t_cont_for_add_room;
 
 typedef struct s_event {
+    int tokens;
     int network_socket;
     int prev_room_id;
     int status;
@@ -214,6 +250,7 @@ typedef struct s_event {
     t_list *list_contact;
     t_info_room *info_room;
     t_list *for_new_room;
+    t_edit_prof *edit_prof;
 }              t_event;
 
 typedef struct s_response {
@@ -290,6 +327,19 @@ void mx_table_contacts(sqlite3 *db, char *sql);
 void mx_table_messages(sqlite3 *db, char *sql);
 void mx_table_rooms(sqlite3 *db, char *sql);
 void mx_table_settings(sqlite3 *db, char *sql);
+
+
+void build_sign_up(t_event *event);
+void build_sign_in(t_event *event);
+
+void hide_quit_wdw(GtkButton *button, t_event *event);
+void logout(GtkButton *button, t_event *event);
+void show_logout_wdw(GtkButton *button, t_event *event);
+void show_edit_profile_wdw(GtkButton *button, t_event *event);
+void show_settings(GtkButton *button, t_event *event);
+void cancel_sign_in(GtkButton *button, t_event *event);
+void cancel_sign_up(GtkButton *button, t_event *event);
+
 
 
 

@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
     //mx_db_creation();
 	//
     int port = atoi(argv[1]);
-    mx_demonize();
+    mx_demonize(); //в продакшен раскоментировать
     mx_server_socket(port);
 //	system("leaks -q chat_server");
 	return 0;

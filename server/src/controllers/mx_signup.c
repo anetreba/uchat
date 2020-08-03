@@ -4,7 +4,7 @@ static int callback_signup(void *data, int argc, char **argv, char **ColName) {
     int udata = (int)data;
     ColName = NULL;
 
-    if (argc != 0){
+    if (argc != 0 && argv[0]){
         udata = 1;
         argv = NULL;
         return udata;

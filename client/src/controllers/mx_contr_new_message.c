@@ -1,6 +1,14 @@
 #include "header.h"
 
-void mx_print(t_list *list);
+
+void mx_charge_tokens(t_event *event) {
+    event->gtk->tokens = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "tokens_lbl"));
+    if (event->tokens > 0) {
+        char *tokens = mx_strjoin("Tokens: ", mx_itoa(event->tokens));
+        printf("TOKENS = %s\n", tokens);
+        gtk_label_set_text(GTK_LABEL(event->gtk->tokens), tokens);
+    }
+}
 
 gboolean mx_add_mess_to_list(void *data) {
     t_event *event = (t_event *)data;
@@ -17,11 +25,8 @@ gboolean mx_add_mess_to_list(void *data) {
             mess->message = strdup(event->send_message->message);
             mess->sender_nick = strdup(event->send_message->nick);
 
-
             mess->row_user = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
             mess->row_msg = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
-
-
 
             mess->message_button = gtk_button_new_with_label(mess->message);
             gtk_widget_set_name(mess->message_button, "message_button");
@@ -69,6 +74,7 @@ gboolean mx_add_mess_to_list(void *data) {
         }
         lst = lst->next;
     }
+    mx_charge_tokens(event);
     return 0;
 }
 
@@ -95,6 +101,7 @@ static void write_auth_data(t_event *event, json_object *obj) {
     struct json_object *message;
     struct json_object *sender_id;
     struct json_object *date_send;
+    struct json_object *tokens;
 
     event->send_message = (t_send_message *)malloc(sizeof(t_send_message));
     memset(event->send_message, 0, sizeof(t_send_message));
@@ -103,11 +110,14 @@ static void write_auth_data(t_event *event, json_object *obj) {
     json_object_object_get_ex(obj, "message", &message);
     json_object_object_get_ex(obj, "sender_id", &sender_id);
     json_object_object_get_ex(obj, "date_send", &date_send);
+    json_object_object_get_ex(obj, "tokens", &tokens);
 
     event->send_message->room_id = json_object_get_int(room_id);
     event->send_message->message = (char *)json_object_get_string(message);
     event->send_message->sender_id = json_object_get_int(sender_id);
     event->send_message->date_send = json_object_get_int(date_send);
+    event->tokens = json_object_get_int(tokens);
+
 
     mx_model_new_message(event->send_message);
     mx_select_new_message(event);

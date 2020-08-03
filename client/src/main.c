@@ -146,6 +146,10 @@ void mx_init_login(t_event *event) {
     event->gtk->builder3 = gtk_builder_new_from_file ("src/view/chat.glade");
     event->gtk->builder4 = gtk_builder_new_from_file ("src/view/contacts_window.glade");
     event->gtk->builder5 = gtk_builder_new_from_file ("src/view/add_room_pop_up.glade");
+    event->gtk->builder6 = gtk_builder_new_from_file ("src/view/logout_confirm_wdw.glade");
+    event->gtk->builder7 = gtk_builder_new_from_file ("src/view/edit_profile_wdw.glade");
+    event->gtk->builder8 = gtk_builder_new_from_file ("src/view/settings_wdw.glade");
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     GtkCssProvider *cssProvider  = gtk_css_provider_new();
@@ -188,7 +192,7 @@ int main(int argc, char **argv) {
     int port = atoi(argv[2]);
 
     ///////////////////
-    //mx_db_creation();
+    mx_db_creation();
     ///////////////////
 
     event.network_socket = socket(AF_INET, SOCK_STREAM, 0);

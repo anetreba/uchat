@@ -26,6 +26,10 @@ void chat_window(t_event *event) {
     event->gtk->contacts_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_wdw"));
     event->gtk->groups_wdw = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder5, "add_room_pop_up"));
 
+    event->gtk->logout_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "logout_btn"));
+    event->gtk->edit_profile_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "edit_profile_chat_btn"));
+    event->gtk->settings_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "room_chat_btn"));
+
     event->gtk->list_rooms = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder3, "list_rooms"));
 
     event->gtk->contacts_back_btn = GTK_WIDGET(gtk_builder_get_object(event->gtk->builder4, "contacts_back_btn"));
@@ -45,6 +49,9 @@ void chat_window(t_event *event) {
     g_signal_connect(event->gtk->chat_send_btn, "clicked", G_CALLBACK(send_messages), event);
     g_signal_connect(event->gtk->new_room, "clicked", G_CALLBACK(mx_show_groups_wdw), event);
     g_signal_connect(event->gtk->contacts, "clicked", G_CALLBACK(show_contacts_wdw), event);
+    g_signal_connect(event->gtk->logout_btn, "clicked", G_CALLBACK(show_logout_wdw), event);
+    g_signal_connect(event->gtk->edit_profile_btn, "clicked", G_CALLBACK(show_edit_profile_wdw), event);
+    g_signal_connect(event->gtk->settings_btn, "clicked", G_CALLBACK(show_settings), event);
 }
 
 gboolean mx_show_chat_window(void *data) {
