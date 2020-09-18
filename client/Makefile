@@ -1,81 +1,88 @@
-APP_NAME = uchat
+NAME = uchat
+NAME_ROOT = ../$(NAME)
 
-LIBMXF = libmx/libmx.a
+CCFLG = clang -std=c11 $(addprefix -W, all extra error pedantic) -g
 
-JSONF = json-c
-
-JSON_NAME = libjson-c.a
-
-INC = inc/ \
-	  json-c/
+SRC_DIRS = src \
+			src/controllers \
+			src/crud \
+			src/db \
+			src/models \
+			src/view
 
 SRC_DIR = src
 
+INC_DIR = inc
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR)/,\
-      		main.c \
-      		mx_printerr.c \
-      		mx_parse_json.c \
-      		mx_sqlite.c\
-      		controllers/mx_contr_auth.c \
-      		controllers/mx_contr_renew.c\
-      		controllers/mx_contr_update_rooms.c \
-      		crud/mx_model_del.c \
-      		crud/mx_model_insert.c \
-      		crud/mx_model_select.c \
-      		crud/mx_model_update.c \
-      		models/mx_model_logined.c \
-      		mx_event.c)
+SRCS := $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+INC = $(INC_DIR)/header.h
+OBJS := $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:%.c=%.o)))
 
+LIBS_DIR = libs
 
-OBJ = main.o \
-      mx_printerr.o \
-      mx_parse_json.o \
-      mx_model_del.o \
-      mx_model_insert.o \
-      mx_model_select.o \
-      mx_model_update.o \
-      mx_sqlite.o \
-      mx_model_logined.o \
-      mx_contr_auth.o \
-      mx_contr_renew.o \
-      mx_event.o \
-      mx_contr_update_rooms.o
+LIBMX_DIR = $(LIBS_DIR)/libmx
+LIBMX = $(LIBMX_DIR)/libmx.a
 
-CC = clang
+JSONC_DIR = $(LIBS_DIR)/json-c
+JSONC = $(JSONC_DIR)/libjson-c.a
 
-CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic #-g3 -fsanitize=address
+SSL_DIR = /usr/local/opt/openssl/lib/
+SSL_INC = /usr/local/opt/openssl/include/
 
-CL_GTK_FLAGS = `pkg-config --cflags --libs gtk+-3.0`
-CL_GTK_SORT_FLAGS = `pkg-config --cflags gtk+-3.0`
+GTK_LINK_FLAGS = `pkg-config --cflags  --libs gtk+-3.0`
+GTK_INC_FLAGS = `pkg-config --cflags gtk+-3.0`
 
-all : install
+LIBS_FLAGS := $(addprefix -L, $(SSL_DIR) \
+	$(addprefix $(LIBS_DIR)/, json-c libmx)) \
+	$(addprefix -l, ssl crypto sqlite3 json-c mx) $(GTK_LINK_FLAGS)
+LIBS_INCS := $(addprefix -I, $(addprefix $(LIBS_DIR)/, json-c libmx/inc) \
+	$(INC_DIR) $(SSL_INC)) $(GTK_INC_FLAGS)
 
-install : json uchat
+LIBS = $(LIBMX) $(JSONC)
 
-json:
-	@make -C $(JSONF)
+EMPTY =
+SPACE = $(EMPTY) $(EMPTY)
+VPATH := $(subst $(SPACE), :, $(SRC_DIRS))
 
-uchat : $(SRC) inc/header.h libmx/libmx.a json-c/libjson-c.a
-	@$(CC) $(CFLAGS) -c $(SRC) $(foreach d, $(INC), -I $d) $(CL_GTK_SORT_FLAGS)
-	@$(CC) $(CFLAGS) $(OBJ) $(CL_GTK_FLAGS) $(JSONF)/$(JSON_NAME) $(LIBMXF) -l sqlite3 -o $(APP_NAME)
+all: install
+
+install: $(NAME)
+
+$(NAME): $(OBJS) $(LIBS)
+	@$(CCFLG) $(LIBS_FLAGS) $(OBJS) -o $@ --debug
 	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
-	@mkdir -p $(OBJ_DIR)
-	@mv $(OBJ) $(OBJ_DIR)
-	@rm -rf ./*.c ./*.h
-	@rm -rf $(OBJ_DIR)
-	@printf "$(NAME) \033[31;1minstalled\033[0m\n"
 
-uninstall : clean
-	@make uninstall -C $(JSONF)
-	@rm -rf $(APP_NAME)
+$(OBJS): obj/%.o: %.c $(INC) Makefile | $(OBJ_DIR)
+	@$(CCFLG) $(LIBS_INCS) -c -o $@ $< --debug
+	@printf "\r\33[2K$(NAME) \033[33;1mcompile \033[0m$(<:$(SRC_DIR)/%.c=%) "
+
+$(OBJ_DIR):
+	@mkdir -p $@
+	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
+
+$(LIBMX):
+	@make -sC $(LIBMX_DIR)
+
+$(JSONC):
+	@make -sC $(JSONC_DIR)
+
+out: $(NAME_ROOT)
+
+$(NAME_ROOT): $(NAME)
+	@cp $(NAME) ..
+	@printf "\r\33[2K$< \033[32;1mcopied to the root\033[0m\n"
+
+clean:
+	@make -sC $(LIBMX_DIR) $@
+	@make -sC $(JSONC_DIR) $@
+	@rm -rf $(OBJ_DIR)
+	@printf "$(OBJ_DIR)\t   \033[31;1mdeleted\033[0m\n"
+
+uninstall: clean
+	@make -sC $(LIBMX_DIR) $@
+	@make -sC $(JSONC_DIR) $@
+	@rm -rf $(NAME)
 	@printf "$(NAME) \033[31;1muninstalled\033[0m\n"
 
-clean :
-
-	@make clean -C $(JSONF)
-	@rm -rf $(OBJ_DIR)
-	@printf "$(OBJD)\t   \033[31;1mdeleted\033[0m\n"
-
-reinstall : uninstall install
+reinstall: uninstall install

@@ -23,6 +23,39 @@
 #include <gtk/gtk.h>
 #include <ctype.h>
 #include <sqlite3.h>
+#include <openssl/md5.h>
+#include <openssl/ssl.h>
+#include <openssl/evp.h>
+
+#define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
+////////////////////FOR RENDER MESSAGE AND ROOMS/////////////////////
+
+typedef struct s_mess {
+    char *message;
+    int sender_id;
+    char *sender_nick;
+    int date_send;
+    int type;
+
+    GtkWidget *row_user;
+    GtkWidget *row_msg;
+    GtkWidget *message_button;
+    GtkWidget *user_button;
+
+}               t_mess;
+
+typedef struct s_list_room {
+    int room_id;
+    char *room_name;
+    t_list *mess;
+
+    GtkWidget *row;
+    GtkWidget *room_btn;
+    GtkWidget *list_box;
+}               t_list_room;
+
+
+////////////////////////////////////////////////////////////////////
 
 typedef struct s_gtk {
     GtkBuilder *builder;
@@ -45,7 +78,70 @@ typedef struct s_gtk {
     GtkWidget *chat_window;
     GtkWidget *list_box;
     GtkWidget *test_label;
+    GtkWidget *list_rooms;
+    GtkWidget *new_room;
+    GtkWidget *row_user; /////
+    GtkWidget *row_msg;
+    GtkWidget *message_button;
+    GtkWidget *user_button; ////
+    GtkWidget *scrolled_window;
+    GtkWidget *viewport;
+    GtkWidget *msg;
+    GtkWidget *contacts;
+    GtkWidget *contacts_wdw;
+    GtkWidget *contacts_scrolled_wdw;
+    GtkWidget *contacts_listbox;
+    GtkWidget *new_contact_btn;
+    GtkWidget *contacts_back_btn;
+    GtkWidget *new_room_btn;
+    GtkWidget *groups_wdw;
+    GtkBuilder *builder4;
+    GtkBuilder *builder5;
+    GtkBuilder *builder6;
+    GtkBuilder *builder7;
+    GtkBuilder *builder8;
+    GtkBuilder *add_cont_builder;
+    GtkWidget *add_contact_wdw;
+    GtkWidget *add_contact_confirm_btn;
+    GtkWidget *add_contact_entry_field;
+    GtkWidget *add_contact_back_btn;
+    GtkWidget *add_room_confirm_btn;
+    GtkWidget *add_room_entry_field;
+    GtkWidget *add_room_back_btn;
+    GtkWidget *users_listbox;
+    GtkWidget *tokens;
+    GtkWidget *name_room;
+    GtkWidget *login;
+    GtkWidget *pass;
+    GtkWidget *cancel_btn_sign_in;
+    GtkWidget *cancel_btn_sign_up;
+    GtkWidget *logout_btn;
+    GtkWidget *edit_profile_btn;
+    GtkWidget *quit_wdw;
+    GtkWidget *yes_btn;
+    GtkWidget *no_btn;
+    GtkWidget *edit_login;
+    GtkWidget *edit_nick;
+    GtkWidget *edit_pass;
+    GtkWidget *edit_email;
+    GtkWidget *edit_profile_wdw;
+    GtkWidget *edit_confirm;
+    GtkWidget *edit_back;
+    GtkWidget *settings_btn;
+    GtkWidget *settings_window;
+    GtkWidget *light;
+    GtkWidget *dark;
+    GtkWidget *settings_back;
 }               t_gtk;
+
+typedef struct s_edit_prof {
+    int id;
+    const char *edit_login;
+    const char *edit_pass;
+    const char *edit_nick;
+    const char *edit_email;
+}               t_edit_prof;
+
 
 typedef struct s_data {
     int id;
@@ -58,6 +154,10 @@ typedef struct s_data {
     char **colname;
     int tokens;
     int verify_code;
+    int room_id;
+    char *room_name;
+    int *users;
+
     const char *auth_token;
 }               t_data;
 
@@ -71,10 +171,10 @@ typedef struct s_renew {
     int recieve_status;
 }               t_renew;
 
+
 typedef struct s_log_in {
     const char *login;
     const char *password;
-//    const char *nick;
 }               t_log_in;
 
 typedef struct s_sign_up {
@@ -85,20 +185,72 @@ typedef struct s_sign_up {
 }               t_sign_up;
 
 typedef struct s_send_message {
-    int id_sender;
+    int sender_id;
     const char *message;
+    char *nick;
     int type;
-    int group;
+    int room_id;
+    int date_send;
+    int tokens;
 }               t_send_message;
 
+typedef struct s_renew_contacts {
+    int contact_id;
+    char *nickname;
+
+    GtkWidget *row;
+    GtkWidget *cont_btn;
+}               t_renew_contacts;
+
+typedef struct s_del_room {
+    int user_id;
+    int room_id;
+}               t_del_room;
+
+typedef struct s_add_contact {
+    int sender_id;
+    int contact_id;
+    const char *nick;
+}               t_add_contact;
+
+typedef struct s_cont {
+//    char *nick;
+    int id;
+}               t_cont;
+
+typedef struct s_info_room {
+    int room_id;
+    const char *room_name;
+    t_list *cont;
+}               t_info_room;
+
+typedef struct s_cont_for_add_room {
+    int id;
+    char *nick;
+
+    GtkWidget *row;
+    GtkWidget *cont_btn;
+}               t_cont_for_add_room;
+
 typedef struct s_event {
+    int tokens;
     int network_socket;
+    int prev_room_id;
+    int status;
     t_gtk *gtk;
     t_send_message *send_message;
     t_log_in *log_in;
     t_sign_up *sign_up;
     t_data *data;
     t_list *renew;
+    t_list *list_room;
+    t_renew_contacts *renew_contacts;
+    t_del_room *del_room;
+    t_add_contact *add_contact;
+    t_list *list_contact;
+    t_info_room *info_room;
+    t_list *for_new_room;
+    t_edit_prof *edit_prof;
 }              t_event;
 
 typedef struct s_response {
@@ -108,6 +260,29 @@ typedef struct s_response {
     int tokens;
 }               t_response;
 
+void *mx_client_recv(void *data);
+gboolean mx_show_new_contact(void *data);
+void mx_show_groups_wdw(GtkButton *button, t_event *event);
+gboolean mx_show_in_cont(void *data);
+gboolean mx_show_label_no_user(void *data);
+gboolean mx_render_cont(void *data);
+gboolean mx_render_cont_list(void *data);
+
+void mx_contr_select_contacts(t_event *event);
+void show_contacts_wdw(GtkButton *button, t_event *event);
+
+void mx_listroom_and_mess(t_event *event);
+gboolean mx_parse_room_front(void *data);
+void chat_window(t_event *event);
+gboolean mx_show_chat_window(void *data);
+gboolean show_error_label(void *data);
+void mx_select_room(GtkButton *button, t_event *event);
+
+//void create_row(t_event *event);
+void mx_add_new_message(t_event *event, GtkWidget *msg);
+gboolean mx_new_room(void *data);
+//void new_room(GtkButton *button, t_event *event);
+void send_messages(GtkButton *button, t_event *event);
 
 void mx_valid_event(struct json_object *jobj, t_event *event);
 //crud
@@ -125,13 +300,50 @@ char *mx_parse_str(char *jstr, char buf);
 int parse_json(const char *json, json_object **responses);
 t_response *mx_model_logined(t_data *data);
 void json_parse(json_object *jobj, t_list *lst);
+void *mx_model_new_message(t_send_message *data);
+void mx_model_renew_contacts(json_object *obj);
+void *mx_model_add_contact(t_add_contact *data);
+void mx_model_new_room(t_info_room *info_room);
+void mx_contr_add_room(t_event *event, json_object *jobj);
+void mx_init_logout();
 
 void mx_json_read(t_event *event);
 //controllers
 void mx_contr_auth(t_event *event, json_object *jobj);
 void mx_contr_renew(t_event *event, json_object *jobj);
-void mx_contr_update_rooms(json_object *jobj);
-
+void mx_contr_update_rooms(json_object *jobj, t_event *event);
+void mx_contr_new_message(t_event *event, json_object *jobj);
+void mx_contr_renew_contacts(t_event *event);
 void mx_json(t_event *event, char *action);
+void mx_contr_add_contact(t_event *event, json_object *jobj);
+void mx_contr_logout();
+
+//*create db
+void mx_db_creation();
+int mx_callback(void *data, int argc, char **argv, char **ColName);
+void mx_create_table(sqlite3 *db, char *sql,
+                     int (*callback)(void*, int, char**, char**));
+void mx_table_contacts(sqlite3 *db, char *sql);
+void mx_table_messages(sqlite3 *db, char *sql);
+void mx_table_rooms(sqlite3 *db, char *sql);
+void mx_table_settings(sqlite3 *db, char *sql);
+
+
+void build_sign_up(t_event *event);
+void build_sign_in(t_event *event);
+
+void hide_quit_wdw(GtkButton *button, t_event *event);
+void logout(GtkButton *button, t_event *event);
+void show_logout_wdw(GtkButton *button, t_event *event);
+void show_edit_profile_wdw(GtkButton *button, t_event *event);
+void show_settings(GtkButton *button, t_event *event);
+void cancel_sign_in(GtkButton *button, t_event *event);
+void cancel_sign_up(GtkButton *button, t_event *event);
+
+
+
+
+void json_parse_cont(json_object *jobj, t_list *lst);
+char *md5_string(const char *str);
 
 #endif

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="add_room_pop_up">
+    <property name="name">add_room_pop_up</property>
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="title" translatable="yes">Rooms settings</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center</property>
+    <property name="default_width">500</property>
+    <property name="default_height">725</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="deletable">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="room_settings_fxd">
+        <property name="name">room_settings_fxd</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkButton" id="add_user_room_settings_btn">
+            <property name="label" translatable="yes">Add contact</property>
+            <property name="name">add_user_room_settings_btn</property>
+            <property name="width_request">140</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">263</property>
+            <property name="y">55</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="back_settings_btn">
+            <property name="label" translatable="yes">Back</property>
+            <property name="name">back_settings_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">119</property>
+            <property name="y">158</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="users_setting_scrld_wdw">
+            <property name="name">users_setting_scrld_wdw</property>
+            <property name="width_request">200</property>
+            <property name="height_request">500</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkViewport" id="users_setting_scrld_wdw_fxd">
+                <property name="name">users_setting_scrld_wdw_fxd</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkListBox" id="users_listbox_settings">
+                    <property name="name">users_listbox_settings</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">230</property>
+            <property name="y">106</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="settings_room_name_lbl">
+            <property name="name">settings_room_name_lbl</property>
+            <property name="width_request">120</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">New room</property>
+            <property name="xalign">0.3</property>
+          </object>
+          <packing>
+            <property name="x">14</property>
+            <property name="y">55</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="confirm_settings_btn">
+            <property name="label" translatable="yes">Confirm</property>
+            <property name="name">confirm_settings_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">10</property>
+            <property name="y">158</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_settings_field">
+            <property name="name">entry_settings_field</property>
+            <property name="width_request">208</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+          </object>
+          <packing>
+            <property name="x">10</property>
+            <property name="y">106</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="error_settings_lbl">
+            <property name="name">error_settings_lbl</property>
+            <property name="width_request">300</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes"> </property>
+            <property name="xalign">0.019999999552965164</property>
+          </object>
+          <packing>
+            <property name="x">79</property>
+            <property name="y">620</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

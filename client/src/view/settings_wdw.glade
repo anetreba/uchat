@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.2 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <object class="GtkWindow" id="settings_wdw">
+    <property name="name">settings_wdw</property>
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="title" translatable="yes">Settings</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center</property>
+    <property name="default_width">440</property>
+    <property name="default_height">250</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="deletable">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkFixed" id="settings_fxd">
+        <property name="name">settings_fxd</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkButton" id="light_btn">
+            <property name="label" translatable="yes">Light</property>
+            <property name="name">light_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">112</property>
+            <property name="y">87</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="back_btn">
+            <property name="label" translatable="yes">Back</property>
+            <property name="name">back2_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">168</property>
+            <property name="y">143</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="dark_btn">
+            <property name="label" translatable="yes">Dark</property>
+            <property name="name">dark_btn</property>
+            <property name="width_request">100</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">225</property>
+            <property name="y">87</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="theme_label">
+            <property name="name">theme_label</property>
+            <property name="width_request">140</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Themes switcher</property>
+          </object>
+          <packing>
+            <property name="x">146</property>
+            <property name="y">33</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

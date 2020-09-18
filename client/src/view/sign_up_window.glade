@@ -4,9 +4,12 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="sign_up_window">
     <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">820</property>
-    <property name="default_height">720</property>
+    <property name="default_width">800</property>
+    <property name="default_height">800</property>
+    <property name="deletable">False</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -21,10 +24,12 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your e-mail address</property>
+            <property name="input_purpose">email</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">380</property>
+            <property name="y">400</property>
           </packing>
         </child>
         <child>
@@ -34,10 +39,12 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your Nickname</property>
+            <property name="input_purpose">name</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">430</property>
+            <property name="y">450</property>
           </packing>
         </child>
         <child>
@@ -47,10 +54,14 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
+            <property name="placeholder_text" translatable="yes">Enter your password</property>
+            <property name="input_purpose">password</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">480</property>
+            <property name="y">500</property>
           </packing>
         </child>
         <child>
@@ -60,77 +71,27 @@
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Enter your login</property>
+            <property name="input_purpose">name</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">530</property>
+            <property name="y">550</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="registration_btn">
-            <property name="label" translatable="yes">registration</property>
+            <property name="label" translatable="yes">Registration</property>
             <property name="name">registration_btn</property>
-            <property name="width_request">174</property>
+            <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">320</property>
-            <property name="y">580</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="email_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Email*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">380</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="nick_name_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Nickname</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">430</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="login_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Login*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">530</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="password_sign">
-            <property name="width_request">100</property>
-            <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Password*</property>
-          </object>
-          <packing>
-            <property name="x">100</property>
-            <property name="y">480</property>
+            <property name="x">230</property>
+            <property name="y">600</property>
           </packing>
         </child>
         <child>
@@ -145,12 +106,13 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">310</property>
+            <property name="y">330</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton">
             <property name="label" translatable="yes">Sign-Up</property>
+            <property name="name">s_btn</property>
             <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
@@ -159,35 +121,51 @@
           </object>
           <packing>
             <property name="x">407</property>
-            <property name="y">310</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="logo_img">
-            <property name="name">logo_img</property>
-            <property name="width_request">200</property>
-            <property name="height_request">200</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stock">gtk-missing-image</property>
-          </object>
-          <packing>
-            <property name="x">310</property>
-            <property name="y">65</property>
+            <property name="y">330</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="wrong_login_lbl">
             <property name="name">wrong_login_lbl</property>
             <property name="width_request">220</property>
-            <property name="height_request">40</property>
+            <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">some_label</property>
+            <property name="label" translatable="yes"></property>
+            <property name="xalign">0.019999999552965164</property>
           </object>
           <packing>
-            <property name="x">304</property>
-            <property name="y">345</property>
+            <property name="x">305</property>
+            <property name="y">370</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="cancel_btn">
+            <property name="label" translatable="yes">Cancel</property>
+            <property name="name">cancel_btn</property>
+            <property name="width_request">173</property>
+            <property name="height_request">40</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">407</property>
+            <property name="y">600</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="sign_up_logo_img_btn">
+            <property name="name">sign_up_logo_img_btn</property>
+            <property name="width_request">550</property>
+            <property name="height_request">200</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">80</property>
+            <property name="y">130</property>
           </packing>
         </child>
       </object>

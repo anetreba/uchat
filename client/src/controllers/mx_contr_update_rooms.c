@@ -18,28 +18,30 @@ static int mx_check_msgs(t_list *lst) {
     asprintf(&vals, "Rooms WHERE room_id = '%d' AND room_name = '%s'",
              ((t_renew *)(lst->data))->room_id,
              ((t_renew *)(lst->data))->name_room);
-    rs = mx_model_select("id", vals, callback_check_msg, NULL);
+    rs = mx_model_select("DISTINCT id", vals, callback_check_msg, NULL);
     return rs;
 }
 
-void mx_contr_update_rooms(json_object *jobj) {
+void mx_contr_update_rooms(json_object *jobj, t_event *event) {
     t_renew *udata = (t_renew *)malloc(sizeof(t_renew));
     memset(udata, 0, sizeof(t_renew));
-    t_list *lst = (t_list *)malloc(sizeof(t_list));
+//    t_list *lst = (t_list *)malloc(sizeof(t_list));
+    event->renew = mx_create_node(udata);
+
     char *vals;
 
-    lst =  mx_create_node(udata);
-    json_parse(jobj, lst);
-    mx_pop_front(&lst);
-    if (lst){
-        while (lst) {
-            if (mx_check_msgs(lst) != 1) {
+//    lst =  mx_create_node(udata);
+    json_parse(jobj, event->renew);
+    mx_pop_front(&(event->renew));
+    if (event->renew){
+        while (event->renew) {
+            if (mx_check_msgs(event->renew) != 1) {
                 asprintf(&vals, "'%d','%s'",
-                         ((t_renew *)(lst->data))->room_id,
-                         ((t_renew *)(lst->data))->name_room);
+                         ((t_renew *)(event->renew->data))->room_id,
+                         ((t_renew *)(event->renew->data))->name_room);
                 mx_model_insert("Rooms", "room_id, room_name", vals);
             }
-            lst = lst->next;
+            event->renew = event->renew->next;
         }
     }
 }

@@ -5,9 +5,11 @@
   <object class="GtkWindow" id="login_window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">uChat</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">820</property>
-    <property name="default_height">720</property>
+    <property name="default_width">800</property>
+    <property name="default_height">800</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -17,22 +19,24 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkEntry" id="entry_login">
+            <property name="name">entry_login</property>
             <property name="width_request">350</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="margin_right">40</property>
+            <property name="placeholder_text" translatable="yes">Enter your login</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">380</property>
+            <property name="y">430</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="login_btn">
             <property name="label" translatable="yes">Accept</property>
             <property name="name">login_btn</property>
-            <property name="width_request">165</property>
+            <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -40,19 +44,24 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">480</property>
+            <property name="y">530</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="entry_password">
+            <property name="name">entry_password</property>
             <property name="width_request">350</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
+            <property name="placeholder_text" translatable="yes">Enter your password</property>
+            <property name="input_purpose">password</property>
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">430</property>
+            <property name="y">480</property>
           </packing>
         </child>
         <child>
@@ -68,7 +77,7 @@
           </object>
           <packing>
             <property name="x">407</property>
-            <property name="y">310</property>
+            <property name="y">330</property>
           </packing>
         </child>
         <child>
@@ -83,50 +92,51 @@
           </object>
           <packing>
             <property name="x">230</property>
-            <property name="y">310</property>
+            <property name="y">330</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="cancel_btn">
             <property name="label" translatable="yes">Cancel</property>
             <property name="name">cancel_btn</property>
-            <property name="width_request">165</property>
+            <property name="width_request">173</property>
             <property name="height_request">40</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
           </object>
           <packing>
-            <property name="x">414</property>
-            <property name="y">480</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="logo_img">
-            <property name="name">logo_img</property>
-            <property name="width_request">200</property>
-            <property name="height_request">200</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stock">gtk-missing-image</property>
-          </object>
-          <packing>
-            <property name="x">310</property>
-            <property name="y">65</property>
+            <property name="x">407</property>
+            <property name="y">530</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="wrong_pass_lbl">
             <property name="name">wrong_pass_lbl</property>
             <property name="width_request">220</property>
-            <property name="height_request">40</property>
+            <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes"></property>
+            <property name="xalign">0.019999999552965164</property>
           </object>
           <packing>
-            <property name="x">304</property>
-            <property name="y">345</property>
+            <property name="x">303</property>
+            <property name="y">351</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="login_logo_img_btn">
+            <property name="name">login_logo_img_btn</property>
+            <property name="width_request">550</property>
+            <property name="height_request">200</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="x">80</property>
+            <property name="y">130</property>
           </packing>
         </child>
       </object>
